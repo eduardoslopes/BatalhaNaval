@@ -1,4 +1,4 @@
-package aplicacao;
+package aplicacao.model;
 
 public interface Embarcacao {
 	
