@@ -1,5 +1,20 @@
 package aplicacao;
 
-public class Enviar {
+import java.net.Socket;
+
+public class Enviar implements Runnable {
+
+	Socket cliente;
+	
+	public Enviar(Socket cliente) {
+		
+		this.cliente = cliente;
+	}
+	
+	@Override
+	public void run() {
+		
+		
+	}
 
 }
