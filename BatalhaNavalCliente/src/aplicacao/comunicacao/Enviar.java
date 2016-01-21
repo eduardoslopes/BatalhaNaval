@@ -1,4 +1,4 @@
-package aplicacao;
+package aplicacao.comunicacao;
 
 import java.net.Socket;
 

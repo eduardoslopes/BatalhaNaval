@@ -1,4 +1,4 @@
-package aplicacao;
+package aplicacao.comunicacao;
 
 public interface ObserverReceber {
 
