@@ -1,5 +1,5 @@
 package com.pds.controle;
 
-public class Jogo {
+public class Partida {
 
 }

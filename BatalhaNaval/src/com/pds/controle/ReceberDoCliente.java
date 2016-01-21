@@ -1,6 +1,6 @@
 package com.pds.controle;
 
-public class ReceberDoJogo extends Receber {
+public class ReceberDoCliente extends Receber {
 
 	@Override
 	void recebe() {
