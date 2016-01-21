@@ -7,5 +7,4 @@ public class ReceberDaPartida extends Receber {
 		// TODO Auto-generated method stub
 		
 	}
-
 }
