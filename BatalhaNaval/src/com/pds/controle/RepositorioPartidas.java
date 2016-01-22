@@ -12,5 +12,6 @@ public class RepositorioPartidas {
 		
 		partidasIniciadas = new ArrayList<>();
 		partidasEmEspera = new ArrayList<>();
+		
 	}
 }
