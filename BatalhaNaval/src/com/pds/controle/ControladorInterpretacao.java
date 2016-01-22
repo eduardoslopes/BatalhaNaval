@@ -21,11 +21,11 @@ public class ControladorInterpretacao {
 	}
 
 	public void criarPartida(String nome, String nomePartida) {
-		
+		cPartida.novaRequisicaoJogo(nome, nomePartida);
 	}
 
 	public void conectarEmPartida(String nome, String nomePartida) {
-		
+		cPartida.novaRequisicaoConectarJogo(nome, nomePartida);
 	}
 	
 	

@@ -7,4 +7,14 @@ public class ControladorPartida {
 	public ControladorPartida() {
 		
 	}
+
+	public void novaRequisicaoJogo(String nome, String nomePartida) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void novaRequisicaoConectarJogo(String nome, String nomePartida) {
+		// TODO Auto-generated method stub
+		
+	}
 }
