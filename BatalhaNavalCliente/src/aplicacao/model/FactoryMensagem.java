@@ -1,5 +1,9 @@
 package aplicacao.model;
 
-public class FactoryMensagem {
-	
+public abstract class FactoryMensagem {
+	public static FactoryMensagem obterFactory(){
+		return null;
+        
+   }
+
 }

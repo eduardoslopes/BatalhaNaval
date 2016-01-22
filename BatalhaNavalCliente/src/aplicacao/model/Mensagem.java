@@ -1,6 +1,6 @@
 package aplicacao.model;
 
-public class Mensagem {
+public class Mensagem implements InterfaceMensagem{
 	private String TAG;
 	private Jogada jogada;
 	private Jogador jogador;
@@ -36,5 +36,24 @@ public class Mensagem {
 		jogada = montador.jogada;
 		jogador = montador.jogador;
 	}
+
+	public Jogada getJogada() {
+		return jogada;
+	}
+
+	public void setJogada(Jogada jogada) {
+		this.jogada = jogada;
+	}
+
+	public Jogador getJogador() {
+		return jogador;
+	}
+
+	@Override
+	public String getTAG() {
+		return TAG;
+	}
+
+	
 
 }

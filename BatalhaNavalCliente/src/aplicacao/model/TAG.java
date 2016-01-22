@@ -1,8 +1,7 @@
 package aplicacao.model;
 
 public class TAG {
-	public static String CONECTOU = "CONECTOU";
-	public static String DESCONECTOU = "DESCONECTOU";
-	public static String JOGADA = "JOGADA";
-	public static String NOVOJOGO = "NOVOJOGO";
+	public static String CONECTG = "CONECTG";
+	public static String DESCONECTG = "DESCONECTG";
+	public static String MOVE = "MOVE";
 }
