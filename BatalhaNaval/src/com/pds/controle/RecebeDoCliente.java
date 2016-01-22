@@ -7,15 +7,13 @@ import java.util.Scanner;
 public class RecebeDoCliente extends Receber {
 	
 	private Socket jogador;
-	private ControladorInterpretação interpretacao;
+	private ControladorInterpretacao interpretacao;
 	
-	public RecebeDoCliente(Socket jogador, ControladorInterpretação interpretacao) {
+	public RecebeDoCliente(Socket jogador, ControladorInterpretacao interpretacao) {
 		this.jogador = jogador;
 		this.interpretacao = interpretacao;
 	}
 	
-	
-
 	@Override
 	void recebe() {
 		try {
@@ -24,7 +22,6 @@ public class RecebeDoCliente extends Receber {
 			interpretacao.mensagemParaInterpretar(msg, jogador);
 			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}		
 	}
