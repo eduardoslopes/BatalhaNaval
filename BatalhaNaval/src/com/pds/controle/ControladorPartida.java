@@ -26,9 +26,7 @@ public class ControladorPartida {
 	}
 	
 	private void iniciarPartida(Partida novaPartida) {
-		if (novaPartida != null) {
-			
-		}
+		novaPartida.iniciar();
 	}
 	
 	public List<Partida> getListaPartidasEmEspera() {

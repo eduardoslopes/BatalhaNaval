@@ -1,5 +1,8 @@
 package com.pds.controle;
 
-public class Mensageiro {
+public abstract class Mensageiro implements Runnable {
 
+	protected abstract void enviarMensagem();
+	
+	public abstract void setMensagem(String mensagem);
 }
