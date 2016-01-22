@@ -23,11 +23,11 @@ public class ControladorInterpretacao {
 	}
 
 	public void criarPartida(String nome, String nomePartida) {
-		cPartida.novaRequisicaoJogo(sockJogador, nome, nomePartida);
+		cPartida.novaPartida(nome, nomePartida, sockJogador);
 	}
 
 	public void conectarEmPartida(String nome, String nomePartida) {
-		cPartida.novaRequisicaoConectarJogo(sockJogador, nome, nomePartida);
+		cPartida.conectarPartida(nome, nomePartida, sockJogador);
 	}
 	
 	

@@ -27,13 +27,4 @@ public class ControladorPartida {
 		partidas.adicionaJogadorPartida(apelido, nomePartida);
 	}
 
-	public void novaRequisicaoJogo(Socket sockJogador, String nome, String nomePartida) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void novaRequisicaoConectarJogo(Socket sockJogador, String nome, String nomePartida) {
-		// TODO Auto-generated method stub
-		
-	}
 }
