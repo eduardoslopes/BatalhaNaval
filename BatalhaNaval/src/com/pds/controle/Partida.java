@@ -9,12 +9,15 @@ public class Partida {
 	private Jogador convidado;
 	
 	public Partida(String nomePartida, Jogador criadorPartida) {
-		
+		this.nomePartida = nomePartida;
 		this.criadorPartida = criadorPartida;
 	}
 	
-	public void setConvidado(Jogador convidado) {
-		
+	public void adicionaConvidado(Jogador convidado) {
 		this.convidado = convidado;
+	}
+	
+	public String getNomePartida() {
+		return nomePartida;
 	}
 }
