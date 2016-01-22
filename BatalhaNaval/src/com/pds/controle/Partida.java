@@ -21,14 +21,18 @@ public class Partida {
 	}
 	
 	public void enviarMensagem(String mensagem, String apelidoRemetente) {
-		if (criadorPartida.getApelido().equals(apelidoRemetente)) {
-			enviaMensagemConvidado.setMensagem(mensagem);
-			Thread novaThreadEnviaMensagem = new Thread(enviaMensagemConvidado);
+		try {
+			Thread novaThreadEnviaMensagem = null;
+			if (criadorPartida.getApelido().equals(apelidoRemetente)) {
+				enviaMensagemConvidado.setMensagem(mensagem);
+				novaThreadEnviaMensagem = new Thread(enviaMensagemConvidado);
+			} else if (convidado.getApelido().equals(apelidoRemetente)) {
+				enviaMensagemCriadorPartida.setMensagem(mensagem);
+				novaThreadEnviaMensagem = new Thread(enviaMensagemCriadorPartida);
+			}
 			novaThreadEnviaMensagem.start();
-		} else if (convidado.getApelido().equals(apelidoRemetente)) {
-			enviaMensagemCriadorPartida.setMensagem(mensagem);
-			Thread novaThreadEnviaMensagem = new Thread(enviaMensagemCriadorPartida);
-			novaThreadEnviaMensagem.start();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 	

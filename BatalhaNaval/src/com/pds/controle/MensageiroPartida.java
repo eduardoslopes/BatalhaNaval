@@ -2,7 +2,7 @@ package com.pds.controle;
 
 import java.io.PrintStream;
 
-public class MensageiroPartida extends Mensageiro implements Runnable {
+public class MensageiroPartida extends Mensageiro {
 
 	private PrintStream saida;
 	private String mensagem;
