@@ -1,18 +1,20 @@
 package com.pds.controle;
 
-import com.pds.modelo.Cliente;
+import com.pds.modelo.Jogador;
 
 public class Partida {
 
-	private Cliente criadorPartida;
-	private Cliente convidado;
+	private String nomePartida;
+	private Jogador criadorPartida;
+	private Jogador convidado;
 	
-	public Partida(Cliente criadorPartida) {
+	public Partida(String nomePartida, Jogador criadorPartida) {
 		
 		this.criadorPartida = criadorPartida;
 	}
 	
-	public void setConvidado(Cliente convidado) {
+	public void setConvidado(Jogador convidado) {
+		
 		this.convidado = convidado;
 	}
 }
