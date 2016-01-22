@@ -1,5 +1,7 @@
 package com.pds.controle;
 
+import java.net.Socket;
+
 public class ControladorPartida {
 
 	RepositorioPartidas partidas;
@@ -8,12 +10,12 @@ public class ControladorPartida {
 		
 	}
 
-	public void novaRequisicaoJogo(String nome, String nomePartida) {
+	public void novaRequisicaoJogo(Socket sockJogador, String nome, String nomePartida) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	public void novaRequisicaoConectarJogo(String nome, String nomePartida) {
+	public void novaRequisicaoConectarJogo(Socket sockJogador, String nome, String nomePartida) {
 		// TODO Auto-generated method stub
 		
 	}
