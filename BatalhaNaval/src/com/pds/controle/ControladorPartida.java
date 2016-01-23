@@ -33,6 +33,10 @@ public class ControladorPartida {
 		}
 	}
 	
+	public void encaminhaMensagem(String apelidoDono, String msg, String nomePartida){
+		
+	}
+	
 	public List<Partida> getListaPartidasEmEspera() {
 		return partidas.getPartidasEmEspera();
 	}

@@ -18,8 +18,11 @@ public class RecebeDoCliente extends Receber {
 	void recebe() {
 		try {
 			Scanner s = new Scanner(jogador.getInputStream());
-			String msg = s.nextLine();
-			interpretacao.mensagemParaInterpretar(msg, jogador);
+			String msg = null;
+			while (s.hasNextLine()) {
+				msg = s.nextLine();
+				interpretacao.mensagemParaInterpretar(msg, jogador);
+			}
 			
 		} catch (IOException e) {
 			e.printStackTrace();
