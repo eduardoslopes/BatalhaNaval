@@ -22,11 +22,16 @@ public class ControladorPartida {
 	public void conectarPartida(String apelido, String nomePartida, Socket socketJogador) {
 		Jogador novoJogador = new Jogador(apelido, socketJogador);
 		partidas.adicionaJogadorPartida(novoJogador, nomePartida);
-		iniciarPartida(partidas.getPartida(nomePartida));
+		iniciarPartida(partidas.getPartidaEmEspera(nomePartida));
 	}
 	
 	private void iniciarPartida(Partida novaPartida) {
 		novaPartida.enviarMensagemInicioPartida();
+	}
+	
+	public void encaminhaMensagem(String apelidoRemetente, String mensagem, String nomePartida) {
+		Partida partida = partidas.getPartidaIniciada(nomePartida);
+		partida.encaminharMensagem(mensagem, apelidoRemetente);
 	}
 	
 	public List<Partida> getListaPartidasEmEspera() {

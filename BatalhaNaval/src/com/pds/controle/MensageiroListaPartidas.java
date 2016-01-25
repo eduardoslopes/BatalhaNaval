@@ -9,7 +9,7 @@ public class MensageiroListaPartidas extends Mensageiro {
 	}
 
 	@Override
-	protected void enviarMensagem() {
+	public void enviarMensagem() {
 		// TODO Auto-generated method stub
 		
 	}

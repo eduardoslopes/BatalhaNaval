@@ -18,16 +18,6 @@ public class Partida {
 	}
 	
 	public void enviarMensagemInicioPartida() {
-		
-		/*
-		 * Esse codigo abaixo devera enviar mensagens de confirmacao de inicio de uma partida
-		 * Para que os usuarios possam carregar a proxima tela
-		 */
-		
-		/*
-		 * Aqui deve haver um codigo para gerar uma nova mensagem Json
-		 */
-		
 		Mensagem mensagem = new Mensagem("STARTGAME", null);
 		Serializador serializa = new Serializador();
 		String msg = serializa.serializar(mensagem);
