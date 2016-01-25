@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.google.gson.Gson;
 import com.pds.modelo.Mensagem;
+import com.pds.modelo.TAG;
 
 public class Serializador {
 	
@@ -15,11 +16,13 @@ public class Serializador {
 	
 	public List<String> serializarPartidas(List<Partida> partidas) {
 		Gson gson = new Gson();
-		List<String> partidasSerializadas = new ArrayList<>();
+		List<String> msgPartidasSerializadas = new ArrayList<>();
 		for(Partida p : partidas){
-			partidasSerializadas.add(gson.toJson(p));
+			Mensagem msg = new Mensagem(TAG.SEEGAMES);
+			msg.setNomePartida(p.getNomePartida());
+			msgPartidasSerializadas.add(gson.toJson(msg));
 		}
-		return partidasSerializadas;
+		return msgPartidasSerializadas;
 	}
 	
 }

@@ -6,14 +6,9 @@ import java.io.PrintStream;
 
 public class MensageiroPartida extends Mensageiro {
 
-	@Override
-	public void enviarMensagem(Socket socket, String msg) {
-		// TODO Auto-generated method stub
-		
-	}
-
 	private PrintStream saida;
 	private String mensagem;
+	
 	
 	public MensageiroPartida(PrintStream saida) {
 		// TODO Auto-generated constructor stub
@@ -27,7 +22,7 @@ public class MensageiroPartida extends Mensageiro {
 	}
 
 	@Override
-	protected void enviarMensagem() {
+	public void enviarMensagem() {
 		// TODO Auto-generated method stub
 		saida.println(mensagem);
 		mensagem = null;

@@ -7,38 +7,34 @@ import java.util.List;
 
 public class MensageiroListaPartidas extends Mensageiro {
 
-	@Override
-	public void enviaMensagem(Socket socket, String msg) {
+	private List<String> mensagens;
+	private PrintStream saida;
+	
+	public MensageiroListaPartidas(Socket sockJogador, List<String> mensagens) {
+		this.mensagens = mensagens;
 		try {
-			PrintStream ps = new PrintStream(socket.getOutputStream());
-			ps.println(msg);
+			this.saida = new PrintStream(sockJogador.getOutputStream());
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
-	}
-	
-	public void enviaListaPartidas(Socket socket, List<String> partidas) {
-		for(String partida: partidas){
-			enviaMensagem(socket, partida);
 		}
 	}
 
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
-		
+		enviarMensagem();		
 	}
 
 	@Override
-	protected void enviarMensagem() {
-		// TODO Auto-generated method stub
-		
+	public void enviarMensagem() {
+		for(String mensagem: mensagens){
+			saida.println(mensagem);
+		}
 	}
 
 	@Override
 	public void setMensagem(String mensagem) {
-		// TODO Auto-generated method stub
 		
 	}
+
 
 }

@@ -20,10 +20,10 @@ public class DistribuidorResponsabilidades {
 
 	public void verPartidasEmEspera(Socket socketJogador, Serializador serializador) {
 		List<Partida> partidas = cPartidas.getListaPartidasEmEspera();
-		List<String> partidasSerializadas = serializador.serializarPartidas(partidas);
-		MensageiroListaPartidas mensageiro = new MensageiroListaPartidas();
-		mensageiro.start();
-		mensageiro.enviaListaPartidas(socketJogador, partidasSerializadas);
+		List<String> mensagens = serializador.serializarPartidas(partidas);
+		MensageiroListaPartidas mensageiro = new MensageiroListaPartidas(socketJogador, mensagens);
+		Thread t = new Thread(mensageiro);
+		t.start();
 	}
 
 	public void enviaMensagemCliente(String msg, String nomeDono, String nomePartida) {

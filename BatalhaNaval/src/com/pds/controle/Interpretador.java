@@ -9,13 +9,13 @@ public abstract class Interpretador {
 
 	public void interpretar(Mensagem mensagem, Socket jogador) {
 		switch(mensagem.getTag()){
-		case TAG.CONECTG:
+		case TAG.CONECTGAME:
 			conect(mensagem.getNome(), mensagem.getNomePartida(), jogador);
 			break;
-		case TAG.CREATEG:
+		case TAG.CREATEGAME:
 			create(mensagem.getNome(), mensagem.getNomePartida(), jogador);
 			break;
-		case TAG.SEEG:
+		case TAG.SEEGAMES:
 			seeg(jogador);
 			break;
 		default:
