@@ -5,33 +5,61 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="500.0" prefWidth="360.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="aplicacao.view.ControleTelaInicial">
-   <children>
-      <Label layoutX="14.0" layoutY="56.0" style="-fx-font-size: 16;" text="Partidas Disponiveis" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="50.0" />
-      <Button fx:id="btnIniciarPartida" disable="true" layoutX="10.0" layoutY="451.0" mnemonicParsing="false" onAction="#iniciarPartida" prefHeight="35.0" prefWidth="100.0" text="Iniciar Partida" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" />
-      <Button fx:id="btnCriarPartida" layoutX="130.0" layoutY="445.0" mnemonicParsing="false" onAction="#criarPartida" prefHeight="35.0" prefWidth="100.0" text="Criar Partida" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="130.0" AnchorPane.rightAnchor="130.0" />
-      <Button fx:id="btnAtualizar" layoutX="240.0" layoutY="445.0" mnemonicParsing="false" onAction="#atualizar" prefHeight="35.0" prefWidth="100.0" text="Atualizar" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0" />
-      <ListView fx:id="listaPartidas" layoutX="10.0" layoutY="73.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="80.0" />
-      <MenuBar layoutX="20.0" layoutY="2.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-        <menus>
-            <Menu mnemonicParsing="false" text="Partida">
-               <items>
-                  <MenuItem mnemonicParsing="false" onAction="#iniciarPartida" text="Iniciar" />
-                  <MenuItem mnemonicParsing="false" onAction="#criarPartida" text="Criar Nova..." />
-               </items>
-            </Menu>
-          <Menu mnemonicParsing="false" text="Janela">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Fechar" />
-                  <MenuItem mnemonicParsing="false" onAction="#atualizar" text="Atualizar" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Ajuda">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Sobre" />
-            </items>
-          </Menu>
-        </menus>
-      </MenuBar>
-   </children>
+<AnchorPane fx:id="painel" prefHeight="500.0" prefWidth="360.0"
+		xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="aplicacao.view.ControleTelaInicial">
+		<children>
+				<Label layoutX="14.0" layoutY="56.0" style="-fx-font-size: 18; -fx-font-weight: bold;"
+						text="Partidas Disponiveis" AnchorPane.leftAnchor="90.0" AnchorPane.rightAnchor="90.0"
+						AnchorPane.topAnchor="45.0" />
+				<Button fx:id="btnIniciarPartida" layoutX="10.0" layoutY="451.0"
+						mnemonicParsing="false" onAction="#iniciarPartida" prefHeight="35.0" prefWidth="100.0"
+						text="Iniciar Partida" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" />
+				<Button fx:id="btnCriarPartida" layoutX="130.0" layoutY="445.0"
+						mnemonicParsing="false" onAction="#criarPartida" prefHeight="35.0" prefWidth="100.0"
+						text="Criar Partida" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="130.0"
+						AnchorPane.rightAnchor="130.0" />
+				<Button fx:id="btnAtualizar" layoutX="240.0" layoutY="445.0" mnemonicParsing="false"
+						onAction="#atualizarLista" prefHeight="35.0" prefWidth="100.0" text="Atualizar"
+						AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0" />
+				<MenuBar layoutX="20.0" layoutY="2.0" AnchorPane.leftAnchor="0.0"
+						AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+						<menus>
+								<Menu mnemonicParsing="false" text="Partida">
+										<items>
+												<MenuItem mnemonicParsing="false" onAction="#iniciarPartida" text="Iniciar" />
+												<MenuItem mnemonicParsing="false" onAction="#criarPartida" text="Criar Nova..." />
+										</items>
+								</Menu>
+								<Menu mnemonicParsing="false" text="Janela">
+										<items>
+												<MenuItem mnemonicParsing="false" onAction="#sair" text="Fechar" />
+												<MenuItem mnemonicParsing="false" onAction="#atualizarLista" text="Atualizar" />
+										</items>
+								</Menu>
+								<Menu mnemonicParsing="false" text="Ajuda">
+										<items>
+												<MenuItem mnemonicParsing="false" text="Sobre" />
+										</items>
+								</Menu>
+						</menus>
+				</MenuBar>
+				<TableView fx:id="listaPartidas" layoutX="-20.0" layoutY="121.0" prefHeight="350.0"
+						prefWidth="320.0" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="20.0"
+						AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="80.0">
+						<columns>
+								<TableColumn fx:id="colunaJogador" editable="false" minWidth="-1.0"
+										prefWidth="150.0" text="Nick do Jogador" />
+								<TableColumn fx:id="colunaPartida" editable="false" minWidth="-1.0"
+										prefWidth="170.0" text="Nome da Partida" />
+						</columns>
+						<contextMenu>
+								<ContextMenu fx:id="contextoLista">
+										<items>
+												<MenuItem fx:id="iniciarPartida" mnemonicParsing="false" onAction="#iniciarPartida"
+														text="Iniciar Partida" />
+										</items>
+								</ContextMenu>
+						</contextMenu>
+				</TableView>
+		</children>
 </AnchorPane>

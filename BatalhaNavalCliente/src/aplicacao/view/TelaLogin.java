@@ -6,11 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-/**
- * @author Wanderson
- *
- */
-public class TelaInicial extends Application {
+public class TelaLogin extends Application {
 
 	private static Stage stage;
 
@@ -18,22 +14,24 @@ public class TelaInicial extends Application {
 	public void start(Stage primaryStage) throws Exception {
 
 		stage = primaryStage;
-		Parent tela = FXMLLoader.load(this.getClass().getResource("TelaInicial.fxml"));
-		Scene cena = new Scene(tela, 350, 490);
+
+		Parent root = FXMLLoader.load(this.getClass().getResource("TelaLogin.fxml"));
+		Scene cena = new Scene(root, 240, 310);
+
 		primaryStage.setScene(cena);
+		primaryStage.setTitle("Entrar");
 		primaryStage.setResizable(false);
-		primaryStage.setTitle("Batalha Naval");
 		primaryStage.show();
-	}
-
-	public static void main(String[] args) {
-
-		launch(args);
 	}
 
 	public static Stage getStage() {
 
 		return stage;
+	}
+	
+	public static void main(String[] args) {
+
+		launch(args);
 	}
 
 }

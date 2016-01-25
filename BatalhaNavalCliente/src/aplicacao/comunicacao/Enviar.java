@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.net.Socket;
 
-import com.google.gson.Gson;
-
 import aplicacao.Mensagem;
 
 /**
@@ -14,13 +12,12 @@ import aplicacao.Mensagem;
  */
 public class Enviar implements Runnable {
 
-	Socket cliente;
-	Gson gson;
-	Mensagem msg;
+	private Socket cliente;
+	private Mensagem msg;
+	private Serializador serializador;
 
 	public Enviar(Socket cliente, Mensagem msg) {
 
-		gson = new Gson();
 		this.cliente = cliente;
 		this.msg = msg;
 	}
@@ -28,8 +25,9 @@ public class Enviar implements Runnable {
 	@Override
 	public void run() {
 
-		String mensagem = gson.toJson(msg);
-
+		serializador = new Serializador();
+		String mensagem = serializador.serializar(msg);
+		
 		PrintStream saidaServidor;
 		try {
 			saidaServidor = new PrintStream(cliente.getOutputStream());

@@ -8,5 +8,5 @@ import aplicacao.Mensagem;
  */
 public interface ObserverReceber {
 
-	public Mensagem notificaMensagem(Mensagem mensagem);
+	public void notificaMensagem(Mensagem mensagem);
 }

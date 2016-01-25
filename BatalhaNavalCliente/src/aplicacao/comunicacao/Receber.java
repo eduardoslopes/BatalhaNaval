@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.net.Socket;
 import java.util.Scanner;
 
-import com.google.gson.Gson;
-
 import aplicacao.Mensagem;
 
 /**
@@ -13,14 +11,13 @@ import aplicacao.Mensagem;
  *
  */
 public class Receber implements Runnable {
-
-	ObserverReceber observador;
-	Socket cliente;
-	Gson gson;
+	
+	private ObserverReceber observador;
+	private Descerializador descerializador;
+	private Socket cliente;
 
 	public Receber(Socket cliente, ObserverReceber observer) {
 
-		gson = new Gson();
 		observador = observer;
 		this.cliente = cliente;
 	}
@@ -35,8 +32,7 @@ public class Receber implements Runnable {
 
 			while (entrada.hasNextLine()) {
 				String msg = entrada.nextLine();
-				Mensagem mensagem = gson.fromJson(msg, Mensagem.class);
-
+				Mensagem mensagem = descerializador.descerializar(msg);
 				observador.notificaMensagem(mensagem);
 			}
 			entrada.close();
