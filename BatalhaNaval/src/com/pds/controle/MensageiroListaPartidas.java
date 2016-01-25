@@ -29,7 +29,6 @@ public class MensageiroListaPartidas extends Mensageiro {
 		for(String mensagem: mensagens){
 			saida.println(mensagem);
 		}
-	}
 
 	@Override
 	public void setMensagem(String mensagem) {

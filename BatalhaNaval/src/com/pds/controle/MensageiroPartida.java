@@ -5,7 +5,7 @@ import java.net.Socket;
 import java.io.PrintStream;
 
 public class MensageiroPartida extends Mensageiro {
-
+	
 	private PrintStream saida;
 	private String mensagem;
 	
@@ -28,7 +28,6 @@ public class MensageiroPartida extends Mensageiro {
 		mensagem = null;
 	}
 	
-	@Override
 	public void setMensagem(String mensagem) {
 		// TODO Auto-generated method stub
 		this.mensagem = mensagem;

@@ -34,8 +34,17 @@ public class RepositorioPartidas {
 		return partidasEmEspera;
 	}
 	
-	public Partida getPartida(String nomePartida) {
+	public Partida getPartidaEmEspera(String nomePartida) {
 		for (Partida partida : partidasEmEspera) {
+			if (partida.getNomePartida().equals(nomePartida)) {
+				return partida;
+			}
+		}
+		return null;
+	}
+	
+	public Partida getPartidaIniciada(String nomePartida) {
+		for (Partida partida : partidasIniciadas) {
 			if (partida.getNomePartida().equals(nomePartida)) {
 				return partida;
 			}
