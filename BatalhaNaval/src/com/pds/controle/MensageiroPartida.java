@@ -22,6 +22,7 @@ public class MensageiroPartida extends Mensageiro {
 	protected void enviarMensagem() {
 		// TODO Auto-generated method stub
 		saida.println(mensagem);
+		mensagem = null;
 	}
 	
 	@Override

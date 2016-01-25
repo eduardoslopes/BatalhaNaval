@@ -1,6 +1,7 @@
 package com.pds.controle;
 
 import com.pds.modelo.Jogador;
+import com.pds.modelo.Mensagem;
 
 public class Partida {
 
@@ -16,21 +17,45 @@ public class Partida {
 		this.enviaMensagemCriadorPartida = new MensageiroPartida(criadorPartida.getFluxoSaida());
 	}
 	
-	public void iniciar() {
-		enviaMensagemConvidado = new MensageiroPartida(convidado.getFluxoSaida());
+	public void enviarMensagemInicioPartida() {
+		
+		/*
+		 * Esse codigo abaixo devera enviar mensagens de confirmacao de inicio de uma partida
+		 * Para que os usuarios possam carregar a proxima tela
+		 */
+		
+		/*
+		 * Aqui deve haver um codigo para gerar uma nova mensagem Json
+		 */
+		
+		Mensagem mensagem = new Mensagem("STARTGAME", null);
+		Serializador serializa = new Serializador();
+		String msg = serializa.serializar(mensagem);
+		
+		Thread threadEnviaMensagem1 = new Thread(enviaMensagemConvidado);
+		enviaMensagemConvidado.setMensagem(msg);
+		threadEnviaMensagem1.start();
+		
+		Thread threadEnviaMensagem2 = new Thread(enviaMensagemCriadorPartida);
+		enviaMensagemCriadorPartida.setMensagem(msg);
+		threadEnviaMensagem2.start();
 	}
 	
-	public void enviarMensagem(String mensagem, String apelidoRemetente) {
+	/*
+	 * Envia mensagem entre os clientes
+	 * Tudo que for alterado em um lado da partida deverá ser atualizado no outro
+	 */
+	public void encaminharMensagem(String mensagem, String apelidoRemetente) {
 		try {
-			Thread novaThreadEnviaMensagem = null;
+			Thread threadEnviaMensagem = null;
 			if (criadorPartida.getApelido().equals(apelidoRemetente)) {
 				enviaMensagemConvidado.setMensagem(mensagem);
-				novaThreadEnviaMensagem = new Thread(enviaMensagemConvidado);
+				threadEnviaMensagem = new Thread(enviaMensagemConvidado);
 			} else if (convidado.getApelido().equals(apelidoRemetente)) {
 				enviaMensagemCriadorPartida.setMensagem(mensagem);
-				novaThreadEnviaMensagem = new Thread(enviaMensagemCriadorPartida);
+				threadEnviaMensagem = new Thread(enviaMensagemCriadorPartida);
 			}
-			novaThreadEnviaMensagem.start();
+			threadEnviaMensagem.start();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -38,6 +63,7 @@ public class Partida {
 	
 	public void adicionaConvidado(Jogador convidado) {
 		this.convidado = convidado;
+		enviaMensagemConvidado = new MensageiroPartida(convidado.getFluxoSaida());
 	}
 	
 	public String getNomePartida() {

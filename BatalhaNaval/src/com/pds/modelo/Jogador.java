@@ -10,7 +10,6 @@ public class Jogador {
 	private Socket socket;
 	
 	public Jogador(String apelido, Socket socket) {
-		
 		this.apelido = apelido;
 		this.socket = socket;
 	}

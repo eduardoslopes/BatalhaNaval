@@ -26,7 +26,7 @@ public class ControladorPartida {
 	}
 	
 	private void iniciarPartida(Partida novaPartida) {
-		novaPartida.iniciar();
+		novaPartida.enviarMensagemInicioPartida();
 	}
 	
 	public List<Partida> getListaPartidasEmEspera() {
