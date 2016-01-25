@@ -28,9 +28,7 @@ public class ControladorPartida {
 	}
 	
 	private void iniciarPartida(Partida novaPartida) {
-		if (novaPartida != null) {
-			
-		}
+		novaPartida.enviarMensagemInicioPartida();
 	}
 	
 	public void encaminhaMensagem(String apelidoDono, String msg, String nomePartida){

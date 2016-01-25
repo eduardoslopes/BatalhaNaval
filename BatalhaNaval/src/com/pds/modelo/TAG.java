@@ -1,7 +1,8 @@
 package com.pds.modelo;
 
 public class TAG {
-	public static final String CREATEG = "CREATEG";
-	public static final String CONECTG = "CONECTG";
-	public static final String SEEG = "SEEG";
+	public static final String CREATEGAME = "CREATEG";
+	public static final String CONECTGAME = "CONECTG";
+	public static final String SEEGAME = "SEEG";
+	public static final String STARTGAME = "STARTGAME";
 }
