@@ -5,22 +5,24 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class ControladorConexao {
-	private int porta; 
+	private int porta;
 	private ServerSocket server;
-	
-	public ControladorConexao(int porta){
+	private ControladorInterpretacao cInterpretacao;
+
+	public ControladorConexao(int porta, ControladorInterpretacao cInterpretacao) {
 		this.porta = porta;
+		this.cInterpretacao = cInterpretacao;
 	}
-	
-	void executa(){
+
+	public void executa() {
 		try {
-			ControladorInterpretação cInterpretacao = new ControladorInterpretação();
-			server = new ServerSocket(porta);
-			Socket jogador = server.accept();
-			RecebeDoCliente recebedor = new RecebeDoCliente(jogador, cInterpretacao);
-			recebedor.start();
-			
-			
+			while (true) {
+				server = new ServerSocket(porta);
+				Socket jogador = server.accept();
+				Receber recebedor = new RecebeDoCliente(jogador, cInterpretacao);
+				recebedor.start();
+			}
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

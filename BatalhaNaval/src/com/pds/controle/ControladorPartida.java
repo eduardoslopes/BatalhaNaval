@@ -3,6 +3,8 @@ package com.pds.controle;
 import java.net.Socket;
 import java.util.List;
 
+import java.net.Socket;
+
 import com.pds.modelo.Jogador;
 
 public class ControladorPartida {
@@ -37,4 +39,5 @@ public class ControladorPartida {
 	public List<Partida> getListaPartidasEmEspera() {
 		return partidas.getPartidasEmEspera();
 	}
+
 }

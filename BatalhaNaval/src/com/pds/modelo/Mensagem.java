@@ -16,14 +16,30 @@ public class Mensagem {
 		this.nomePartida = nomePartida;
 	}
 
+	public Mensagem(String tag) {
+		this.tag = tag;
+	}
+
 	public String getTag() {
 		return tag;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public void setNomePartida(String nomePartida) {
+		this.nomePartida = nomePartida;
+	}
+
+	public void setTag(String tag) {
+		this.tag = tag;
 	}
 
 	public String getNome() {
 		return nome;
 	}
-
+	
 	public String getNomePartida() {
 		return nomePartida;
 	}

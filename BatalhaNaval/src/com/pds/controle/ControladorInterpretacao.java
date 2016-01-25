@@ -4,19 +4,18 @@ import java.net.Socket;
 
 import com.pds.modelo.Mensagem;
 
-public class ControladorInterpretação {
+public class ControladorInterpretacao {
 	private Descerializador descerializador;
 	private Interpretador interpretador;
 	
-	public ControladorInterpretação() {
-		this.descerializador = new Descerializador();
-		this.interpretador = new Interpretador(this);
+	public ControladorInterpretacao(Interpretador interpretador, Descerializador descerializador) {
+		this.descerializador = descerializador;
+		this.interpretador = interpretador;
 	}
 
 	public void mensagemParaInterpretar(String msg, Socket jogador) {
 		Mensagem mensagem = descerializador.decerializar(msg);
-		interpretador.interpretar(mensagem);
-		
-	}
+		interpretador.interpretar(mensagem, jogador);
+	}	
 
 }

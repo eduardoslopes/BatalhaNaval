@@ -1,11 +1,14 @@
 package com.pds.controle;
 
+import java.net.Socket;
+
 import java.io.PrintStream;
 
 public class MensageiroPartida extends Mensageiro {
 	
 	private PrintStream saida;
 	private String mensagem;
+	
 	
 	public MensageiroPartida(PrintStream saida) {
 		// TODO Auto-generated constructor stub
