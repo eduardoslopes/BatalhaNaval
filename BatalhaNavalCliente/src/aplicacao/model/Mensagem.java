@@ -1,32 +1,32 @@
 package aplicacao.model;
 
 public class Mensagem{
-	private String TAG;
+	private String tag;
 	private Jogada jogada;
 	private String apelidoJogador;
 	private String nomePartida;
 	
-	public static class MontadorMensagem {
+	public static class MensagemBuilder {
 		private final String TAG;
 		private Jogada jogada;
 		private String apelidoJogador;
 		private String nomePartida;
 		
-		public MontadorMensagem(String TAG){
+		public MensagemBuilder(String TAG){
 			this.TAG = TAG;
 		}
 		
-		public MontadorMensagem jogada(Jogada jogada){
+		public MensagemBuilder jogada(Jogada jogada){
 			this.jogada = jogada;
 			return this;
 		}
 		
-		public MontadorMensagem jogador(String apelidoJogador){
+		public MensagemBuilder jogador(String apelidoJogador){
 			this.apelidoJogador = apelidoJogador;
 			return this;
 		}
 		
-		public MontadorMensagem nomePartida(String nomePartida){
+		public MensagemBuilder nomePartida(String nomePartida){
 			this.nomePartida = nomePartida;
 			return this;
 		}
@@ -38,8 +38,8 @@ public class Mensagem{
 		
 	}
 	
-	private Mensagem(MontadorMensagem montador){
-		TAG = montador.TAG;
+	private Mensagem(MensagemBuilder montador){
+		tag = montador.TAG;
 		jogada = montador.jogada;
 		nomePartida = montador.nomePartida;
 		apelidoJogador = montador.apelidoJogador;
@@ -58,7 +58,7 @@ public class Mensagem{
 	}
 
 	public String getTAG() {
-		return TAG;
+		return tag;
 	}
 
 	

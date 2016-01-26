@@ -28,7 +28,7 @@ public class InterpretadorMensagem extends Interpretador{
 
 	@Override
 	public void verJogos() {
-	
+		
 		
 	}
 

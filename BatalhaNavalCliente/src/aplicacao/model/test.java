@@ -7,7 +7,7 @@ public class test {
 		//Fazer o build dentro de Factory Mensagem e Apagar essas concretas que herdam de FactoryMensagem
 		
 		Jogada jogada = new Jogada();
-		Mensagem msg = new Mensagem.MontadorMensagem("ds").jogada(jogada).build();
+		Mensagem msg = new Mensagem.MensagemBuilder("SEEG").jogada(jogada).nomePartida("asas").build();
 		System.out.println(msg);
 	}
 	

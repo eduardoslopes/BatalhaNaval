@@ -1,18 +1,18 @@
 package aplicacao.model;
 
 public class Jogador {
-	public String nickname;
+	public String apelido;
 
 	public Jogador (String nickname) {
-		this.nickname = nickname;
+		this.apelido = nickname;
 	}
 
 	public String getNickname() {
-		return nickname;
+		return apelido;
 	}
 
 	public void setNickname(String nickname) {
-		this.nickname = nickname;
+		this.apelido = nickname;
 	}
 	
 }
