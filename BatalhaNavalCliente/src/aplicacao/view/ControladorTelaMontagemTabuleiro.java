@@ -27,6 +27,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 
 public class ControladorTelaMontagemTabuleiro implements Initializable {
 
@@ -275,7 +276,19 @@ public class ControladorTelaMontagemTabuleiro implements Initializable {
 
 			@Override
 			public void handle(ActionEvent event) {
-				
+				ComunicaoTelaMontagemTelaJogo.tabuleiro = tabuleiro;
+				Alert alert = new Alert (AlertType.CONFIRMATION);
+				alert.setHeaderText("Tabuleiro Enviado com sucesso!");
+				alert.setContentText("Você está pronto para a partida!");
+				alert.show();
+				Stage stage = new Stage();
+				TelaJogo telaJogo = new TelaJogo();
+				try {
+					telaJogo.start(stage);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		});
 	
