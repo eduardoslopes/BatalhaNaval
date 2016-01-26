@@ -1,14 +1,16 @@
 package aplicacao.model;
 
-public class Mensagem implements InterfaceMensagem{
+public class Mensagem{
 	private String TAG;
 	private Jogada jogada;
-	private Jogador jogador;
+	private String apelidoJogador;
+	private String nomePartida;
 	
 	public static class MontadorMensagem {
 		private final String TAG;
 		private Jogada jogada;
-		private Jogador jogador;
+		private String apelidoJogador;
+		private String nomePartida;
 		
 		public MontadorMensagem(String TAG){
 			this.TAG = TAG;
@@ -19,8 +21,13 @@ public class Mensagem implements InterfaceMensagem{
 			return this;
 		}
 		
-		public MontadorMensagem jogador(Jogador jogador){
-			this.jogador = jogador;
+		public MontadorMensagem jogador(String apelidoJogador){
+			this.apelidoJogador = apelidoJogador;
+			return this;
+		}
+		
+		public MontadorMensagem nomePartida(String nomePartida){
+			this.nomePartida = nomePartida;
 			return this;
 		}
 		
@@ -34,22 +41,22 @@ public class Mensagem implements InterfaceMensagem{
 	private Mensagem(MontadorMensagem montador){
 		TAG = montador.TAG;
 		jogada = montador.jogada;
-		jogador = montador.jogador;
+		nomePartida = montador.nomePartida;
+		apelidoJogador = montador.apelidoJogador;
 	}
 
 	public Jogada getJogada() {
 		return jogada;
 	}
 
-	public void setJogada(Jogada jogada) {
-		this.jogada = jogada;
+	public String getApelidoJogador() {
+		return apelidoJogador;
 	}
 
-	public Jogador getJogador() {
-		return jogador;
+	public String getNomePartida() {
+		return nomePartida;
 	}
 
-	@Override
 	public String getTAG() {
 		return TAG;
 	}

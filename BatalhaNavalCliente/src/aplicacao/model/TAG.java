@@ -1,9 +1,9 @@
 package aplicacao.model;
 
 public class TAG {
-	public static String CONECTG = "CONECTG";
-	public static String DESCONECTG = "DESCONECTG";
-	public static String MOVE = "MOVE";
-	public static String CREATEG = "CREATEG";
-	public static String SEEG = "SEEG";
+	public static final String CONECTGAME = "CONECTGAME";
+	public static final String DESCONECTGAME = "DESCONECTGAME";
+	public static final String MOVEGAME = "MOVEGAME";
+	public static final String CREATEGAME = "CREATEGAME";
+	public static final String SEEGAME = "SEEGAME";
 }

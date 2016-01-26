@@ -6,13 +6,15 @@ import aplicacao.model.Tabuleiro;
 
 public class ControladorJogo {
 	//Método para Enviar Controlador de Comunicacao
-	public void enviarMensagem(){
+	public void fazerJogada(){
+		
 	}
 	
 	//Métodos de retorno para o controladorTelaTabuleiro
-	public boolean verificaSeGanhou(Jogador player, Jogada jogada, Tabuleiro tabuleiro){
+	public boolean verificaSeGanhou(Jogador jogador, Jogada jogada, Tabuleiro tabuleiro){
 		return false;
 	}
+	
 	
 	
 	
