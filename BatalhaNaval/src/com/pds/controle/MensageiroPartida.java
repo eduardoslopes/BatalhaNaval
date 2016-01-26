@@ -1,7 +1,5 @@
 package com.pds.controle;
 
-import java.net.Socket;
-
 import java.io.PrintStream;
 
 public class MensageiroPartida extends Mensageiro {

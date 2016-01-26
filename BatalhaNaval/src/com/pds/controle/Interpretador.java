@@ -10,10 +10,10 @@ public abstract class Interpretador {
 	public void interpretar(Mensagem mensagem, Socket jogador) {
 		switch(mensagem.getTag()){
 		case TAG.CONECTGAME:
-			conect(mensagem.getNome(), mensagem.getNomePartida(), jogador);
+			conect(mensagem.getApelidoJogador(), mensagem.getNomePartida(), jogador);
 			break;
 		case TAG.CREATEGAME:
-			create(mensagem.getNome(), mensagem.getNomePartida(), jogador);
+			create(mensagem.getApelidoJogador(), mensagem.getNomePartida(), jogador);
 			break;
 		case TAG.SEEGAMES:
 			seeg(jogador);

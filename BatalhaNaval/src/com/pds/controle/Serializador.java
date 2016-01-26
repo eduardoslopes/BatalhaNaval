@@ -19,6 +19,7 @@ public class Serializador {
 		List<String> msgPartidasSerializadas = new ArrayList<>();
 		for(Partida p : partidas){
 			Mensagem msg = new Mensagem(TAG.SEEGAMES);
+			msg.setApelidoJogador(p.getCriadorPartida().getApelido());
 			msg.setNomePartida(p.getNomePartida());
 			msgPartidasSerializadas.add(gson.toJson(msg));
 		}

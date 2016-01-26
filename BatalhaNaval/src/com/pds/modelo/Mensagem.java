@@ -2,17 +2,17 @@ package com.pds.modelo;
 
 public class Mensagem {
 	private String tag;
-	private String nome;
+	private String apelidoJogador;
 	private String nomePartida;
 	
-	public Mensagem(String tag, String nome) {
+	public Mensagem(String tag, String apelidoJogador) {
 		this.tag = tag;
-		this.nome = nome;
+		this.apelidoJogador = apelidoJogador;
 	}
 	
-	public Mensagem(String tag, String nome, String nomePartida) {
+	public Mensagem(String tag, String apelidoJogador, String nomePartida) {
 		this.tag = tag;
-		this.nome = nome;
+		this.apelidoJogador = apelidoJogador;
 		this.nomePartida = nomePartida;
 	}
 
@@ -24,8 +24,8 @@ public class Mensagem {
 		return tag;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setApelidoJogador(String apelidoJogador) {
+		this.apelidoJogador = apelidoJogador;
 	}
 
 	public void setNomePartida(String nomePartida) {
@@ -36,8 +36,8 @@ public class Mensagem {
 		this.tag = tag;
 	}
 
-	public String getNome() {
-		return nome;
+	public String getApelidoJogador() {
+		return apelidoJogador;
 	}
 	
 	public String getNomePartida() {

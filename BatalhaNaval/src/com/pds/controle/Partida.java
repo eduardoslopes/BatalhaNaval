@@ -59,4 +59,8 @@ public class Partida {
 	public String getNomePartida() {
 		return nomePartida;
 	}
+	
+	public Jogador getCriadorPartida() {
+		return criadorPartida;
+	}
 }

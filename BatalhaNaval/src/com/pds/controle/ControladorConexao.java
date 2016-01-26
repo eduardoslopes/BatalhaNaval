@@ -12,15 +12,22 @@ public class ControladorConexao {
 	public ControladorConexao(int porta, ControladorInterpretacao cInterpretacao) {
 		this.porta = porta;
 		this.cInterpretacao = cInterpretacao;
+		try {
+			server = new ServerSocket(this.porta);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void executa() {
 		try {
 			while (true) {
-				server = new ServerSocket(porta);
 				Socket jogador = server.accept();
+				System.out.println("CONECTOU");
 				Receber recebedor = new RecebeDoCliente(jogador, cInterpretacao);
-				recebedor.start();
+				Thread receber = new Thread(recebedor);
+				receber.start();
 			}
 
 		} catch (IOException e) {

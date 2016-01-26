@@ -30,7 +30,7 @@ public class InterpretadorMensagem extends Interpretador {
 
 	@Override
 	public void comunicaCliente(Mensagem mensagem) {
-		String nomeDono = mensagem.getNome();
+		String nomeDono = mensagem.getApelidoJogador();
 		String nomePartida = mensagem.getNomePartida();
 		String msg = serializador.serializar(mensagem);
 		distribuidor.enviaMensagemCliente(msg, nomeDono, nomePartida);		

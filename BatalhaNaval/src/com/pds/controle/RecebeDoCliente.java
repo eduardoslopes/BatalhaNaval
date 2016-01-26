@@ -21,12 +21,19 @@ public class RecebeDoCliente extends Receber {
 			String msg = null;
 			while (s.hasNextLine()) {
 				msg = s.nextLine();
+				System.out.println(msg);
 				interpretacao.mensagemParaInterpretar(msg, sockJogador);
 			}
 			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}		
+	}
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		recebe();
 	}
 
 }

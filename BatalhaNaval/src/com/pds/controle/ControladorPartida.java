@@ -3,8 +3,6 @@ package com.pds.controle;
 import java.net.Socket;
 import java.util.List;
 
-import java.net.Socket;
-
 import com.pds.modelo.Jogador;
 
 public class ControladorPartida {
@@ -16,6 +14,7 @@ public class ControladorPartida {
 	}
 	
 	public void novaPartida(String apelido, String nomePartida, Socket socketJogador) {
+		System.out.println("NOVA PARTIDA");
 		Jogador novoJogador = new Jogador(apelido, socketJogador);
 		Partida novaPartida = new Partida(nomePartida, novoJogador);
 		partidas.adicionaPartidaEspera(novaPartida);
