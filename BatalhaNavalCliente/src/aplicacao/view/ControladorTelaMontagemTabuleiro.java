@@ -5,34 +5,28 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import aplicacao.model.Celula;
 import aplicacao.model.Embarcacao;
 import aplicacao.model.Encouracado;
 import aplicacao.model.Patrulha;
 import aplicacao.model.PortaAvioes;
 import aplicacao.model.Submarino;
 import aplicacao.model.Tabuleiro;
-import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.SelectionModel;
-import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.effect.DropShadow;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
-import javafx.stage.Stage;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
 
 public class ControladorTelaMontagemTabuleiro implements Initializable {
 

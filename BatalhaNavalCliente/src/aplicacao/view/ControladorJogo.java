@@ -1,9 +1,33 @@
 package aplicacao.view;
 
-import aplicacao.model.Jogada;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class ControladorJogo {
-	public Jogada receberJogada () {
-		return null;
+import aplicacao.model.Jogada;
+import aplicacao.model.Tabuleiro;
+import javafx.fxml.Initializable;
+import javafx.fxml.FXML;
+import javafx.scene.layout.GridPane;
+import javafx.scene.image.ImageView;
+
+public class ControladorJogo implements Initializable, ObserverJogo {
+
+	@FXML GridPane gridTabuleiroInimigo;
+	@FXML ImageView imgVez;
+	@FXML GridPane gridTabuleiroMeu;
+	private Tabuleiro tabuleiroInimigo;
+	private Tabuleiro tabuleiroMeu;
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		tabuleiroInimigo = new Tabuleiro(10);
+		tabuleiroMeu = new Tabuleiro(10);
 	}
+
+	@Override
+	public void novaJogada(Jogada jogada) {
+
+		
+	}
+
 }
