@@ -130,35 +130,91 @@ public class ControladorTelaMontagemTabuleiro implements Initializable {
 				int posX = cbPosX.getValue();
 				int posY = cbPosY.getValue();
 				
+				if (horizontal && posX + tamanho > 10 || !horizontal && posY + tamanho > 10) {
+					Alert alert = new Alert(AlertType.ERROR);
+					alert.setHeaderText("Embarcação ultrapassa os limites do tabuleiro");
+					alert.setContentText("Insira a embarcação em uma posição válida");
+					alert.show();
+					return;
+				}
+				
+				if (horizontal) {
+					for (int i = posX; i <= tamanho; ++i) {
+						if (tabuleiro.getCelulas().get(i).get(posY).isPreenchido()) {
+							Alert alert = new Alert(AlertType.ERROR);
+							alert.setHeaderText("Embarcação já existente na faixa de células escolhida");
+							alert.setContentText("Insira a embarcação em uma posição válida");
+							alert.show();
+							return;
+						}
+					}
+				} else {
+					for (int i = posY; i <= tamanho; ++i) {
+						if (tabuleiro.getCelulas().get(posX).get(i).isPreenchido()) {
+							Alert alert = new Alert(AlertType.ERROR);
+							alert.setHeaderText("Embarcação já existente na faiza de células escolhida");
+							alert.setContentText("Insira a embarcação em uma posição válida");
+							alert.show();
+							return;
+						}
+					}
+				}
+				
 				switch (embarcacao_selecionada) {
 				case PATRULHA:
-					Embarcacao patrulha = new Patrulha(tamanho, horizontal, posX, posY, tabuleiro);
-					tabuleiro.addEmbarcacao(patrulha);
-					patrulha.desenhar();
-					// TODO fazer função que implemente o loop abaixo.
-//					for (int i = 1; i < tabuleiro.getTamanho(); ++i) {
-//						for (int j = 1; j < tabuleiro.getTamanho(); ++j) {
-//							gridTabuleiro.add(new ImageView(tabuleiro.getCelulas().get(i).get(j).getImgPath()), i, j);
-//						}
-//					}
-					atualizarTabuleiro();
+					if (qtdTotalPatrulhas > 0) {
+						Embarcacao patrulha = new Patrulha(tamanho, horizontal, posX, posY, tabuleiro);
+						tabuleiro.addEmbarcacao(patrulha);
+						patrulha.desenhar();
+						--qtdTotalPatrulhas;
+					} else {
+						Alert alert = new Alert(AlertType.ERROR);
+						alert.setHeaderText("Total de Embarcações já inserido!");
+						alert.setContentText("Remova uma patrulha para poder re-inserir");
+						alert.show();
+						return;
+					}
 					break;
 				case SUBMARINO:
-					Embarcacao submarino = new Submarino(tamanho, horizontal, posX, posY, tabuleiro);
-					tabuleiro.addEmbarcacao(submarino);
-					submarino.desenhar();
-					atualizarTabuleiro();
+					if (qtdTotalSubmarinos > 0) {
+						Embarcacao submarino = new Submarino(tamanho, horizontal, posX, posY, tabuleiro);
+						tabuleiro.addEmbarcacao(submarino);
+						submarino.desenhar();
+						--qtdTotalSubmarinos;
+					} else {
+						Alert alert = new Alert(AlertType.ERROR);
+						alert.setHeaderText("Total de Embarcações já inserido!");
+						alert.setContentText("Remova um submarino para poder re-inserir");
+						alert.show();
+						return;
+					}
 					break;
 				case ENCOURACADO:
-					Embarcacao encouracado = new Encouracado(tamanho, horizontal, posX, posY, tabuleiro);
-					tabuleiro.addEmbarcacao(encouracado);
-					encouracado.desenhar();
+					if (qtdTotalEncouracados > 0) {
+						Embarcacao encouracado = new Encouracado(tamanho, horizontal, posX, posY, tabuleiro);
+						tabuleiro.addEmbarcacao(encouracado);
+						encouracado.desenhar();
+						--qtdTotalEncouracados;
+					} else {
+						Alert alert = new Alert(AlertType.ERROR);
+						alert.setHeaderText("Total de Embarcações já inserido!");
+						alert.setContentText("Remova um encouraçado para poder re-inserir");
+						alert.show();
+					}
 					break;
 				case PORTA_AVIOES:
-					System.out.println("Entrou em PORTA_AVIOES");
-					Embarcacao portaAvioes = new PortaAvioes(tamanho, horizontal, posX, posY, tabuleiro);
-					tabuleiro.addEmbarcacao(portaAvioes);
-					portaAvioes.desenhar();
+					if (qtdTotalPortaAvioes > 0) {
+						System.out.println("Entrou em PORTA_AVIOES");
+						Embarcacao portaAvioes = new PortaAvioes(tamanho, horizontal, posX, posY, tabuleiro);
+						tabuleiro.addEmbarcacao(portaAvioes);
+						portaAvioes.desenhar();
+						--qtdTotalPortaAvioes;
+					} else {
+						Alert alert = new Alert(AlertType.ERROR);
+						alert.setHeaderText("Total de Embarcações já inserido!");
+						alert.setContentText("Remova um porta-avião para poder re-inserir");
+						alert.show();
+					}
 					break;
 				default:
 					System.out.println("fsdffsda");
@@ -168,6 +224,7 @@ public class ControladorTelaMontagemTabuleiro implements Initializable {
 					alert.show();
 					break;
 				}
+				atualizarTabuleiro();
 				tabuleiro.imprimir ();
 			}
 		});
@@ -224,7 +281,6 @@ public class ControladorTelaMontagemTabuleiro implements Initializable {
 
 			@Override
 			public void handle(ActionEvent event) {
-				// TODO esperar oponente estar preparado. ou reconfigurar tabuleiro.
 				
 			}
 		});
