@@ -35,7 +35,4 @@ public class InterpretadorMensagem extends Interpretador {
 		String msg = serializador.serializar(mensagem);
 		distribuidor.enviaMensagemCliente(msg, nomeDono, nomePartida);		
 	}
-
-	
-
 }

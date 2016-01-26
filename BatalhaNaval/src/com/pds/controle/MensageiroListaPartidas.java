@@ -36,6 +36,4 @@ public class MensageiroListaPartidas extends Mensageiro {
 	public void setMensagem(String mensagem) {
 		
 	}
-
-
 }

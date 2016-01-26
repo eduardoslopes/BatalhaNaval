@@ -14,7 +14,6 @@ public class ControladorPartida {
 	}
 	
 	public void novaPartida(String apelido, String nomePartida, Socket socketJogador) {
-		System.out.println("NOVA PARTIDA");
 		Jogador novoJogador = new Jogador(apelido, socketJogador);
 		Partida novaPartida = new Partida(nomePartida, novoJogador);
 		partidas.adicionaPartidaEspera(novaPartida);

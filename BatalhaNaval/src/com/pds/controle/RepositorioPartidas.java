@@ -16,7 +16,6 @@ public class RepositorioPartidas {
 	}
 	
 	public void adicionaPartidaEspera(Partida novaPartida) {
-		System.out.println("ADICIONANDO PARTIDA");
 		partidasEmEspera.add(novaPartida);
 	}
 

@@ -21,7 +21,7 @@ public class DistribuidorResponsabilidades {
 	public void verPartidasEmEspera(Socket socketJogador, Serializador serializador) {
 		List<Partida> partidas = cPartidas.getListaPartidasEmEspera();
 		List<String> mensagens = serializador.serializarPartidas(partidas);
-		MensageiroListaPartidas mensageiro = new MensageiroListaPartidas(socketJogador, mensagens);
+		Mensageiro mensageiro = new MensageiroListaPartidas(socketJogador, mensagens);
 		Thread t = new Thread(mensageiro);
 		t.start();
 	}
@@ -29,7 +29,4 @@ public class DistribuidorResponsabilidades {
 	public void enviaMensagemCliente(String msg, String nomeDono, String nomePartida) {
 		cPartidas.encaminhaMensagem(nomeDono, msg, nomePartida);		
 	}
-	
-	
-
 }

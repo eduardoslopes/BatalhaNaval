@@ -1,6 +1,7 @@
 package com.pds.modelo;
 
 public class Mensagem {
+	
 	private String tag;
 	private String apelidoJogador;
 	private String nomePartida;

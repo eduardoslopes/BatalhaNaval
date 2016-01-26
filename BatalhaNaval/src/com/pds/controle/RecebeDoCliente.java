@@ -15,7 +15,7 @@ public class RecebeDoCliente extends Receber {
 	}
 	
 	@Override
-	void recebe() {
+	public void recebe() {
 		try {
 			Scanner s = new Scanner(sockJogador.getInputStream());
 			String msg = null;
@@ -35,5 +35,4 @@ public class RecebeDoCliente extends Receber {
 		// TODO Auto-generated method stub
 		recebe();
 	}
-
 }

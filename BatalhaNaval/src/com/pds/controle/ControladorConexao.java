@@ -24,7 +24,6 @@ public class ControladorConexao {
 		try {
 			while (true) {
 				Socket jogador = server.accept();
-				System.out.println("CONECTOU");
 				Receber recebedor = new RecebeDoCliente(jogador, cInterpretacao);
 				Thread receber = new Thread(recebedor);
 				receber.start();
