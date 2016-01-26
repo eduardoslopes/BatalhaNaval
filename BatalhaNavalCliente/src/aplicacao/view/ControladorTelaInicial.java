@@ -96,19 +96,14 @@ public class ControladorTelaInicial implements Initializable, ObservadorPartida 
 			Mensagem mensagem = new Mensagem.MontadorMensagem(TAG.CREATEGAME).nomePartida(nome)
 					.jogador(apelido).build();
 			ctrlComunicacao.enviarMensagem(mensagem);
-			
+			esperaJogador();
 			atualizarLista();
 		}		
 	}
 
+
 	@FXML
 	public void atualizarLista() { 
-		
-		try {
-			Thread.sleep(10);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
 		
 		partidas.removeAll(partidas);
 		Mensagem msg = new Mensagem.MontadorMensagem(TAG.SEEGAMES).build();
@@ -122,9 +117,8 @@ public class ControladorTelaInicial implements Initializable, ObservadorPartida 
 		TelaInicial.getStage().close();
 	}
 	
-	
 	public String capturarApelido() {
-		
+
 		TextInputDialog dialogo = new TextInputDialog();
 		dialogo.setTitle("Digitar Apelido");
 		dialogo.setHeaderText("Digite o seu apelido:");
@@ -136,10 +130,10 @@ public class ControladorTelaInicial implements Initializable, ObservadorPartida 
 			} else {
 				return capturarApelido();
 			}
-		} 
+		}
 		return null;
 	}
-	
+
 	public ObservableList<Partida> getPartidas() {
 
 		return partidas;
@@ -147,7 +141,16 @@ public class ControladorTelaInicial implements Initializable, ObservadorPartida 
 
 	@Override
 	public void atualizarPartida(Partida partida) {
+
 		partidas.add(partida);
 	}
 
+	private void esperaJogador() {
+
+		Alert alerta = new Alert(AlertType.INFORMATION);
+		alerta.setTitle("Esperando um jogador");
+		alerta.setHeaderText("Esperando um jogador se conectar na sua partida");
+		alerta.setContentText(null);
+		alerta.show();
+	}
 }

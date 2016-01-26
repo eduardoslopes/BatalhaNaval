@@ -29,6 +29,7 @@ public class Receber implements Runnable {
 
 			while (entrada.hasNextLine()) {
 				String msg = entrada.nextLine();
+				System.out.println(msg);
 				Mensagem mensagem = descerializador.descerializar(msg);
 				observador.notificaMensagem(mensagem);
 			}

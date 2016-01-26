@@ -26,9 +26,14 @@ public class Enviar implements Runnable {
 
 		PrintStream saidaServidor;
 		try {
+
+			Thread.sleep(10);
+			
 			saidaServidor = new PrintStream(cliente.getOutputStream());
 			saidaServidor.println(mensagem);
 		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 

@@ -4,8 +4,8 @@ import java.io.IOException;
 import java.net.Socket;
 
 import aplicacao.ControladorJogo;
-import aplicacao.mensagem.Interpretador;
-import aplicacao.mensagem.InterpretadorMensagem;
+import aplicacao.model.Interpretador;
+import aplicacao.model.InterpretadorMensagem;
 import aplicacao.model.Mensagem;
 import aplicacao.view.ObservadorPartida;
 
@@ -13,13 +13,11 @@ public class ControladorComunicacao implements ObserverReceber {
 
 	private Socket cliente;
 	private Interpretador interpretador;
-	private ObservadorPartida observer;
 
-	public ControladorComunicacao(ObservadorPartida observerLista) {
+	public ControladorComunicacao(ObservadorPartida observerPartida) {
 
 		criarSocket();
-		this.observer = observer;
-		interpretador = new InterpretadorMensagem(new ControladorJogo(), observerLista);
+		interpretador = new InterpretadorMensagem(new ControladorJogo(), observerPartida);
 
 		Receber receber = new Receber(cliente, this);
 		Thread threadReceber = new Thread(receber);
