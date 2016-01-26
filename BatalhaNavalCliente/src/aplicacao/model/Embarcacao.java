@@ -1,46 +1,86 @@
 package aplicacao.model;
-
 import java.util.ArrayList;
 import java.util.List;
 
-public class Embarcacao {
-
-	private enum ESTADOS_CELULAS {
-		NAO_ATINGIDO,
-		ATINGIDO,
-	}
+public abstract class Embarcacao {
+	private int tamanho;
+	private boolean horizontal;
+	private int posX;
+	private int posY;
+	private List<Celula> celulas;
 	
-	public int tamanho;
-	public boolean horizontal;
-	public String imgPath;
-	public int posX;
-	public int posY;
-	List<ESTADOS_CELULAS> estadosCelulas;
-
-	public Embarcacao (int tamanho, String imgPath, int posX, int posY, boolean horizontal) {
-		estadosCelulas = new ArrayList<ESTADOS_CELULAS>();
+	public Embarcacao(int tamanho, boolean horizontal, int posX, int posY, Tabuleiro tabuleiro) {
+		super();
 		this.tamanho = tamanho;
-		this.imgPath = imgPath;
+		this.horizontal = horizontal;
 		this.posX = posX;
 		this.posY = posY;
-		estadosCelulas = new ArrayList<ESTADOS_CELULAS>();
-		for (int i = 0; i < tamanho; ++i) {
-			estadosCelulas.set(i, ESTADOS_CELULAS.NAO_ATINGIDO);
+		setCelulas(new ArrayList<Celula>());
+		try {
+			if (horizontal) {
+				for (int i = 0; i < tamanho; ++i) {
+					getCelulas().add(tabuleiro.getCelulas().get(posX + i).get(posY));
+				}
+			} else {
+				for (int i = 0; i < tamanho; ++i) {
+					getCelulas().add(tabuleiro.getCelulas().get(posX).get(posY + i));
+				}
+			}
+		} catch (IndexOutOfBoundsException e) {
+			System.out.println("Erro: ");
 		}
+	}
+
+	public int getTamanho() {
+		return tamanho;
+	}
+
+	public void setTamanho(int tamanho) {
+		this.tamanho = tamanho;
+	}
+
+	public boolean isHorizontal() {
+		return horizontal;
+	}
+
+	public void setHorizontal(boolean horizontal) {
 		this.horizontal = horizontal;
 	}
 
-	public boolean estaAfundada () {
-		for (ESTADOS_CELULAS estado : estadosCelulas) {
-			if (estado == ESTADOS_CELULAS.NAO_ATINGIDO) {
+	public int getPosX() {
+		return posX;
+	}
+
+	public void setPosX(int posX) {
+		this.posX = posX;
+	}
+
+	public int getPosY() {
+		return posY;
+	}
+
+	public void setPosY(int posY) {
+		this.posY = posY;
+	}
+
+	public List<Celula> getCelulas() {
+		return celulas;
+	}
+
+	public void setCelulas(List<Celula> celulas) {
+		this.celulas = celulas;
+	}
+	
+	public boolean isDestruida () {
+		for (Celula celula : celulas) {
+			if (celula.isAtingido() == false) {
 				return false;
 			}
 		}
 		return true;
 	}
 	
-	public boolean celulaAtingida (int indice) {
-		return estadosCelulas.get(indice) == ESTADOS_CELULAS.ATINGIDO;
-	}
+	public abstract void desenhar ();
 
+	
 }

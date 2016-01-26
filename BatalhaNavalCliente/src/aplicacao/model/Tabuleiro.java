@@ -1,70 +1,73 @@
 package aplicacao.model;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class Tabuleiro {
-
-	public static final int QTD_TOTAL_EMBARCACOES = 4;
-	public int tamanho;
-	private List<CelulaTabuleiro> celulas;
+	private int tamanho;
+	private List<List<Celula>> celulas;
 	private List<Embarcacao> embarcacoes;
 
-	public Tabuleiro (int tamanho) {
-		celulas = new ArrayList<CelulaTabuleiro>();
-		embarcacoes = new ArrayList<Embarcacao> ();
-		for (int i = 0; i < tamanho * tamanho; ++i) {
-			celulas.add(new CelulaTabuleiro());
-		}
-	}
-	
-	public String getConteudoCelula (int posX, int posY) {
-		return celulas.get(tamanho * posX + posY).conteudo;
-	}
-
-	public void setConteudoCelula (int posX, int posY, String conteudo) {
-		celulas.get(tamanho * posX + posY).conteudo = conteudo;
-	}
-	
-	public boolean getCelulaAtingida (int posX, int posY) {
-		return celulas.get(tamanho * posX + posY).foiAtingida;
-	}
-	
-	public void setCelulaAtingida (int posX, int posY) {
-		CelulaTabuleiro celula = celulas.get(tamanho * posX + posY);
-		if (celula.foiAtingida == false) {
-			celula.foiAtingida = true;
-		}
-	}
-	
-	public int getTamanhoCelulas () {
-		return CelulaTabuleiro.TAMANHO_DEFAULT;
-	}
-	
-	public boolean celulaVazia (int posX, int posY) {
-		return celulas.get(tamanho * posX + posY).conteudo.equals("");
-	}
-	
-
-	public boolean inserirEmbarcacao (Embarcacao embarcacao) {
-		if (embarcacao.horizontal) {
-			for (int i = embarcacao.posX; i < embarcacao.posX + embarcacao.tamanho; ++i) {
-				if (celulaVazia(i, embarcacao.posY)) {
-					setConteudoCelula(i, embarcacao.posY, embarcacao.imgPath);
-				} else {
-					return false;
-				}
+	public Tabuleiro(int tamanho) {
+		super();
+		this.tamanho = tamanho;
+		celulas = new ArrayList<List<Celula>>();
+		for (int i = 0; i < tamanho; ++i) {
+			celulas.add(new ArrayList<Celula>());
+			for (int j = 0; j < tamanho; ++j) {
+				celulas.get(i).add(new Celula());
 			}
-		} else {
-			for (int i = embarcacao.posY; i < embarcacao.posY + embarcacao.tamanho; ++i) {
-				if (celulaVazia(embarcacao.posX, i)) {
-					setConteudoCelula(embarcacao.posX, i, embarcacao.imgPath);
-				} else {
-					return false;
-				}
+		}
+		embarcacoes = new ArrayList<Embarcacao>();
+	}
+
+	public int getTamanho() {
+		return tamanho;
+	}
+
+	public void setTamanho(int tamanho) {
+		this.tamanho = tamanho;
+	}
+
+	public List<List<Celula>> getCelulas() {
+		return celulas;
+	}
+
+	public void setCelulas(List<List<Celula>> celulas) {
+		this.celulas = celulas;
+	}
+
+	public List<Embarcacao> getEmbarcacoes() {
+		return embarcacoes;
+	}
+
+	public void setEmbarcacoes(List<Embarcacao> embarcacoes) {
+		this.embarcacoes = embarcacoes;
+	}
+	
+	public void addEmbarcacao (Embarcacao e) {
+		embarcacoes.add(e);
+	}
+
+	public boolean isAtingido (int posX, int posY) {
+		return celulas.get(posX).get(posY).isAtingido();
+	}
+	
+	public boolean todasEmbarcacoesForamDestruidas () {
+		for (Embarcacao e : embarcacoes) {
+			if (e.isDestruida() == false) {
+				return false;
 			}
 		}
 		return true;
 	}
 
+	public void imprimir() {
+		for (int i = 0; i < tamanho; ++i) {
+			for (int j = 0; j < tamanho; ++j) {
+				System.out.print(celulas.get(i).get(j).getImgPath() + " ");
+			}
+			System.out.println();
+		}
+		
+	}
 }

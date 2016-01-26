@@ -5,7 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import aplicacao.model.Celula;
 import aplicacao.model.Embarcacao;
+import aplicacao.model.Encouracado;
+import aplicacao.model.Patrulha;
+import aplicacao.model.PortaAvioes;
+import aplicacao.model.Submarino;
 import aplicacao.model.Tabuleiro;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -26,6 +31,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 
 public class ControladorTelaMontagemTabuleiro implements Initializable {
@@ -68,14 +74,29 @@ public class ControladorTelaMontagemTabuleiro implements Initializable {
 	@FXML
 	private Button btnInserirEmbarcacao;
 	
-	enum EMBARCACAO_SELECIONADA {
-		PORTA_AVIOES,
-		ENCOURACADO,
-		SUBMARINO,
-		PATRULHA
+	private enum EMBARCACAO_SELECIONADA {
+		PATRULHA(2),
+		SUBMARINO(3),
+		ENCOURACADO(4),
+		PORTA_AVIOES(5),
+		SEM_EMBARCACAO(0);
+		private final int tamanho;
+		
+		private EMBARCACAO_SELECIONADA(int tamanho) {
+			this.tamanho = tamanho;
+		}
+		
+		private int tamanho () {
+			return tamanho;
+		}
 	}
 	
-	EMBARCACAO_SELECIONADA embarcacao_selecionada;
+	private int qtdTotalPortaAvioes = 1;
+	private int qtdTotalEncouracados = 1;
+	private int qtdTotalSubmarinos = 2;
+	private int qtdTotalPatrulhas = 1;
+	
+	EMBARCACAO_SELECIONADA embarcacao_selecionada = EMBARCACAO_SELECIONADA.SEM_EMBARCACAO;
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -88,39 +109,66 @@ public class ControladorTelaMontagemTabuleiro implements Initializable {
 		cbPosX.getSelectionModel().select(0);
 		cbPosY.getSelectionModel().select(0);
 
-		ObservableList<String> listaOrientacao = FXCollections.observableArrayList("Horizontal", "Vertical");
+		ObservableList<String> listaOrientacao = FXCollections.observableArrayList(
+				"Horizontal", "Vertical");
 
 		cbOrientacao.setItems(listaOrientacao);
 		cbOrientacao.getSelectionModel().select(0);
+		
+		for (int i = 1; i <= tabuleiro.getTamanho(); ++i) {
+			for (int j = 1; j <= tabuleiro.getTamanho(); ++j) {
+				gridTabuleiro.add(new ImageView("/img/mar.png"), i, j);
+			}
+		}
 
 		btnInserirEmbarcacao.setOnAction(new EventHandler<ActionEvent>() {
-
 			@Override
 			public void handle(ActionEvent event) {
+				int tamanho = embarcacao_selecionada.tamanho();
+				System.out.println("Tamanho: " + tamanho);
+				boolean horizontal = cbOrientacao.getValue().equals("Horizontal");
 				int posX = cbPosX.getValue();
 				int posY = cbPosY.getValue();
-				Embarcacao e;
-				boolean horizontal = cbOrientacao.getValue().equals("Horizontal");
+				
 				switch (embarcacao_selecionada) {
-					case PORTA_AVIOES:
-						e = new Embarcacao(5, "/img/porta_avioes.png", posX, posY, horizontal);
-						tabuleiro.inserirEmbarcacao(e);
-						Alert alert = new Alert(null);
-						alert.setContentText("Embarcacao inserida!!!");
-						break;
-					case ENCOURACADO:
-						e = new Embarcacao(4, "/img/encouracado.png", posX, posY, horizontal);
-						tabuleiro.inserirEmbarcacao(e);
-						break;
-					case SUBMARINO:
-						e = new Embarcacao(3, "/img/submarino.png", posX, posY, horizontal);
-						tabuleiro.inserirEmbarcacao(e);
-						break;
-					case PATRULHA:
-						e = new Embarcacao(2, "/img/patrulha.png", posX, posY, horizontal);
-						tabuleiro.inserirEmbarcacao(e);
-						break;
+				case PATRULHA:
+					Embarcacao patrulha = new Patrulha(tamanho, horizontal, posX, posY, tabuleiro);
+					tabuleiro.addEmbarcacao(patrulha);
+					patrulha.desenhar();
+					// TODO fazer função que implemente o loop abaixo.
+//					for (int i = 1; i < tabuleiro.getTamanho(); ++i) {
+//						for (int j = 1; j < tabuleiro.getTamanho(); ++j) {
+//							gridTabuleiro.add(new ImageView(tabuleiro.getCelulas().get(i).get(j).getImgPath()), i, j);
+//						}
+//					}
+					atualizarTabuleiro();
+					break;
+				case SUBMARINO:
+					Embarcacao submarino = new Submarino(tamanho, horizontal, posX, posY, tabuleiro);
+					tabuleiro.addEmbarcacao(submarino);
+					submarino.desenhar();
+					atualizarTabuleiro();
+					break;
+				case ENCOURACADO:
+					Embarcacao encouracado = new Encouracado(tamanho, horizontal, posX, posY, tabuleiro);
+					tabuleiro.addEmbarcacao(encouracado);
+					encouracado.desenhar();
+					break;
+				case PORTA_AVIOES:
+					System.out.println("Entrou em PORTA_AVIOES");
+					Embarcacao portaAvioes = new PortaAvioes(tamanho, horizontal, posX, posY, tabuleiro);
+					tabuleiro.addEmbarcacao(portaAvioes);
+					portaAvioes.desenhar();
+					break;
+				default:
+					System.out.println("fsdffsda");
+					Alert alert = new Alert(AlertType.WARNING);
+					alert.setHeaderText("Embarcação não selecionada!");
+					alert.setContentText("Selecione uma das embarcações listadas.");
+					alert.show();
+					break;
 				}
+				tabuleiro.imprimir ();
 			}
 		});
 		
@@ -183,4 +231,12 @@ public class ControladorTelaMontagemTabuleiro implements Initializable {
 	
 	}
 
+	private void atualizarTabuleiro () {
+		for (int i = 1; i < tabuleiro.getTamanho(); ++i) {
+			for (int j = 1; j < tabuleiro.getTamanho(); ++j) {
+				gridTabuleiro.add(new ImageView(tabuleiro.getCelulas().get(i).get(j).getImgPath()), i, j);
+			}
+		}
+	}
+	
 }
