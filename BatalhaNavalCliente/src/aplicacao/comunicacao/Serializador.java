@@ -2,7 +2,7 @@ package aplicacao.comunicacao;
 
 import com.google.gson.Gson;
 
-import aplicacao.Mensagem;
+import aplicacao.model.Mensagem;
 
 /**
  * @author Wanderson

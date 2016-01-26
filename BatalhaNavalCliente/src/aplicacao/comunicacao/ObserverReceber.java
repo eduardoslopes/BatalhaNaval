@@ -1,11 +1,7 @@
 package aplicacao.comunicacao;
 
-import aplicacao.Mensagem;
+import aplicacao.model.Mensagem;
 
-/**
- * @author Wanderson
- *
- */
 public interface ObserverReceber {
 
 	public void notificaMensagem(Mensagem mensagem);

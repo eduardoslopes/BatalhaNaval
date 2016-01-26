@@ -4,10 +4,10 @@ import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-import aplicacao.Mensagem;
 import aplicacao.comunicacao.ControladorComunicacao;
-import aplicacao.model.Jogador;
+import aplicacao.model.Mensagem;
 import aplicacao.model.Partida;
+import aplicacao.model.TAG;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -25,11 +25,7 @@ import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 
-/**
- * @author Wanderson
- *
- */
-public class ControleTelaInicial implements Initializable {
+public class ControladorTelaInicial implements Initializable, ObservadorPartida {
 
 	private ControladorComunicacao ctrlComunicacao;
 	
@@ -44,28 +40,28 @@ public class ControleTelaInicial implements Initializable {
 	@FXML TableColumn<Partida, String> colunaPartida;
 	@FXML ContextMenu contextoLista;
 	@FXML MenuItem iniciarPartida;
-
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
-		ctrlComunicacao = ControleTelaLogin.getCtrlComunicacao();
-		partidas = FXCollections.observableArrayList();
+		ctrlComunicacao = new ControladorComunicacao(this);
+		
+		Mensagem mensagem = new Mensagem.MontadorMensagem(TAG.SEEGAMES).build();
+		ctrlComunicacao.enviarMensagem(mensagem);
 		
 		colunaJogador.setCellValueFactory(new PropertyValueFactory<>("jogador"));
 		colunaPartida.setCellValueFactory(new PropertyValueFactory<>("partida"));
 		
+		partidas = FXCollections.observableArrayList();
 		listaPartidas.setItems(partidas);
-
-		Partida p = new Partida("sfsfs", new Jogador("Wanderson"));	//<<<---------------------------->>>
-		partidas.add(p);
 		
-		TelaInicial.getStage().setOnCloseRequest(event -> {
+		TelaInicial.getStage().setOnCloseRequest(e -> {
 			sair();
-		});		
+		});
 	}
 
 	@FXML
-	public void iniciarPartida(ActionEvent event) { //<<<----------------------------->>>
+	public void iniciarPartida(ActionEvent event) {
 
 		SelectionModel<Partida> selectionModel = listaPartidas.getSelectionModel();
 		Partida partidaSelecionada = selectionModel.getSelectedItem();
@@ -75,34 +71,37 @@ public class ControleTelaInicial implements Initializable {
 			alerta.setContentText("Selecione uma partida da lista");
 			alerta.show();
 		} else {
-			Mensagem mensagem = new Mensagem(partidaSelecionada);
-			ctrlComunicacao.enviarMensagem(mensagem);
+			
 		}
 	}
 
 	@FXML
-	public void criarPartida() { //<<<----------------------------->>>
+	public void criarPartida() {
 		
+		String apelido = capturarApelido();
+		if (apelido == null) return;
+
 		TextInputDialog dialogo = new TextInputDialog();
 		dialogo.setTitle("Nova Partida");
 		dialogo.setHeaderText("Digite um nome para a partida");
 		dialogo.setContentText(null);
 		Optional<String> partida = dialogo.showAndWait();
 		
-		if (partida.isPresent() && !partida.get().equals("")) {
-						
+		
+		if (partida.isPresent() && !partida.get().equals("")) {			
 			String nome = partida.get();
-			
-			partidas.add(new Partida(nome, new Jogador("eu")));
-			
+			Mensagem mensagem = new Mensagem.MontadorMensagem(TAG.CREATEGAME).nomePartida(nome).jogador(apelido).build();
+			ctrlComunicacao.enviarMensagem(mensagem);
 		}
 		
+		atualizarLista();
 	}
 
 	@FXML
-	public void atualizarLista() {	//<<<----------------------------->>>
-
-		Mensagem msg = new Mensagem(TAG.ATUALIZAR_LISTA);
+	public void atualizarLista() { 
+		
+		partidas.removeAll(partidas);
+		Mensagem msg = new Mensagem.MontadorMensagem(TAG.SEEGAMES).build();
 		ctrlComunicacao.enviarMensagem(msg);
 	}
 
@@ -114,9 +113,31 @@ public class ControleTelaInicial implements Initializable {
 	}
 	
 	
+	public String capturarApelido() {
+		
+		TextInputDialog dialogo = new TextInputDialog();
+		dialogo.setTitle("Digitar Apelido");
+		dialogo.setHeaderText("Digite o seu apelido:");
+		dialogo.setContentText(null);
+		Optional<String> partida = dialogo.showAndWait();
+		if (partida.isPresent()) {
+			if (!partida.get().equals("")) {
+				return partida.get();
+			} else {
+				return capturarApelido();
+			}
+		} 
+		return null;
+	}
+	
 	public ObservableList<Partida> getPartidas() {
 
 		return partidas;
+	}
+
+	@Override
+	public void atualizarPartida(Partida partida) {
+		partidas.add(partida);
 	}
 
 }

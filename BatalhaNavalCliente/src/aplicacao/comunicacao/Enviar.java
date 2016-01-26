@@ -4,12 +4,8 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.net.Socket;
 
-import aplicacao.Mensagem;
+import aplicacao.model.Mensagem;
 
-/**
- * @author Wanderson
- *
- */
 public class Enviar implements Runnable {
 
 	private Socket cliente;
@@ -18,6 +14,7 @@ public class Enviar implements Runnable {
 
 	public Enviar(Socket cliente, Mensagem msg) {
 
+		serializador = new Serializador();
 		this.cliente = cliente;
 		this.msg = msg;
 	}
@@ -25,9 +22,8 @@ public class Enviar implements Runnable {
 	@Override
 	public void run() {
 
-		serializador = new Serializador();
 		String mensagem = serializador.serializar(msg);
-		
+
 		PrintStream saidaServidor;
 		try {
 			saidaServidor = new PrintStream(cliente.getOutputStream());

@@ -4,20 +4,17 @@ import java.io.IOException;
 import java.net.Socket;
 import java.util.Scanner;
 
-import aplicacao.Mensagem;
+import aplicacao.model.Mensagem;
 
-/**
- * @author Wanderson
- *
- */
 public class Receber implements Runnable {
-	
+
 	private ObserverReceber observador;
 	private Descerializador descerializador;
 	private Socket cliente;
 
 	public Receber(Socket cliente, ObserverReceber observer) {
 
+		descerializador = new Descerializador();
 		observador = observer;
 		this.cliente = cliente;
 	}

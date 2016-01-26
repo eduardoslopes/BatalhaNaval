@@ -3,24 +3,27 @@ package aplicacao.comunicacao;
 import java.io.IOException;
 import java.net.Socket;
 
-import aplicacao.Mensagem;
+import aplicacao.ControladorJogo;
+import aplicacao.mensagem.Interpretador;
 import aplicacao.mensagem.InterpretadorMensagem;
+import aplicacao.model.Mensagem;
+import aplicacao.view.ObservadorPartida;
 
-/**
- * @author Wanderson
- *
- */
 public class ControladorComunicacao implements ObserverReceber {
 
 	private Socket cliente;
+	private Interpretador interpretador;
+	private ObservadorPartida observer;
 
-	public ControladorComunicacao() {
+	public ControladorComunicacao(ObservadorPartida observerLista) {
 
 		criarSocket();
+		this.observer = observer;
+		interpretador = new InterpretadorMensagem(new ControladorJogo(), observerLista);
 
 		Receber receber = new Receber(cliente, this);
-		Thread receberThread = new Thread(receber);
-		receberThread.start();
+		Thread threadReceber = new Thread(receber);
+		threadReceber.start();
 	}
 
 	/**
@@ -29,7 +32,7 @@ public class ControladorComunicacao implements ObserverReceber {
 	private void criarSocket() {
 
 		try {
-			this.cliente = new Socket("", 6666);
+			this.cliente = new Socket("192.168.0.111", 8888);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -47,11 +50,18 @@ public class ControladorComunicacao implements ObserverReceber {
 	}
 
 	@Override
-	public Mensagem notificaMensagem(Mensagem mensagem) {
+	public void notificaMensagem(Mensagem mensagem) {
 
-		InterpretadorMensagem interpretador = new InterpretadorMensagem();
-		interpretador.interpretar(mensagem);
-		return mensagem;
+		interpretador.messageInterpreter(mensagem);
+	}
+
+	public void fechar() {
+
+		try {
+			cliente.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 }
