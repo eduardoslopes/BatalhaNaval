@@ -21,8 +21,9 @@ public class ControladorPartida {
 	
 	public void conectarPartida(String apelido, String nomePartida, Socket socketJogador) {
 		Jogador novoJogador = new Jogador(apelido, socketJogador);
-		partidas.adicionaJogadorPartida(novoJogador, nomePartida);
-		iniciarPartida(partidas.getPartidaEmEspera(nomePartida));
+		Partida partida = partidas.getPartidaEmEspera(nomePartida);
+		partidas.adicionaJogadorPartida(novoJogador, partida.getNomePartida());
+		iniciarPartida(partida);
 	}
 	
 	private void iniciarPartida(Partida novaPartida) {
@@ -37,5 +38,4 @@ public class ControladorPartida {
 	public List<Partida> getListaPartidasEmEspera() {
 		return partidas.getPartidasEmEspera();
 	}
-
 }

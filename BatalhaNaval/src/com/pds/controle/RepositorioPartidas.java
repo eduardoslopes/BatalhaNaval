@@ -11,8 +11,8 @@ public class RepositorioPartidas {
 	private List<Partida> partidasEmEspera;
 	
 	public RepositorioPartidas() {
-		partidasIniciadas = new ArrayList<>();
-		partidasEmEspera = new ArrayList<>();
+		partidasIniciadas = new ArrayList<Partida>();
+		partidasEmEspera = new ArrayList<Partida>();
 	}
 	
 	public void adicionaPartidaEspera(Partida novaPartida) {
