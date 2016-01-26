@@ -147,7 +147,7 @@ public class ControladorTelaMontagemTabuleiro implements Initializable {
 					for (int i = posY; i <= tamanho; ++i) {
 						if (tabuleiro.getCelulas().get(posX).get(i).isPreenchido()) {
 							Alert alert = new Alert(AlertType.ERROR);
-							alert.setHeaderText("Embarcação já existente na faiza de células escolhida");
+							alert.setHeaderText("Embarcação já existente na faixa de células escolhida");
 							alert.setContentText("Insira a embarcação em uma posição válida");
 							alert.show();
 							return;
@@ -281,12 +281,11 @@ public class ControladorTelaMontagemTabuleiro implements Initializable {
 				alert.setHeaderText("Tabuleiro Enviado com sucesso!");
 				alert.setContentText("Você está pronto para a partida!");
 				alert.show();
-				Stage stage = new Stage();
-				TelaJogo telaJogo = new TelaJogo();
+				
 				try {
-					telaJogo.start(stage);
+					TelaJogo telaJogo = new TelaJogo();
+					telaJogo.start(new Stage());
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -297,7 +296,7 @@ public class ControladorTelaMontagemTabuleiro implements Initializable {
 	private void atualizarTabuleiro () {
 		for (int i = 1; i < tabuleiro.getTamanho(); ++i) {
 			for (int j = 1; j < tabuleiro.getTamanho(); ++j) {
-				gridTabuleiro.add(new ImageView(tabuleiro.getCelulas().get(i).get(j).getImgPath()), i, j);
+				gridTabuleiro.add(new ImageView(tabuleiro.getCelulas().get(i-1).get(j-1).getImgPath()), i, j);
 			}
 		}
 	}

@@ -1,6 +1,5 @@
 package aplicacao.view;
 
-import aplicacao.model.Tabuleiro;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -23,17 +22,9 @@ public class TelaJogo extends Application  {
 		primaryStage.show();
 	}
 	
-	public void iniciar(Tabuleiro tabuleiro) {
-		try {
-			start(new Stage());
-		
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
 	public static void main(String[] args) {
-		
+
+		launch(args);
 	}
 
 	public static Stage getStage() {
