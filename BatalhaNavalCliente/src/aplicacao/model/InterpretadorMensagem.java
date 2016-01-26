@@ -1,20 +1,13 @@
 package aplicacao.model;
 
-import aplicacao.ControladorJogo;
-import aplicacao.Jogada;
 import aplicacao.view.ObservadorPartida;
 
 public class InterpretadorMensagem extends Interpretador {
 
-	private ControladorJogo controladorJogo;
 	private ObservadorPartida observer;
 
-	public InterpretadorMensagem(ControladorJogo controladorJogo) {
-		this.controladorJogo = controladorJogo;
-	}
 
-	public InterpretadorMensagem(ControladorJogo controladorJogo, ObservadorPartida observerLista) {
-		this.controladorJogo = controladorJogo;
+	public InterpretadorMensagem(ObservadorPartida observerLista) {
 		observer = observerLista;
 	}
 
@@ -31,7 +24,6 @@ public class InterpretadorMensagem extends Interpretador {
 	@Override
 	public void fazerJogada(Jogada jogada) {
 
-		controladorJogo.receberJogada(jogada);
 	}
 
 	@Override

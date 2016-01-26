@@ -3,7 +3,6 @@ package aplicacao.comunicacao;
 import java.io.IOException;
 import java.net.Socket;
 
-import aplicacao.ControladorJogo;
 import aplicacao.model.Interpretador;
 import aplicacao.model.InterpretadorMensagem;
 import aplicacao.model.Mensagem;
@@ -17,7 +16,7 @@ public class ControladorComunicacao implements ObserverReceber {
 	public ControladorComunicacao(ObservadorPartida observerPartida) {
 
 		criarSocket();
-		interpretador = new InterpretadorMensagem(new ControladorJogo(), observerPartida);
+		interpretador = new InterpretadorMensagem(observerPartida);
 
 		Receber receber = new Receber(cliente, this);
 		Thread threadReceber = new Thread(receber);

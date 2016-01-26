@@ -24,6 +24,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 public class ControladorTelaInicial implements Initializable, ObservadorPartida {
 
@@ -77,6 +78,14 @@ public class ControladorTelaInicial implements Initializable, ObservadorPartida 
 					.nomePartida(partidaSelecionada.getPartida()).build();
 			ctrlComunicacao.enviarMensagem(mensagem);
 		}
+		
+		try {
+			TelaJogo jogo = new TelaJogo();
+			jogo.start(new Stage());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 	@FXML
