@@ -71,7 +71,11 @@ public class ControladorTelaInicial implements Initializable, ObservadorPartida 
 			alerta.setContentText("Selecione uma partida da lista");
 			alerta.show();
 		} else {
-			
+			String apelido = capturarApelido();
+			if (apelido == null) return;
+			Mensagem mensagem = new Mensagem.MontadorMensagem(TAG.CONECTGAME).jogador(apelido)
+					.nomePartida(partidaSelecionada.getPartida()).build();
+			ctrlComunicacao.enviarMensagem(mensagem);
 		}
 	}
 
@@ -87,18 +91,24 @@ public class ControladorTelaInicial implements Initializable, ObservadorPartida 
 		dialogo.setContentText(null);
 		Optional<String> partida = dialogo.showAndWait();
 		
-		
 		if (partida.isPresent() && !partida.get().equals("")) {			
 			String nome = partida.get();
-			Mensagem mensagem = new Mensagem.MontadorMensagem(TAG.CREATEGAME).nomePartida(nome).jogador(apelido).build();
+			Mensagem mensagem = new Mensagem.MontadorMensagem(TAG.CREATEGAME).nomePartida(nome)
+					.jogador(apelido).build();
 			ctrlComunicacao.enviarMensagem(mensagem);
-		}
-		
-		atualizarLista();
+			
+			atualizarLista();
+		}		
 	}
 
 	@FXML
 	public void atualizarLista() { 
+		
+		try {
+			Thread.sleep(10);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		
 		partidas.removeAll(partidas);
 		Mensagem msg = new Mensagem.MontadorMensagem(TAG.SEEGAMES).build();
