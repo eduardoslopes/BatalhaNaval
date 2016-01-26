@@ -21,7 +21,7 @@ public abstract class Interpretador {
 			fazerJogada(msg.getJogada());
 			break;
 			
-		case TAG.SEEGAME :
+		case TAG.SEEGAMES :
 			verJogos();
 			break;
 		}
