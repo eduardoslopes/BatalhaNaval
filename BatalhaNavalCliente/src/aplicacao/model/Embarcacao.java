@@ -17,18 +17,14 @@ public abstract class Embarcacao {
 		this.posX = posX;
 		this.posY = posY;
 		setCelulas(new ArrayList<Celula>());
-		try {
-			if (horizontal) {
-				for (int i = 0; i < tamanho; ++i) {
-					getCelulas().add(tabuleiro.getCelulas().get(posX + i).get(posY));
-				}
-			} else {
-				for (int i = 0; i < tamanho; ++i) {
-					getCelulas().add(tabuleiro.getCelulas().get(posX).get(posY + i));
-				}
+		if (horizontal) {
+			for (int i = 0; i < tamanho; ++i) {
+				getCelulas().add(tabuleiro.getCelulas().get(posX + i).get(posY));
 			}
-		} catch (IndexOutOfBoundsException e) {
-			System.out.println("Erro: ");
+		} else {
+			for (int i = 0; i < tamanho; ++i) {
+				getCelulas().add(tabuleiro.getCelulas().get(posX).get(posY + i));
+			}
 		}
 	}
 
