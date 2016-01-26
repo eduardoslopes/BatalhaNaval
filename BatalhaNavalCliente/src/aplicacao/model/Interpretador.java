@@ -1,8 +1,6 @@
-package aplicacao.mensagem;
+package aplicacao.model;
 
 import aplicacao.Jogada;
-import aplicacao.model.Mensagem;
-import aplicacao.model.TAG;
 
 public abstract class Interpretador {
 
