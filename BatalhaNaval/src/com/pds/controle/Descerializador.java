@@ -9,5 +9,4 @@ public class Descerializador {
 		Gson gson = new Gson();
 		return gson.fromJson(msg, Mensagem.class);
 	}
-
 }

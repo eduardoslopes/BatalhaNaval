@@ -43,4 +43,9 @@ public class ControladorPartida {
 		Partida partida = partidas.getPartidaIniciada(nomePartida);
 		partida.setJogadorPronto(apelido);
 	}
+
+	public void enviarMensagemFinalPartida(String apelido, String nomePartida) {
+		Partida partida = partidas.getPartidaIniciada(nomePartida);
+		partida.finalPartida(apelido);
+	}
 }

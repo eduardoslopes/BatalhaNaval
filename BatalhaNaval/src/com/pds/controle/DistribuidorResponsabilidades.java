@@ -33,4 +33,8 @@ public class DistribuidorResponsabilidades {
 	public void jogadorPronto(String apelido, String nomePartida) {
 		cPartidas.jogadorPronto(apelido, nomePartida);
 	}
+
+	public void enviarMensagemFinalPartida(String apelido, String nomePartida) {
+		cPartidas.enviarMensagemFinalPartida(apelido, nomePartida);
+	}
 }

@@ -11,16 +11,17 @@ public class Partida {
 	private Jogador convidado;
 	private Mensageiro enviaMensagemCriadorPartida;
 	private Mensageiro enviaMensagemConvidado;
+	private Serializador serializa;
 	
 	public Partida(String nomePartida, Jogador criadorPartida) {
 		this.nomePartida = nomePartida;
 		this.criadorPartida = criadorPartida;
 		this.enviaMensagemCriadorPartida = new MensageiroPartida(criadorPartida.getFluxoSaida());
+		serializa = new Serializador();
 	}
 	
 	public void enviarMensagemMontarTabuleiro() {
-		Mensagem mensagem = new Mensagem(TAG.CONECTGAME);
-		Serializador serializa = new Serializador();
+		Mensagem mensagem = new Mensagem(TAG.CONNECTGAME);
 		String msg = serializa.serializar(mensagem);
 		
 		Thread threadEnviaMensagem1 = new Thread(enviaMensagemConvidado);
@@ -74,8 +75,8 @@ public class Partida {
 	
 	private void iniciarPartida() {
 		Mensagem mensagem = new Mensagem(TAG.STARTGAMECONVIDADO);
-		Serializador serializa = new Serializador();
 		String msg = serializa.serializar(mensagem);
+		System.out.println("Enviando: " + msg);
 		
 		Thread threadEnviaMensagem1 = new Thread(enviaMensagemConvidado);
 		enviaMensagemConvidado.setMensagem(msg);
@@ -83,8 +84,26 @@ public class Partida {
 		
 		mensagem.setTag(TAG.STARTGAMECRIADOR);
 		msg = serializa.serializar(mensagem);
+		System.out.println("Enviando: " + msg);
 		Thread threadEnviaMensagem2 = new Thread(enviaMensagemCriadorPartida);
 		enviaMensagemCriadorPartida.setMensagem(msg);
 		threadEnviaMensagem2.start();
+	}
+
+	public void finalPartida(String apelido) {
+		Mensagem mensagem = new Mensagem(TAG.WONGAME);
+		String msg = serializa.serializar(mensagem);
+	
+		System.out.println("Enviando: " + msg);
+		
+		Thread enviarFinalPartida = null;
+		if (criadorPartida.getApelido().equals(apelido)) {
+			enviaMensagemConvidado.setMensagem(msg);
+			enviarFinalPartida = new Thread(enviaMensagemConvidado);
+		} else {
+			enviaMensagemCriadorPartida.setMensagem(msg);
+			enviarFinalPartida = new Thread(enviaMensagemCriadorPartida);
+		}
+		enviarFinalPartida.start();
 	}
 }
