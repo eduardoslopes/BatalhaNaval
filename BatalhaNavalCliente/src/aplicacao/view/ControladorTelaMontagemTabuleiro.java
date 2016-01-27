@@ -123,7 +123,6 @@ public class ControladorTelaMontagemTabuleiro implements Initializable, Observad
 			public void handle(ActionEvent event) {
 
 				int tamanho = embarcacao_selecionada.tamanho();
-				System.out.println("Tamanho: " + tamanho);
 				boolean horizontal = cbOrientacao.getValue().equals("Horizontal");
 				int posX = cbPosX.getValue() - 1;
 				int posY = cbPosY.getValue() - 1;
@@ -207,7 +206,6 @@ public class ControladorTelaMontagemTabuleiro implements Initializable, Observad
 					break;
 				case PORTA_AVIOES:
 					if (qtdTotalPortaAvioes > 0) {
-						System.out.println("Entrou em PORTA_AVIOES");
 						Embarcacao portaAvioes = new PortaAvioes(tamanho, horizontal, posX, posY,
 								tabuleiro);
 						tabuleiro.addEmbarcacao(portaAvioes);
@@ -221,7 +219,6 @@ public class ControladorTelaMontagemTabuleiro implements Initializable, Observad
 					}
 					break;
 				default:
-					System.out.println("fsdffsda");
 					Alert alert = new Alert(AlertType.WARNING);
 					alert.setHeaderText("Embarcação não selecionada!");
 					alert.setContentText("Selecione uma das embarcações listadas.");

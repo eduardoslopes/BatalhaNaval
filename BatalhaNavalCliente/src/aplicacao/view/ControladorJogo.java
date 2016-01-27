@@ -48,7 +48,6 @@ public class ControladorJogo implements Initializable, ObservadorJogo {
 	public void initialize(URL location, ResourceBundle resources) {
 
 		ctrlcomunicacao = ControladorTelaInicial.ctrlComunicacao;
-		System.out.println("observerJogo");
 		ctrlcomunicacao.getInterpretador().setObserverJogo(this);
 
 		apelidoJogador = ctrlcomunicacao.getJogador().getApelido();
@@ -246,7 +245,7 @@ public class ControladorJogo implements Initializable, ObservadorJogo {
 						}
 					});
 				}
-				ctrlcomunicacao.fechar();
+				//ctrlcomunicacao.fechar();
 				TelaJogo.getStage().close();				
 			}
 		});
@@ -266,7 +265,7 @@ public class ControladorJogo implements Initializable, ObservadorJogo {
 		if (btnSelecionado.isPresent()) {
 			if (btnSelecionado.get() == btnSim) {
 				
-				ctrlcomunicacao.fechar();
+//				ctrlcomunicacao.fechar();
 				TelaJogo.getStage().close();
 				
 				Platform.runLater(() -> {

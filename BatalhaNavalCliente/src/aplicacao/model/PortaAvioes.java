@@ -4,12 +4,10 @@ public class PortaAvioes extends Embarcacao {
 
 	public PortaAvioes(int tamanho, boolean horizontal, int posX, int posY, Tabuleiro tabuleiro) {
 		super(tamanho, horizontal, posX, posY, tabuleiro);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void desenhar() {
-		// TODO Auto-generated method stub
 		if (isHorizontal()) {
 			getCelulas().get(0).setImgPath("/img/porta_aviao1.png");
 			getCelulas().get(1).setImgPath("/img/porta_aviao2.png");
