@@ -6,7 +6,7 @@ import java.net.Socket;
 
 import aplicacao.model.Mensagem;
 
-public class Enviar implements Runnable {
+public class Enviar {
 
 	private Socket cliente;
 	private Mensagem msg;
@@ -19,15 +19,13 @@ public class Enviar implements Runnable {
 		this.msg = msg;
 	}
 
-	@Override
+	
 	public void run() {
 
 		String mensagem = serializador.serializar(msg);
 
 		PrintStream saidaServidor;
 		try {
-
-			Thread.sleep(100);
 			
 			saidaServidor = new PrintStream(cliente.getOutputStream());
 			
@@ -35,8 +33,6 @@ public class Enviar implements Runnable {
 			
 			saidaServidor.println(mensagem);
 		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 

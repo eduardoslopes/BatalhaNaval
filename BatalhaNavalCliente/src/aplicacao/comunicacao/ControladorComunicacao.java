@@ -47,8 +47,7 @@ public class ControladorComunicacao implements ObserverReceber {
 	public void enviarMensagem(Mensagem mensagem) {
 
 		Enviar enviar = new Enviar(cliente, mensagem);
-		Thread enviarThread = new Thread(enviar);
-		enviarThread.start();
+		enviar.run();
 	}
 
 	@Override
