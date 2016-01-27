@@ -292,13 +292,14 @@ public class ControladorTelaMontagemTabuleiro implements Initializable, Observad
 
 			@Override
 			public void handle(ActionEvent event) {
-				int qtdEmbarcacoesRestantes = qtdTotalPatrulhas + qtdTotalSubmarinos +
-						qtdTotalEncouracados + qtdTotalPortaAvioes;
+
+				int qtdEmbarcacoesRestantes = qtdTotalPatrulhas + qtdTotalSubmarinos
+						+ qtdTotalEncouracados + qtdTotalPortaAvioes;
 				if (qtdEmbarcacoesRestantes > 0) {
 					Alert alert = new Alert(AlertType.ERROR);
 					alert.setHeaderText("Ainda faltam embarcações no tabuleiro!");
-					alert.setContentText("Adicione mais " + qtdEmbarcacoesRestantes + 
-							"embarcações no seu tabuleiro para poder jogar.");
+					alert.setContentText("Adicione mais " + qtdEmbarcacoesRestantes
+							+ "embarcações no seu tabuleiro para poder jogar.");
 					alert.show();
 				} else {
 					ComunicaoTelaMontagemTelaJogo.tabuleiro = tabuleiro;
@@ -306,10 +307,13 @@ public class ControladorTelaMontagemTabuleiro implements Initializable, Observad
 					alert.setHeaderText("Tabuleiro Enviado com sucesso!");
 					alert.setContentText("Você está pronto para a partida!");
 					alert.show();
-				
-					String apelido = ControladorTelaInicial.ctrlComunicacao.getJogador().getApelido();
-					String nomePartida = ControladorTelaInicial.ctrlComunicacao.getPartida().getPartida();
-					Mensagem mensagem = new Mensagem.MontadorMensagem(TAG.READY).jogador(apelido).nomePartida(nomePartida).build();
+
+					String apelido = ControladorTelaInicial.ctrlComunicacao.getJogador()
+							.getApelido();
+					String nomePartida = ControladorTelaInicial.ctrlComunicacao.getPartida()
+							.getPartida();
+					Mensagem mensagem = new Mensagem.MontadorMensagem(TAG.READY).jogador(apelido)
+							.nomePartida(nomePartida).build();
 					ControladorTelaInicial.ctrlComunicacao.enviarMensagem(mensagem);
 				}
 			}
