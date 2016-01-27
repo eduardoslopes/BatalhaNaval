@@ -5,13 +5,36 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="painel" prefHeight="500.0" prefWidth="360.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="aplicacao.view.ControladorTelaInicial">
+<AnchorPane fx:id="painel" prefHeight="500.0" prefWidth="360.0"
+		xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="aplicacao.view.ControladorTelaInicial">
 		<children>
-				<Label layoutX="14.0" layoutY="56.0" style="-fx-font-size: 18; -fx-font-weight: bold;" text="Partidas Disponiveis" AnchorPane.leftAnchor="90.0" AnchorPane.rightAnchor="90.0" AnchorPane.topAnchor="45.0" />
-				<Button fx:id="btnIniciarPartida" layoutX="10.0" layoutY="451.0" mnemonicParsing="false" onAction="#iniciarPartida" prefHeight="35.0" prefWidth="100.0" text="Iniciar Partida" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" />
-				<Button fx:id="btnCriarPartida" layoutX="130.0" layoutY="445.0" mnemonicParsing="false" onAction="#criarPartida" prefHeight="35.0" prefWidth="100.0" text="Criar Partida" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="130.0" AnchorPane.rightAnchor="130.0" />
-				<Button fx:id="btnAtualizar" layoutX="240.0" layoutY="445.0" mnemonicParsing="false" onAction="#atualizarLista" prefHeight="35.0" prefWidth="100.0" text="Atualizar" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0" />
-				<MenuBar layoutX="20.0" layoutY="2.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+				<Label layoutX="14.0" layoutY="56.0" style="-fx-font-size: 18; -fx-font-weight: bold;"
+						text="Partidas Disponiveis" AnchorPane.leftAnchor="90.0" AnchorPane.rightAnchor="90.0"
+						AnchorPane.topAnchor="45.0" />
+				<Button fx:id="btnIniciarPartida" layoutX="10.0" layoutY="451.0"
+						mnemonicParsing="false" onAction="#iniciarPartida" prefHeight="35.0" prefWidth="100.0"
+						text="Iniciar Partida" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0">
+						<tooltip>
+								<Tooltip text="Iniciar uma partida da lista" />
+						</tooltip>
+				</Button>
+				<Button fx:id="btnCriarPartida" layoutX="130.0" layoutY="445.0"
+						mnemonicParsing="false" onAction="#criarPartida" prefHeight="35.0" prefWidth="100.0"
+						text="Criar Partida" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="130.0"
+						AnchorPane.rightAnchor="130.0">
+						<tooltip>
+								<Tooltip text="Criar uma nova partida" />
+						</tooltip>
+				</Button>
+				<Button fx:id="btnAtualizar" layoutX="240.0" layoutY="445.0" mnemonicParsing="false"
+						onAction="#atualizarLista" prefHeight="35.0" prefWidth="100.0" text="Atualizar"
+						AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0">
+						<tooltip>
+								<Tooltip text="Atualizar Lista de Partidas" />
+						</tooltip>
+				</Button>
+				<MenuBar layoutX="20.0" layoutY="2.0" AnchorPane.leftAnchor="0.0"
+						AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 						<menus>
 								<Menu mnemonicParsing="false" text="Partida">
 										<items>
@@ -32,19 +55,26 @@
 								</Menu>
 						</menus>
 				</MenuBar>
-				<TableView fx:id="listaPartidas" layoutX="-20.0" layoutY="121.0" prefHeight="350.0" prefWidth="320.0" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="80.0">
+				<TableView fx:id="listaPartidas" layoutX="-20.0" layoutY="121.0" prefHeight="350.0"
+						prefWidth="320.0" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="20.0"
+						AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="80.0">
 						<columns>
-								<TableColumn fx:id="colunaJogador" editable="false" minWidth="-1.0" prefWidth="150.0" text="Nick do Jogador" />
-								<TableColumn fx:id="colunaPartida" editable="false" minWidth="-1.0" prefWidth="170.0" text="Nome da Partida" />
+								<TableColumn fx:id="colunaJogador" editable="false" minWidth="-1.0"
+										prefWidth="150.0" text="Nick do Jogador" />
+								<TableColumn fx:id="colunaPartida" editable="false" minWidth="-1.0"
+										prefWidth="170.0" text="Nome da Partida" />
 						</columns>
 						<contextMenu>
 								<ContextMenu fx:id="contextoLista">
 										<items>
-												<MenuItem fx:id="iniciarPartida" mnemonicParsing="false" onAction="#iniciarPartida" text="Iniciar Partida" />
+												<MenuItem fx:id="iniciarPartida" mnemonicParsing="false" onAction="#iniciarPartida"
+														text="Iniciar Partida" />
 										</items>
 								</ContextMenu>
 						</contextMenu>
+						<tooltip>
+								<Tooltip text="Lista de partidas disponiveis" />
+						</tooltip>
 				</TableView>
 		</children>
 </AnchorPane>
-

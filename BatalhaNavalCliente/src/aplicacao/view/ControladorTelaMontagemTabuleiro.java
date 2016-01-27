@@ -19,8 +19,6 @@ import aplicacao.model.Tabuleiro;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -31,7 +29,6 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
@@ -117,208 +114,188 @@ public class ControladorTelaMontagemTabuleiro implements Initializable, Observad
 			}
 		}
 
-		btnInserirEmbarcacao.setOnAction(new EventHandler<ActionEvent>() {
+		btnInserirEmbarcacao.setOnAction(event -> {
 
-			@Override
-			public void handle(ActionEvent event) {
+			int tamanho = embarcacao_selecionada.tamanho();
+			boolean horizontal = cbOrientacao.getValue().equals("Horizontal");
+			int posX = cbPosX.getValue() - 1;
+			int posY = cbPosY.getValue() - 1;
 
-				int tamanho = embarcacao_selecionada.tamanho();
-				boolean horizontal = cbOrientacao.getValue().equals("Horizontal");
-				int posX = cbPosX.getValue() - 1;
-				int posY = cbPosY.getValue() - 1;
+			if (horizontal && posX + tamanho > 10 || !horizontal && posY + tamanho > 10) {
+				Alert alert1 = new Alert(AlertType.ERROR);
+				alert1.setHeaderText("Embarcação ultrapassa os limites do tabuleiro");
+				alert1.setContentText("Insira a embarcação em uma posição válida");
+				alert1.show();
+				return;
+			}
 
-				if (horizontal && posX + tamanho > 10 || !horizontal && posY + tamanho > 10) {
-					Alert alert = new Alert(AlertType.ERROR);
-					alert.setHeaderText("Embarcação ultrapassa os limites do tabuleiro");
-					alert.setContentText("Insira a embarcação em uma posição válida");
-					alert.show();
+			if (horizontal) {
+				for (int i1 = posX; i1 <= tamanho; ++i1) {
+					if (tabuleiro.getCelulas().get(i1).get(posY).isPreenchido()) {
+						Alert alert2 = new Alert(AlertType.ERROR);
+						alert2.setHeaderText(
+								"Embarcação já existente na faixa de células escolhida");
+						alert2.setContentText("Insira a embarcação em uma posição válida");
+						alert2.show();
+						return;
+					}
+				}
+			} else {
+				for (int i2 = posY; i2 <= tamanho; ++i2) {
+					if (tabuleiro.getCelulas().get(posX).get(i2).isPreenchido()) {
+						Alert alert3 = new Alert(AlertType.ERROR);
+						alert3.setHeaderText(
+								"Embarcação já existente na faixa de células escolhida");
+						alert3.setContentText("Insira a embarcação em uma posição válida");
+						alert3.show();
+						return;
+					}
+				}
+			}
+
+			switch (embarcacao_selecionada) {
+			case PATRULHA:
+				if (qtdTotalPatrulhas > 0) {
+					Embarcacao patrulha = new Patrulha(tamanho, horizontal, posX, posY,
+							tabuleiro);
+					tabuleiro.addEmbarcacao(patrulha);
+					patrulha.desenhar();
+					--qtdTotalPatrulhas;
+				} else {
+					Alert alert4 = new Alert(AlertType.ERROR);
+					alert4.setHeaderText("Total de Embarcações já inserido!");
+					alert4.setContentText("Remova uma patrulha para poder re-inserir");
+					alert4.show();
 					return;
 				}
-
-				if (horizontal) {
-					for (int i = posX; i <= tamanho; ++i) {
-						if (tabuleiro.getCelulas().get(i).get(posY).isPreenchido()) {
-							Alert alert = new Alert(AlertType.ERROR);
-							alert.setHeaderText(
-									"Embarcação já existente na faixa de células escolhida");
-							alert.setContentText("Insira a embarcação em uma posição válida");
-							alert.show();
-							return;
-						}
-					}
+				break;
+			case SUBMARINO:
+				if (qtdTotalSubmarinos > 0) {
+					Embarcacao submarino = new Submarino(tamanho, horizontal, posX, posY,
+							tabuleiro);
+					tabuleiro.addEmbarcacao(submarino);
+					submarino.desenhar();
+					--qtdTotalSubmarinos;
 				} else {
-					for (int i = posY; i <= tamanho; ++i) {
-						if (tabuleiro.getCelulas().get(posX).get(i).isPreenchido()) {
-							Alert alert = new Alert(AlertType.ERROR);
-							alert.setHeaderText(
-									"Embarcação já existente na faixa de células escolhida");
-							alert.setContentText("Insira a embarcação em uma posição válida");
-							alert.show();
-							return;
-						}
-					}
+					Alert alert5 = new Alert(AlertType.ERROR);
+					alert5.setHeaderText("Total de Embarcações já inserido!");
+					alert5.setContentText("Remova um submarino para poder re-inserir");
+					alert5.show();
+					return;
 				}
-
-				switch (embarcacao_selecionada) {
-				case PATRULHA:
-					if (qtdTotalPatrulhas > 0) {
-						Embarcacao patrulha = new Patrulha(tamanho, horizontal, posX, posY,
-								tabuleiro);
-						tabuleiro.addEmbarcacao(patrulha);
-						patrulha.desenhar();
-						--qtdTotalPatrulhas;
-					} else {
-						Alert alert = new Alert(AlertType.ERROR);
-						alert.setHeaderText("Total de Embarcações já inserido!");
-						alert.setContentText("Remova uma patrulha para poder re-inserir");
-						alert.show();
-						return;
-					}
-					break;
-				case SUBMARINO:
-					if (qtdTotalSubmarinos > 0) {
-						Embarcacao submarino = new Submarino(tamanho, horizontal, posX, posY,
-								tabuleiro);
-						tabuleiro.addEmbarcacao(submarino);
-						submarino.desenhar();
-						--qtdTotalSubmarinos;
-					} else {
-						Alert alert = new Alert(AlertType.ERROR);
-						alert.setHeaderText("Total de Embarcações já inserido!");
-						alert.setContentText("Remova um submarino para poder re-inserir");
-						alert.show();
-						return;
-					}
-					break;
-				case ENCOURACADO:
-					if (qtdTotalEncouracados > 0) {
-						Embarcacao encouracado = new Encouracado(tamanho, horizontal, posX, posY,
-								tabuleiro);
-						tabuleiro.addEmbarcacao(encouracado);
-						encouracado.desenhar();
-						--qtdTotalEncouracados;
-					} else {
-						Alert alert = new Alert(AlertType.ERROR);
-						alert.setHeaderText("Total de Embarcações já inserido!");
-						alert.setContentText("Remova um encouraçado para poder re-inserir");
-						alert.show();
-					}
-					break;
-				case PORTA_AVIOES:
-					if (qtdTotalPortaAvioes > 0) {
-						Embarcacao portaAvioes = new PortaAvioes(tamanho, horizontal, posX, posY,
-								tabuleiro);
-						tabuleiro.addEmbarcacao(portaAvioes);
-						portaAvioes.desenhar();
-						--qtdTotalPortaAvioes;
-					} else {
-						Alert alert = new Alert(AlertType.ERROR);
-						alert.setHeaderText("Total de Embarcações já inserido!");
-						alert.setContentText("Remova um porta-avião para poder re-inserir");
-						alert.show();
-					}
-					break;
-				default:
-					Alert alert = new Alert(AlertType.WARNING);
-					alert.setHeaderText("Embarcação não selecionada!");
-					alert.setContentText("Selecione uma das embarcações listadas.");
-					alert.show();
-					break;
-				}
-				atualizarTabuleiro();
-			}
-		});
-
-		imgPortaAvioes.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
-			@Override
-			public void handle(MouseEvent event) {
-
-				embarcacao_selecionada = EMBARCACAO_SELECIONADA.PORTA_AVIOES;
-				imgPortaAvioes.setEffect(new DropShadow(20, Color.DARKBLUE));
-				imgEncouracado.setEffect(null);
-				imgSubmarino.setEffect(null);
-				imgPatrulha.setEffect(null);
-			}
-		});
-
-		imgEncouracado.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
-			@Override
-			public void handle(MouseEvent event) {
-
-				embarcacao_selecionada = EMBARCACAO_SELECIONADA.ENCOURACADO;
-				imgPortaAvioes.setEffect(null);
-				imgEncouracado.setEffect(new DropShadow(20, Color.DARKBLUE));
-				imgSubmarino.setEffect(null);
-				imgPatrulha.setEffect(null);
-			}
-		});
-
-		imgSubmarino.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
-			@Override
-			public void handle(MouseEvent event) {
-
-				embarcacao_selecionada = EMBARCACAO_SELECIONADA.SUBMARINO;
-				imgPortaAvioes.setEffect(null);
-				imgEncouracado.setEffect(null);
-				imgSubmarino.setEffect(new DropShadow(20, Color.DARKBLUE));
-				imgPatrulha.setEffect(null);
-			}
-		});
-
-		imgPatrulha.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
-			@Override
-			public void handle(MouseEvent event) {
-
-				embarcacao_selecionada = EMBARCACAO_SELECIONADA.PATRULHA;
-				imgPortaAvioes.setEffect(null);
-				imgEncouracado.setEffect(null);
-				imgSubmarino.setEffect(null);
-				imgPatrulha.setEffect(new DropShadow(20, Color.DARKBLUE));
-			}
-		});
-
-		btnPronto.setOnAction(new EventHandler<ActionEvent>() {
-
-			@Override
-			public void handle(ActionEvent event) {
-
-				int qtdEmbarcacoesRestantes = qtdTotalPatrulhas + qtdTotalSubmarinos
-						+ qtdTotalEncouracados + qtdTotalPortaAvioes;
-				if (qtdEmbarcacoesRestantes > 0) {
-					Alert alert = new Alert(AlertType.ERROR);
-					alert.setHeaderText("Ainda faltam embarcações no tabuleiro!");
-					alert.setContentText("Adicione mais " + qtdEmbarcacoesRestantes
-							+ "embarcações no seu tabuleiro para poder jogar.");
-					alert.show();
+				break;
+			case ENCOURACADO:
+				if (qtdTotalEncouracados > 0) {
+					Embarcacao encouracado = new Encouracado(tamanho, horizontal, posX, posY,
+							tabuleiro);
+					tabuleiro.addEmbarcacao(encouracado);
+					encouracado.desenhar();
+					--qtdTotalEncouracados;
 				} else {
-					ComunicaoTelaMontagemTelaJogo.tabuleiro = tabuleiro;
-					
-					Alert alert = new Alert(AlertType.CONFIRMATION);
-					alert.setHeaderText("Você está pronto para a partida?");
-					alert.setContentText(null);
-					
-					ButtonType btnSim = new ButtonType("Sim");
-					ButtonType btnNao = new ButtonType("Nao", ButtonData.CANCEL_CLOSE);
-					alert.getButtonTypes().setAll(btnSim, btnNao);
-					
-					Optional<ButtonType> btnSelecionado = alert.showAndWait();
-					if (btnSelecionado.isPresent()) {
-						if (btnSelecionado.get() == btnSim) {
-							String apelido = ctrlComunicacao.getJogador()
-									.getApelido();
-							String nomePartida = ctrlComunicacao.getPartida()
-									.getPartida();
-							Mensagem mensagem = new Mensagem.MontadorMensagem(TAG.READY).jogador(apelido)
-									.nomePartida(nomePartida).build();
-							ctrlComunicacao.enviarMensagem(mensagem);
-						}
+					Alert alert6 = new Alert(AlertType.ERROR);
+					alert6.setHeaderText("Total de Embarcações já inserido!");
+					alert6.setContentText("Remova um encouraçado para poder re-inserir");
+					alert6.show();
+				}
+				break;
+			case PORTA_AVIOES:
+				if (qtdTotalPortaAvioes > 0) {
+					Embarcacao portaAvioes = new PortaAvioes(tamanho, horizontal, posX, posY,
+							tabuleiro);
+					tabuleiro.addEmbarcacao(portaAvioes);
+					portaAvioes.desenhar();
+					--qtdTotalPortaAvioes;
+				} else {
+					Alert alert7 = new Alert(AlertType.ERROR);
+					alert7.setHeaderText("Total de Embarcações já inserido!");
+					alert7.setContentText("Remova um porta-avião para poder re-inserir");
+					alert7.show();
+				}
+				break;
+			default:
+				Alert alert8 = new Alert(AlertType.WARNING);
+				alert8.setHeaderText("Embarcação não selecionada!");
+				alert8.setContentText("Selecione uma das embarcações listadas.");
+				alert8.show();
+				break;
+			}
+			atualizarTabuleiro();
+		});
+
+		imgPortaAvioes.setOnMouseClicked(event -> {
+
+			embarcacao_selecionada = EMBARCACAO_SELECIONADA.PORTA_AVIOES;
+			imgPortaAvioes.setEffect(new DropShadow(20, Color.DARKBLUE));
+			imgEncouracado.setEffect(null);
+			imgSubmarino.setEffect(null);
+			imgPatrulha.setEffect(null);
+		});
+
+		imgEncouracado.setOnMouseClicked(event -> {
+
+			embarcacao_selecionada = EMBARCACAO_SELECIONADA.ENCOURACADO;
+			imgPortaAvioes.setEffect(null);
+			imgEncouracado.setEffect(new DropShadow(20, Color.DARKBLUE));
+			imgSubmarino.setEffect(null);
+			imgPatrulha.setEffect(null);
+		});
+
+		imgSubmarino.setOnMouseClicked(e -> {
+
+			embarcacao_selecionada = EMBARCACAO_SELECIONADA.SUBMARINO;
+			imgPortaAvioes.setEffect(null);
+			imgEncouracado.setEffect(null);
+			imgSubmarino.setEffect(new DropShadow(20, Color.DARKBLUE));
+			imgPatrulha.setEffect(null);
+		});
+
+		imgPatrulha.setOnMouseClicked(e -> {
+
+			embarcacao_selecionada = EMBARCACAO_SELECIONADA.PATRULHA;
+			imgPortaAvioes.setEffect(null);
+			imgEncouracado.setEffect(null);
+			imgSubmarino.setEffect(null);
+			imgPatrulha.setEffect(new DropShadow(20, Color.DARKBLUE));
+		});
+
+		btnPronto.setOnAction(e -> {
+
+			int qtdEmbarcacoesRestantes = qtdTotalPatrulhas + qtdTotalSubmarinos
+					+ qtdTotalEncouracados + qtdTotalPortaAvioes;
+			if (qtdEmbarcacoesRestantes > 0) {
+				Alert alert1 = new Alert(AlertType.ERROR);
+				alert1.setHeaderText("Ainda faltam embarcações no tabuleiro!");
+				alert1.setContentText("Adicione mais " + qtdEmbarcacoesRestantes
+						+ "embarcações no seu tabuleiro para poder jogar.");
+				alert1.show();
+			} else {
+				ComunicaoTelaMontagemTelaJogo.tabuleiro = tabuleiro;
+				
+				Alert alert2 = new Alert(AlertType.CONFIRMATION);
+				alert2.setHeaderText("Você está pronto para a partida?");
+				alert2.setContentText(null);
+				
+				ButtonType btnSim = new ButtonType("Sim");
+				ButtonType btnNao = new ButtonType("Nao", ButtonData.CANCEL_CLOSE);
+				alert2.getButtonTypes().setAll(btnSim, btnNao);
+				
+				Optional<ButtonType> btnSelecionado = alert2.showAndWait();
+				if (btnSelecionado.isPresent()) {
+					if (btnSelecionado.get() == btnSim) {
+						String apelido = ctrlComunicacao.getJogador()
+								.getApelido();
+						String nomePartida = ctrlComunicacao.getPartida()
+								.getPartida();
+						Mensagem mensagem = new Mensagem.MontadorMensagem(TAG.READY).jogador(apelido)
+								.nomePartida(nomePartida).build();
+						ctrlComunicacao.enviarMensagem(mensagem);
 					}
 				}
 			}
+		});
+		
+		TelaMontagemTabuleiro.getStage().setOnCloseRequest(e -> {
+			
 		});
 	}
 
