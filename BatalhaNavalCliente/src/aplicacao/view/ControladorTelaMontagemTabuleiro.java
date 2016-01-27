@@ -3,6 +3,7 @@ package aplicacao.view;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import aplicacao.comunicacao.ControladorComunicacao;
@@ -25,6 +26,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
@@ -226,7 +229,6 @@ public class ControladorTelaMontagemTabuleiro implements Initializable, Observad
 					break;
 				}
 				atualizarTabuleiro();
-				tabuleiro.imprimir();
 			}
 		});
 
@@ -297,22 +299,30 @@ public class ControladorTelaMontagemTabuleiro implements Initializable, Observad
 					alert.show();
 				} else {
 					ComunicaoTelaMontagemTelaJogo.tabuleiro = tabuleiro;
+					
 					Alert alert = new Alert(AlertType.CONFIRMATION);
-					alert.setHeaderText("Tabuleiro Enviado com sucesso!");
-					alert.setContentText("Você está pronto para a partida!");
-					alert.show();
-
-					String apelido = ControladorTelaInicial.ctrlComunicacao.getJogador()
-							.getApelido();
-					String nomePartida = ControladorTelaInicial.ctrlComunicacao.getPartida()
-							.getPartida();
-					Mensagem mensagem = new Mensagem.MontadorMensagem(TAG.READY).jogador(apelido)
-							.nomePartida(nomePartida).build();
-					ControladorTelaInicial.ctrlComunicacao.enviarMensagem(mensagem);
+					alert.setHeaderText("Você está pronto para a partida?");
+					alert.setContentText(null);
+					
+					ButtonType btnSim = new ButtonType("Sim");
+					ButtonType btnNao = new ButtonType("Nao", ButtonData.CANCEL_CLOSE);
+					alert.getButtonTypes().setAll(btnSim, btnNao);
+					
+					Optional<ButtonType> btnSelecionado = alert.showAndWait();
+					if (btnSelecionado.isPresent()) {
+						if (btnSelecionado.get() == btnSim) {
+							String apelido = ctrlComunicacao.getJogador()
+									.getApelido();
+							String nomePartida = ctrlComunicacao.getPartida()
+									.getPartida();
+							Mensagem mensagem = new Mensagem.MontadorMensagem(TAG.READY).jogador(apelido)
+									.nomePartida(nomePartida).build();
+							ctrlComunicacao.enviarMensagem(mensagem);
+						}
+					}
 				}
 			}
 		});
-
 	}
 
 	private void atualizarTabuleiro() {
@@ -328,6 +338,8 @@ public class ControladorTelaMontagemTabuleiro implements Initializable, Observad
 	public void criarTelaJogo() {
 
 		Platform.runLater(() -> {
+			TelaMontagemTabuleiro.getStage().close();
+			
 			TelaJogo telaJogo = new TelaJogo();
 			try {
 				telaJogo.start(new Stage());
