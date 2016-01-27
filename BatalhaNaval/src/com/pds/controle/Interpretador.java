@@ -18,14 +18,18 @@ public abstract class Interpretador {
 		case TAG.SEEGAMES:
 			seeg(jogador);
 			break;
+		case TAG.READY:
+			ready(mensagem.getApelidoJogador(), mensagem.getNomePartida());
+			break;
 		default:
 			comunicaCliente(mensagem);
 			break;
 		}
 	}
 
-	public abstract void create(String nome, String nomePartida, Socket jogador);
-	public abstract void conect(String nome, String nomePartida, Socket jogador);
+	public abstract void create(String apelido, String nomePartida, Socket jogador);
+	public abstract void conect(String apelido, String nomePartida, Socket jogador);
 	public abstract void seeg(Socket jogador);
 	public abstract void comunicaCliente(Mensagem mensagem);
+	public abstract void ready(String apelido, String nomePartida);
 }

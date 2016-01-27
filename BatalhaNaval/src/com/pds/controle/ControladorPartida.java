@@ -23,11 +23,11 @@ public class ControladorPartida {
 		Jogador novoJogador = new Jogador(apelido, socketJogador);
 		Partida partida = partidas.getPartidaEmEspera(nomePartida);
 		partidas.adicionaJogadorPartida(novoJogador, partida.getNomePartida());
-		iniciarPartida(partida);
+		montarTabuleiro(partida);
 	}
 	
-	private void iniciarPartida(Partida novaPartida) {
-		novaPartida.enviarMensagemInicioPartida();
+	private void montarTabuleiro(Partida novaPartida) {
+		novaPartida.enviarMensagemMontarTabuleiro();
 	}
 	
 	public void encaminhaMensagem(String apelidoRemetente, String mensagem, String nomePartida) {
@@ -37,5 +37,10 @@ public class ControladorPartida {
 	
 	public List<Partida> getListaPartidasEmEspera() {
 		return partidas.getPartidasEmEspera();
+	}
+
+	public void jogadorPronto(String apelido, String nomePartida) {
+		Partida partida = partidas.getPartidaIniciada(nomePartida);
+		partida.setJogadorPronto(apelido);
 	}
 }

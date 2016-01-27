@@ -14,13 +14,13 @@ public class InterpretadorMensagem extends Interpretador {
 	}
 
 	@Override
-	public void create(String nome, String nomePartida, Socket sockJogador) {
-		distribuidor.criarPartida(nome, nomePartida, sockJogador);
+	public void create(String apelido, String nomePartida, Socket sockJogador) {
+		distribuidor.criarPartida(apelido, nomePartida, sockJogador);
 	}
 
 	@Override
-	public void conect(String nome, String nomePartida, Socket sockJogador) {
-		distribuidor.conectarPartida(nome, nomePartida, sockJogador);
+	public void conect(String apelido, String nomePartida, Socket sockJogador) {
+		distribuidor.conectarPartida(apelido, nomePartida, sockJogador);
 	}
 
 	@Override
@@ -30,9 +30,14 @@ public class InterpretadorMensagem extends Interpretador {
 
 	@Override
 	public void comunicaCliente(Mensagem mensagem) {
-		String nomeDono = mensagem.getApelidoJogador();
+		String apelidoDono = mensagem.getApelidoJogador();
 		String nomePartida = mensagem.getNomePartida();
 		String msg = serializador.serializar(mensagem);
-		distribuidor.enviaMensagemCliente(msg, nomeDono, nomePartida);		
+		distribuidor.enviaMensagemCliente(msg, apelidoDono, nomePartida);		
+	}
+
+	@Override
+	public void ready(String apelido, String nomePartida) {
+		distribuidor.jogadorPronto(apelido, nomePartida);
 	}
 }

@@ -2,6 +2,7 @@ package com.pds.controle;
 
 import com.pds.modelo.Jogador;
 import com.pds.modelo.Mensagem;
+import com.pds.modelo.TAG;
 
 public class Partida {
 
@@ -17,8 +18,8 @@ public class Partida {
 		this.enviaMensagemCriadorPartida = new MensageiroPartida(criadorPartida.getFluxoSaida());
 	}
 	
-	public void enviarMensagemInicioPartida() {
-		Mensagem mensagem = new Mensagem("STARTGAME", null);
+	public void enviarMensagemMontarTabuleiro() {
+		Mensagem mensagem = new Mensagem(TAG.CONECTGAME, null);
 		Serializador serializa = new Serializador();
 		String msg = serializa.serializar(mensagem);
 		
@@ -31,10 +32,6 @@ public class Partida {
 		threadEnviaMensagem2.start();
 	}
 	
-	/*
-	 * Envia mensagem entre os clientes
-	 * Tudo que for alterado em um lado da partida deverá ser atualizado no outro
-	 */
 	public void encaminharMensagem(String mensagem, String apelidoRemetente) {
 		try {
 			Thread threadEnviaMensagem = null;
@@ -62,5 +59,31 @@ public class Partida {
 	
 	public Jogador getCriadorPartida() {
 		return criadorPartida;
+	}
+
+	public void setJogadorPronto(String apelido) {
+		if (criadorPartida.getApelido().equals(apelido))
+			criadorPartida.setPronto(true);
+		else
+			convidado.setPronto(true);
+		
+		if (criadorPartida.getPronto() && convidado.getPronto())
+			iniciarPartida();
+	}
+	
+	private void iniciarPartida() {
+		Mensagem mensagem = new Mensagem(TAG.STARTGAMECONVIDADO, null);
+		Serializador serializa = new Serializador();
+		String msg = serializa.serializar(mensagem);
+		
+		Thread threadEnviaMensagem1 = new Thread(enviaMensagemConvidado);
+		enviaMensagemConvidado.setMensagem(msg);
+		threadEnviaMensagem1.start();
+		
+		mensagem.setTag(TAG.STARTGAMECRIADOR);
+		msg = serializa.serializar(mensagem);
+		Thread threadEnviaMensagem2 = new Thread(enviaMensagemCriadorPartida);
+		enviaMensagemCriadorPartida.setMensagem(msg);
+		threadEnviaMensagem2.start();
 	}
 }
