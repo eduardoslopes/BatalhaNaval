@@ -3,45 +3,92 @@ package com.pds.modelo;
 public class Mensagem {
 	
 	private String tag;
+	private Jogada jogada;
 	private String apelidoJogador;
 	private String nomePartida;
+	private String imgPath;
 	
-	public Mensagem(String tag, String apelidoJogador) {
-		this.tag = tag;
-		this.apelidoJogador = apelidoJogador;
+	public static class MontadorMensagem {
+		private final String tag;
+		private Jogada jogada;
+		private String apelidoJogador;
+		private String nomePartida;
+		private String imgPath;
+		
+		public MontadorMensagem(String TAG){
+			this.tag = TAG;
+		}
+		
+		public MontadorMensagem jogada(Jogada jogada){
+			this.jogada = jogada;
+			return this;
+		}
+		
+		public MontadorMensagem jogador(String apelidoJogador){
+			this.apelidoJogador = apelidoJogador;
+			return this;
+		}
+		
+		public MontadorMensagem nomePartida(String nomePartida){
+			this.nomePartida = nomePartida;
+			return this;
+		}
+		
+		public MontadorMensagem imgPath(String imgPath){
+			this.imgPath = imgPath;
+			return this;
+		}
+		
+		public Mensagem build(){
+			return new Mensagem(this);
+		}
+		
+		
 	}
 	
-	public Mensagem(String tag, String apelidoJogador, String nomePartida) {
-		this.tag = tag;
-		this.apelidoJogador = apelidoJogador;
-		this.nomePartida = nomePartida;
+	private Mensagem(MontadorMensagem montador){
+		tag = montador.tag;
+		jogada = montador.jogada;
+		nomePartida = montador.nomePartida;
+		apelidoJogador = montador.apelidoJogador;
+		imgPath = montador.imgPath;
 	}
 
-	public Mensagem(String tag) {
-		this.tag = tag;
+	public Mensagem(String conectgame) {
+		this.tag = conectgame;
+	}
+
+	public Jogada getJogada() {
+		return jogada;
+	}
+
+	public String getApelidoJogador() {
+		return apelidoJogador;
+	}
+
+	public String getNomePartida() {
+		return nomePartida;
 	}
 
 	public String getTag() {
 		return tag;
 	}
-
-	public void setApelidoJogador(String apelidoJogador) {
-		this.apelidoJogador = apelidoJogador;
-	}
-
-	public void setNomePartida(String nomePartida) {
-		this.nomePartida = nomePartida;
+	
+	
+	public String getImgPath() {
+		return imgPath;
 	}
 
 	public void setTag(String tag) {
 		this.tag = tag;
 	}
 
-	public String getApelidoJogador() {
-		return apelidoJogador;
+	public void setApelidoJogador(String apelido) {
+		this.apelidoJogador = apelido;
+	}
+
+	public void setNomePartida(String nomePartida) {
+		this.nomePartida = nomePartida;		
 	}
 	
-	public String getNomePartida() {
-		return nomePartida;
-	}
 }

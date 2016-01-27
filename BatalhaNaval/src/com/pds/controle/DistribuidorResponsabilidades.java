@@ -26,8 +26,8 @@ public class DistribuidorResponsabilidades {
 		t.start();
 	}
 
-	public void enviaMensagemCliente(String msg, String nomeDono, String nomePartida) {
-		cPartidas.encaminhaMensagem(nomeDono, msg, nomePartida);		
+	public void enviaMensagemCliente(String msg, String apelidoDono, String nomePartida) {
+		cPartidas.encaminhaMensagem(apelidoDono, msg, nomePartida);		
 	}
 
 	public void jogadorPronto(String apelido, String nomePartida) {

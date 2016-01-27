@@ -19,7 +19,7 @@ public class Partida {
 	}
 	
 	public void enviarMensagemMontarTabuleiro() {
-		Mensagem mensagem = new Mensagem(TAG.CONECTGAME, null);
+		Mensagem mensagem = new Mensagem(TAG.CONECTGAME);
 		Serializador serializa = new Serializador();
 		String msg = serializa.serializar(mensagem);
 		
@@ -33,6 +33,7 @@ public class Partida {
 	}
 	
 	public void encaminharMensagem(String mensagem, String apelidoRemetente) {
+		System.out.println("Encaminhando: " + mensagem);
 		try {
 			Thread threadEnviaMensagem = null;
 			if (criadorPartida.getApelido().equals(apelidoRemetente)) {
@@ -72,7 +73,7 @@ public class Partida {
 	}
 	
 	private void iniciarPartida() {
-		Mensagem mensagem = new Mensagem(TAG.STARTGAMECONVIDADO, null);
+		Mensagem mensagem = new Mensagem(TAG.STARTGAMECONVIDADO);
 		Serializador serializa = new Serializador();
 		String msg = serializa.serializar(mensagem);
 		
