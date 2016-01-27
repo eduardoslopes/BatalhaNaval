@@ -6,12 +6,14 @@ public class Mensagem {
 	private Jogada jogada;
 	private String apelidoJogador;
 	private String nomePartida;
+	private String imgPath;
 	
 	public static class MontadorMensagem {
 		private final String tag;
 		private Jogada jogada;
 		private String apelidoJogador;
 		private String nomePartida;
+		private String imgPath;
 		
 		public MontadorMensagem(String TAG){
 			this.tag = TAG;
@@ -32,6 +34,11 @@ public class Mensagem {
 			return this;
 		}
 		
+		public MontadorMensagem imgPath(String imgPath){
+			this.imgPath = imgPath;
+			return this;
+		}
+		
 		public Mensagem build(){
 			return new Mensagem(this);
 		}
@@ -44,6 +51,7 @@ public class Mensagem {
 		jogada = montador.jogada;
 		nomePartida = montador.nomePartida;
 		apelidoJogador = montador.apelidoJogador;
+		imgPath = montador.imgPath;
 	}
 
 	public Jogada getJogada() {
@@ -61,4 +69,10 @@ public class Mensagem {
 	public String getTag() {
 		return tag;
 	}
+	
+	
+	public String getImgPath() {
+		return imgPath;
+	}
+	
 }

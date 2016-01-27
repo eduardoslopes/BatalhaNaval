@@ -291,7 +291,7 @@ public class ControladorTelaMontagemTabuleiro implements Initializable, Observad
 				Alert alert = new Alert(AlertType.CONFIRMATION);
 				alert.setHeaderText("Tabuleiro Enviado com sucesso!");
 				alert.setContentText("Você está pronto para a partida!");
-				alert.show();
+				alert.showAndWait();
 				
 				String apelido = ControladorTelaInicial.ctrlComunicacao.getJogador().getApelido();
 				String nomePartida = ControladorTelaInicial.ctrlComunicacao.getPartida().getPartida();

@@ -4,7 +4,7 @@ public class InterpretadorMensagem extends Interpretador {
 
 	@Override
 	public void desconectarJogo() {
-		
+		observerJogo.desconectar();
 	}
 
 	@Override
@@ -22,17 +22,34 @@ public class InterpretadorMensagem extends Interpretador {
 	@Override
 	public void iniciaJogoConvidado() {
 		observerTabuleiro.criarTelaJogo();
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		observerJogo.setJogoComoConvidado();
 	}
 
 	@Override
 	public void iniciaJogoCriador() {
 		observerTabuleiro.criarTelaJogo();
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		observerJogo.setJogoComoCriador();
 	}
 
 	@Override
 	public void conectarJogo() {
-		
 		observerPartida.conectarJogo();
 	}
+
+	@Override
+	public void exibeResultado(String imgPath) {
+		observerJogo.exibeResultadoJogada(imgPath);
+	}
+
 
 }

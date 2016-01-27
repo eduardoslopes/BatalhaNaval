@@ -28,6 +28,7 @@ public abstract class Interpretador {
 		switch (msg.getTag()) {
 		case TAG.CONECTGAME:
 			conectarJogo();
+			break;
 		case TAG.DESCONECTGAME:
 			desconectarJogo();
 			break;
@@ -43,6 +44,9 @@ public abstract class Interpretador {
 		case TAG.STARTGAMECRIADOR:
 			iniciaJogoCriador();
 			break;
+		case TAG.RESULT:
+			exibeResultado(msg.getImgPath());
+			break;
 		}
 	}
 
@@ -57,5 +61,7 @@ public abstract class Interpretador {
 	public abstract void fazerJogada(Jogada jogada);
 
 	public abstract void verJogos(String apelido, String partida);
+	
+	public abstract void exibeResultado(String imgPath);
 
 }

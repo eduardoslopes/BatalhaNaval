@@ -10,5 +10,5 @@ public class TAG {
 	public static final String DESCONECTGAME = "DESCONECTGAME";
 	public static final String MOVEGAME = "MOVEGAME";
 	public static final String READY = "READY";
-	
+	public static final String RESULT = "RESULT";	
 }
