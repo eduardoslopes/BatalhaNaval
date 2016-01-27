@@ -2,7 +2,6 @@ package com.pds.modelo;
 
 import java.io.IOException;
 import java.io.PrintStream;
-import java.lang.reflect.GenericArrayType;
 import java.net.Socket;
 
 public class Jogador {
