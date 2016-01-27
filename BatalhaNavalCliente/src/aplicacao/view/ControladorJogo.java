@@ -58,6 +58,7 @@ public class ControladorJogo implements Initializable, ObservadorJogo {
 		tabuleiroMeu = ComunicaoTelaMontagemTelaJogo.tabuleiro;
 
 		atualizarTabuleiroInimigo();
+		inserirFundoMar(tabuleiroMeu, gridTabuleiroMeu);
 		atualizarTabuleiroMeu();
 		
 		TelaJogo.getStage().setOnCloseRequest(e -> {
@@ -313,7 +314,6 @@ public class ControladorJogo implements Initializable, ObservadorJogo {
 	}
 	
 	private void atualizarTabuleiroMeu() {
-		inserirFundoMar(tabuleiroMeu, gridTabuleiroMeu);
 		for (int i = 1; i <= tabuleiroMeu.getTamanho(); ++i) {
 			for (int j = 1; j <= tabuleiroMeu.getTamanho(); ++j) {
 
