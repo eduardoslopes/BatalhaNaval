@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="aplicacao.view.ControladorJogo">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="641.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="aplicacao.view.ControladorJogo">
 		<children>
 				<FlowPane prefHeight="680.0" prefWidth="1300.0">
 						<children>
@@ -301,7 +301,14 @@
                   </GridPane>
                </children>
       								</AnchorPane>
-            <AnchorPane prefHeight="90.0" prefWidth="1300.0" />
+            <AnchorPane prefHeight="90.0" prefWidth="1300.0">
+               <children>
+                  <Button layoutX="1192.0" layoutY="-5.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="88.0" text="Desistir">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Button>
+               </children></AnchorPane>
 						</children>
 				</FlowPane>
 		</children>

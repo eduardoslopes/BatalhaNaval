@@ -23,4 +23,19 @@ public class Encouracado extends Embarcacao {
 
 	}
 
+	@Override
+	public void desenharDestruida() {
+		if (isHorizontal()) {
+			getCelulas().get(0).setImgPath("/img/encouracado/encouracado1_dest.png");
+			getCelulas().get(1).setImgPath("/img/encouracado/encouracado2_dest.png");
+			getCelulas().get(2).setImgPath("/img/encouracado/encouracado3_dest.png");
+			getCelulas().get(3).setImgPath("/img/encouracado/encouracado4_dest.png");
+		} else {
+			getCelulas().get(0).setImgPath("/img/encouracado/encouracado_v4_dest.png");
+			getCelulas().get(1).setImgPath("/img/encouracado/encouracado_v3_dest.png");
+			getCelulas().get(2).setImgPath("/img/encouracado/encouracado_v2_dest.png");
+			getCelulas().get(3).setImgPath("/img/encouracado/encouracado_v1_dest.png");
+		} 
+	}
+
 }

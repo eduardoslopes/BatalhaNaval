@@ -81,5 +81,7 @@ public abstract class Embarcacao {
 	
 	public abstract void desenhar ();
 
+	public abstract void desenharDestruida();
+
 	
 }
