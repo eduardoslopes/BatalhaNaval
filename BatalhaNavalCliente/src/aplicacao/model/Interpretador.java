@@ -26,10 +26,10 @@ public abstract class Interpretador {
 	public void messageInterpreter(Mensagem msg) {
 
 		switch (msg.getTag()) {
-		case TAG.CONECTGAME:
+		case TAG.CONNECTGAME:
 			conectarJogo();
 			break;
-		case TAG.DESCONECTGAME:
+		case TAG.DISCONNECTGAME:
 			desconectarJogo();
 			break;
 		case TAG.MOVEGAME:
@@ -47,8 +47,16 @@ public abstract class Interpretador {
 		case TAG.RESULT:
 			exibeResultado(msg.getImgPath());
 			break;
+		case TAG.DESTROYED:
+			embarcacaoAfundada(msg.getJogada(), msg.getImgPath());
+			break;
+		case TAG.WONGAME:
+			ganhou();
+			break;
 		}
 	}
+
+	public abstract void embarcacaoAfundada(Jogada jogada, String imgPath);
 
 	public abstract void conectarJogo();
 
@@ -63,5 +71,7 @@ public abstract class Interpretador {
 	public abstract void verJogos(String apelido, String partida);
 	
 	public abstract void exibeResultado(String imgPath);
+	
+	public abstract void ganhou();
 
 }

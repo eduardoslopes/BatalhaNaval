@@ -51,5 +51,18 @@ public class InterpretadorMensagem extends Interpretador {
 		observerJogo.exibeResultadoJogada(imgPath);
 	}
 
+	@Override
+	public void ganhou() {
+
+		observerJogo.ganhou();
+		
+	}
+
+	@Override
+	public void embarcacaoAfundada(Jogada jogada, String imgPath) {
+
+		observerJogo.embarcacaoAfundada(jogada.getPosX(), jogada.getPosY(), imgPath);
+	}
+
 
 }

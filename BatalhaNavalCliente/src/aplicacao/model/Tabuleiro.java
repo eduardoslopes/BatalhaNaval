@@ -60,14 +60,4 @@ public class Tabuleiro {
 		}
 		return true;
 	}
-
-	public void imprimir() {
-		for (int i = 0; i < tamanho; ++i) {
-			for (int j = 0; j < tamanho; ++j) {
-				System.out.print(celulas.get(i).get(j).getImgPath() + " ");
-			}
-			System.out.println();
-		}
-		
-	}
 }

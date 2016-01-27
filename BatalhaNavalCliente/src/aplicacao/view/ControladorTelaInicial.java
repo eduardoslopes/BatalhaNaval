@@ -84,7 +84,7 @@ public class ControladorTelaInicial implements Initializable, ObservadorPartida 
 			ctrlComunicacao.setJogador(new Jogador(apelido));
 			ctrlComunicacao.setPartida(partidaSelecionada);
 			
-			Mensagem mensagem = new Mensagem.MontadorMensagem(TAG.CONECTGAME).jogador(apelido)
+			Mensagem mensagem = new Mensagem.MontadorMensagem(TAG.CONNECTGAME).jogador(apelido)
 					.nomePartida(partidaSelecionada.getPartida()).build();
 			ctrlComunicacao.enviarMensagem(mensagem);
 		}
@@ -175,6 +175,7 @@ public class ControladorTelaInicial implements Initializable, ObservadorPartida 
 	@Override
 	public void conectarJogo() {
 		Platform.runLater(() -> {
+			TelaInicial.getStage().close();
 			TelaMontagemTabuleiro telaMontagem = new TelaMontagemTabuleiro();
 			try {
 				telaMontagem.start(new Stage());

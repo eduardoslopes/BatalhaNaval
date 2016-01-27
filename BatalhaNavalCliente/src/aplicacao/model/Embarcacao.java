@@ -11,7 +11,6 @@ public abstract class Embarcacao {
 	private List<Celula> celulas;
 	
 	public Embarcacao(int tamanho, boolean horizontal, int posX, int posY, Tabuleiro tabuleiro) {
-		super();
 		this.tamanho = tamanho;
 		this.horizontal = horizontal;
 		this.posX = posX;
@@ -26,7 +25,6 @@ public abstract class Embarcacao {
 				getCelulas().add(tabuleiro.getCelulas().get(posX).get(posY + i));
 			}
 		}
-		
 		
 	}
 

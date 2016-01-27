@@ -9,5 +9,7 @@ public interface ObservadorJogo {
 	public void setJogoComoCriador();
 	public void exibeResultadoJogada(String imgPath);
 	public void desconectar();
+	public void embarcacaoAfundada(int posX, int posY, String imgPath);
+	public void ganhou();
 	
 }
