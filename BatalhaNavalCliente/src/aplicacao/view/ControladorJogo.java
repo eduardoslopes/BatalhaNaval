@@ -4,6 +4,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import aplicacao.comunicacao.ControladorComunicacao;
+import aplicacao.model.Celula;
+import aplicacao.model.Embarcacao;
 import aplicacao.model.Jogada;
 import aplicacao.model.Tabuleiro;
 import javafx.fxml.FXML;
@@ -54,9 +56,24 @@ public class ControladorJogo implements Initializable, ObservadorJogo {
 	}
 
 	@Override
-	public void novaJogada(Jogada jogada) {
-		
-		
+	public void novaJogada (Jogada jogada) {
+		boolean embarcacaoAtingida = false;
+		Celula celulaAtingida = tabuleiroMeu.getCelulas().get(jogada.getPosX()).get(jogada.getPosY());
+		celulaAtingida.setAtingido(true);
+		for (Embarcacao embarcacao : tabuleiroMeu.getEmbarcacoes()) {
+			for (Celula celula : embarcacao.getCelulas()) {
+				if(celula.equals(celulaAtingida)) {
+					if (embarcacao.isDestruida()) {
+						embarcacao.desenharDestruida ();
+					} else {
+						celula.setImgPath("/img/embarcacao_destruida.png");
+					}
+					embarcacaoAtingida = true;
+				}
+			}
+		}
+		if (!embarcacaoAtingida) {
+			celulaAtingida.setImgPath("/img/bomba.png");
+		}
 	}
-
 }

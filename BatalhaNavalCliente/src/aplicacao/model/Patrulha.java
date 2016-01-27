@@ -18,4 +18,18 @@ public class Patrulha extends Embarcacao {
 		}
 	}
 
+	@Override
+	public void desenharDestruida() {
+		if (isHorizontal()) {
+			getCelulas().get(0).setImgPath("/img/patrulha/patrulha1_dest.png");
+			getCelulas().get(1).setImgPath("/img/patrulha/patrulha2_dest.png");
+			getCelulas().get(2).setImgPath("/img/patrulha/patrulha3_dest.png");
+			getCelulas().get(3).setImgPath("/img/patrulha/patrulha4_dest.png");
+		} else {
+			getCelulas().get(0).setImgPath("/img/patrulha/patrulha_v4_dest.png");
+			getCelulas().get(1).setImgPath("/img/patrulha/patrulha_v3_dest.png");
+			getCelulas().get(2).setImgPath("/img/patrulha/patrulha_v2_dest.png");
+			getCelulas().get(3).setImgPath("/img/patrulha/patrulha_v1_dest.png");
+		} 
+	}
 }

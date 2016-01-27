@@ -25,4 +25,19 @@ public class PortaAvioes extends Embarcacao {
 		}
 	}
 
+	@Override
+	public void desenharDestruida() {
+		if (isHorizontal()) {
+			getCelulas().get(0).setImgPath("/img/porta_aviao/porta_aviao1_dest.png");
+			getCelulas().get(1).setImgPath("/img/porta_aviao/porta_aviao2_dest.png");
+			getCelulas().get(2).setImgPath("/img/porta_aviao/porta_aviao3_dest.png");
+			getCelulas().get(3).setImgPath("/img/porta_aviao/porta_aviao4_dest.png");
+		} else {
+			getCelulas().get(0).setImgPath("/img/porta_aviao/porta_aviao_v4_dest.png");
+			getCelulas().get(1).setImgPath("/img/porta_aviao/porta_aviao_v3_dest.png");
+			getCelulas().get(2).setImgPath("/img/porta_aviao/porta_aviao_v2_dest.png");
+			getCelulas().get(3).setImgPath("/img/porta_aviao/porta_aviao_v1_dest.png");
+		} 
+	}
+	
 }

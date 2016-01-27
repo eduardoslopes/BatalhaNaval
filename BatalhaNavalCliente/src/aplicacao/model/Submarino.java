@@ -20,4 +20,18 @@ public class Submarino extends Embarcacao {
 		}
 	}
 
+	@Override
+	public void desenharDestruida() {
+		if (isHorizontal()) {
+			getCelulas().get(0).setImgPath("/img/submarino/submarino1_dest.png");
+			getCelulas().get(1).setImgPath("/img/submarino/submarino2_dest.png");
+			getCelulas().get(2).setImgPath("/img/submarino/submarino3_dest.png");
+			getCelulas().get(3).setImgPath("/img/submarino/submarino4_dest.png");
+		} else {
+			getCelulas().get(0).setImgPath("/img/submarino/submarino_v4_dest.png");
+			getCelulas().get(1).setImgPath("/img/submarino/submarino_v3_dest.png");
+			getCelulas().get(2).setImgPath("/img/submarino/submarino_v2_dest.png");
+			getCelulas().get(3).setImgPath("/img/submarino/submarino_v1_dest.png");
+		} 
+	}
 }
