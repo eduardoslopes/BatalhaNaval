@@ -4,8 +4,11 @@ public class Jogada {
 
 	private int posX;
 	private int posY;
-	private Jogador jogador;
-	private Celula celula;
+	
+	public Jogada(int posX, int posY) {
+		this.posX = posX;
+		this.posY = posY;
+	}
 
 	public int getPosX() {
 
@@ -26,26 +29,5 @@ public class Jogada {
 
 		this.posY = posY;
 	}
-
-	public Jogador getJogador() {
-
-		return jogador;
-	}
-
-	public void setJogador(Jogador jogador) {
-
-		this.jogador = jogador;
-	}
-
-	public Celula getCelula() {
-
-		return celula;
-	}
-
-	public void setCelula(Celula celula) {
-
-		this.celula = celula;
-	}
-
 
 }

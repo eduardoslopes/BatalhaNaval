@@ -4,17 +4,25 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import aplicacao.comunicacao.ControladorComunicacao;
+import aplicacao.model.Celula;
+import aplicacao.model.Embarcacao;
 import aplicacao.model.Jogada;
+import aplicacao.model.Mensagem;
+import aplicacao.model.TAG;
 import aplicacao.model.Tabuleiro;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 
 public class ControladorJogo implements Initializable, ObservadorJogo {
 
-	ControladorComunicacao ctrlcomunicacao;
+	private ControladorComunicacao ctrlcomunicacao;
+	private Jogada ultimaJogada;
 
 	@FXML
 	GridPane gridTabuleiroInimigo;
@@ -48,10 +56,24 @@ public class ControladorJogo implements Initializable, ObservadorJogo {
 
 				ImageView node = new ImageView(
 						tabuleiro.getCelulas().get(i - 1).get(j - 1).getImgPath());
-				final int t = i;
-				final int sexo = j;
+				final int posX = i;
+				final int posY = j;
+				
+				node.setOnMouseMoved(e -> {
+					node.setEffect(new DropShadow(20, Color.HOTPINK));
+				});
+				
+				node.setOnMouseExited(e -> {
+					node.setEffect(null);
+				});
+				
 				node.setOnMousePressed(e -> {
-					System.out.println(t + "  >  " + sexo);
+					Jogada jogada = new Jogada(posX, posY);
+					this.ultimaJogada = jogada;
+					String apelidoJogador = ctrlcomunicacao.getJogador().getApelido();
+					String nomePartida = ctrlcomunicacao.getPartida().getPartida();
+					Mensagem msg = new Mensagem.MontadorMensagem(TAG.MOVEGAME).jogada(jogada).jogador(apelidoJogador).nomePartida(nomePartida).build();
+					ctrlcomunicacao.enviarMensagem(msg);
 				});
 
 				grid.add(node, i, j);
@@ -74,7 +96,8 @@ public class ControladorJogo implements Initializable, ObservadorJogo {
 
 	@Override
 	public void exibeResultadoJogada(String imgPath) {
-
+		System.out.println(ultimaJogada.getPosX()+ "   -->   "+ ultimaJogada.getPosY());
+		Platform.runLater(() -> gridTabuleiroInimigo.add(new ImageView(imgPath), ultimaJogada.getPosX(), ultimaJogada.getPosY()));
 	}
 
 	@Override
@@ -94,6 +117,11 @@ public class ControladorJogo implements Initializable, ObservadorJogo {
 						embarcacao.desenharDestruida ();
 					} else {
 						celula.setImgPath("/img/embarcacao_destruida.png");
+						String apelidoJogador = ctrlcomunicacao.getJogador().getApelido();
+						String nomePartida = ctrlcomunicacao.getPartida().getPartida();
+						Mensagem mensagem = new Mensagem.MontadorMensagem(TAG.RESULT).imgPath("/img/embarcacao_destruida.png")
+								.jogador(apelidoJogador).nomePartida(nomePartida).build();
+						ctrlcomunicacao.enviarMensagem(mensagem);
 					}
 					embarcacaoAtingida = true;
 				}
@@ -101,6 +129,11 @@ public class ControladorJogo implements Initializable, ObservadorJogo {
 		}
 		if (!embarcacaoAtingida) {
 			celulaAtingida.setImgPath("/img/bomba.png");
+			String apelidoJogador = ctrlcomunicacao.getJogador().getApelido();
+			String nomePartida = ctrlcomunicacao.getPartida().getPartida();
+			Mensagem mensagem = new Mensagem.MontadorMensagem(TAG.RESULT).imgPath("/img/bomba.png")
+					.jogador(apelidoJogador).nomePartida(nomePartida).build();
+			ctrlcomunicacao.enviarMensagem(mensagem);
 		}
 	}
 
