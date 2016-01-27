@@ -110,6 +110,12 @@ public class ControladorTelaMontagemTabuleiro implements Initializable, Observad
 
 		for (int i = 1; i <= tabuleiro.getTamanho(); ++i) {
 			for (int j = 1; j <= tabuleiro.getTamanho(); ++j) {
+//				Esta área comentada serve apenas para testar o efeito de um DropShadow
+//				nas imageViews.
+//				----------------------------------------------------------------------
+//				ImageView imgView = new ImageView("/img/mar.png");
+//				imgView.setEffect(new DropShadow(20, Color.DARKBLUE));
+//				gridTabuleiro.add(imgView, i, j);
 				gridTabuleiro.add(new ImageView("/img/mar.png"), i, j);
 			}
 		}
