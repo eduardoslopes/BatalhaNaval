@@ -10,7 +10,7 @@ public abstract class Interpretador {
 			conectarJogo();
 			break;
 		case TAG.CREATEGAME :
-			criarJogo();
+			jogoCriado();
 			break;
 			
 		case TAG.DESCONECTGAME :
@@ -22,7 +22,7 @@ public abstract class Interpretador {
 			break;
 			
 		case TAG.SEEGAMES :
-			verJogos();
+			verJogo(msg.getApelidoJogador(), msg.getNomePartida());
 			break;
 		}
 	}
@@ -30,7 +30,7 @@ public abstract class Interpretador {
 	public abstract void conectarJogo();
 	public abstract void desconectarJogo();
 	public abstract void fazerJogada(Jogada jogada);
-	public abstract void verJogos();
-	public abstract void criarJogo();
+	public abstract void verJogo(String apelido,String nomePartida);
+	public abstract void jogoCriado();	
 	
 }
