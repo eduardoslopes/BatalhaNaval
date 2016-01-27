@@ -48,4 +48,9 @@ public class ControladorPartida {
 		Partida partida = partidas.getPartidaIniciada(nomePartida);
 		partida.finalPartida(apelido);
 	}
+
+	public void desconectarPartida(String apelido, String nomePartida) {
+		Partida partida = partidas.getPartidaIniciada(nomePartida);
+		partida.cancelarPartida(apelido);
+	}
 }

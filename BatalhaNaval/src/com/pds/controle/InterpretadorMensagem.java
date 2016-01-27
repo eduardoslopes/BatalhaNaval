@@ -45,4 +45,9 @@ public class InterpretadorMensagem extends Interpretador {
 	public void perdeu(String apelido, String nomePartida) {
 		distribuidor.enviarMensagemFinalPartida(apelido, nomePartida);
 	}
+
+	@Override
+	public void desconectar(String apelido, String nomePartida) {
+		distribuidor.enviarMensagemDesconectar(apelido, nomePartida);
+	}
 }

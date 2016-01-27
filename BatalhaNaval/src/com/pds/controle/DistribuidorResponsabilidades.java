@@ -37,4 +37,8 @@ public class DistribuidorResponsabilidades {
 	public void enviarMensagemFinalPartida(String apelido, String nomePartida) {
 		cPartidas.enviarMensagemFinalPartida(apelido, nomePartida);
 	}
+
+	public void enviarMensagemDesconectar(String apelido, String nomePartida) {
+		cPartidas.desconectarPartida(apelido, nomePartida);
+	}
 }

@@ -24,6 +24,9 @@ public abstract class Interpretador {
 		case TAG.LOSTGAME:
 			perdeu(mensagem.getApelidoJogador(), mensagem.getNomePartida());
 			break;
+		case TAG.DISCONNECTGAME:
+			desconectar(mensagem.getApelidoJogador(), mensagem.getNomePartida());
+			break;
 		default:
 			comunicaCliente(mensagem);
 			break;
@@ -36,4 +39,5 @@ public abstract class Interpretador {
 	public abstract void comunicaCliente(Mensagem mensagem);
 	public abstract void pronto(String apelido, String nomePartida);
 	public abstract void perdeu(String apelido, String nomePartida);
+	public abstract void desconectar(String apelido, String nomePartida);
 }

@@ -106,4 +106,21 @@ public class Partida {
 		}
 		enviarFinalPartida.start();
 	}
+
+	public void cancelarPartida(String apelido) {
+		Mensagem mensagem = new Mensagem(TAG.DISCONNECTGAME);
+		String msg = serializa.serializar(mensagem);
+	
+		System.out.println("Enviando: " + msg);
+		
+		Thread enviarCancelarPartida = null;
+		if (criadorPartida.getApelido().equals(apelido)) {
+			enviaMensagemConvidado.setMensagem(msg);
+			enviarCancelarPartida = new Thread(enviaMensagemConvidado);
+		} else {
+			enviaMensagemCriadorPartida.setMensagem(msg);
+			enviarCancelarPartida = new Thread(enviaMensagemCriadorPartida);
+		}
+		enviarCancelarPartida.start();
+	}
 }
