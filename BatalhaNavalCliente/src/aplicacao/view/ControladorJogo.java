@@ -56,50 +56,13 @@ public class ControladorJogo implements Initializable, ObservadorJogo {
 		tabuleiroInimigo = new Tabuleiro(10);
 		tabuleiroMeu = ComunicaoTelaMontagemTelaJogo.tabuleiro;
 
-		atualizarTabuleiro(tabuleiroInimigo, gridTabuleiroMeu);
-		atualizarTabuleiro(tabuleiroMeu, gridTabuleiroMeu);
-		atualizarTabuleiro(tabuleiroInimigo, gridTabuleiroInimigo);
+		atualizarTabuleiroInimigo();
+		atualizarTabuleiroMeu();
 		
 		TelaJogo.getStage().setOnCloseRequest(e -> {
 			this.desistirJogo();
 		});
 
-	}
-
-	private void atualizarTabuleiro(Tabuleiro tabuleiro, GridPane grid) {
-
-		for (int i = 1; i <= tabuleiro.getTamanho(); ++i) {
-			for (int j = 1; j <= tabuleiro.getTamanho(); ++j) {
-
-				ImageView node = new ImageView(
-						tabuleiro.getCelulas().get(i - 1).get(j - 1).getImgPath());
-				final int posX = i;
-				final int posY = j;
-				
-				node.setOnMouseMoved(e -> {
-					node.setEffect(new DropShadow(20, Color.DARKBLUE));
-				});
-				
-				node.setOnMouseExited(e -> {
-					node.setEffect(null);
-				});
-				
-				node.setOnMousePressed(e -> {
-					Jogada jogada = new Jogada(posX - 1, posY - 1);
-					this.ultimaJogada = jogada;
-					String apelidoJogador = ctrlcomunicacao.getJogador().getApelido();
-					String nomePartida = ctrlcomunicacao.getPartida().getPartida();
-					Mensagem msg = new Mensagem.MontadorMensagem(TAG.MOVEGAME).jogada(jogada)
-							.jogador(apelidoJogador).nomePartida(nomePartida).build();
-					ctrlcomunicacao.enviarMensagem(msg);
-					
-					this.habilitaVezOponente();
-				});
-				Platform.runLater(() -> {
-					grid.add(node, posX, posY);
-				});
-			}
-		}
 	}
 	
 	private void habilitaVezOponente(){
@@ -133,15 +96,15 @@ public class ControladorJogo implements Initializable, ObservadorJogo {
 
 	@Override
 	public void desconectar() {
-		Alert alerta = new Alert(AlertType.ERROR);
-		alerta.setHeaderText("Oponente desistiu do jogo!");
-		alerta.setContentText(null);
-		alerta.show();
-		
-		ctrlcomunicacao.fechar();
-		TelaJogo.getStage().close();
-		
 		Platform.runLater(() -> {
+			Alert alerta = new Alert(AlertType.ERROR);
+			alerta.setHeaderText("Oponente desistiu do jogo!");
+			alerta.setContentText(null);
+			alerta.show();
+			
+			ctrlcomunicacao.fechar();
+			TelaJogo.getStage().close();
+		
 			TelaInicial telaInicial = new TelaInicial();
 			try {
 				telaInicial.start(new Stage());
@@ -198,7 +161,7 @@ public class ControladorJogo implements Initializable, ObservadorJogo {
 					.jogador(apelidoJogador).nomePartida(nomePartida).build();
 			ctrlcomunicacao.enviarMensagem(mensagem);
 		}
-		atualizarTabuleiro(tabuleiroMeu, gridTabuleiroMeu);
+		atualizarTabuleiroMeu();
 		if(tabuleiroMeu.todasEmbarcacoesForamDestruidas()){
 			Mensagem msgPerdi = new Mensagem.MontadorMensagem(TAG.LOSTGAME).jogador(apelidoJogador).nomePartida(nomePartida).build();
 			ctrlcomunicacao.enviarMensagem(msgPerdi);
@@ -222,7 +185,7 @@ public class ControladorJogo implements Initializable, ObservadorJogo {
 		Platform.runLater(() -> {	
 			Alert alert = new Alert(AlertType.CONFIRMATION);
 			alert.setTitle("Ganhou");
-			alert.setHeaderText("Você ganhou!!!");
+			alert.setHeaderText("Vocï¿½ ganhou!!!");
 			alert.setContentText("Deseja jogar novamente?");
 			
 			ButtonType btnSim = new ButtonType("Sim");
@@ -254,7 +217,7 @@ public class ControladorJogo implements Initializable, ObservadorJogo {
 	public void perdeu() {
 		Alert alert = new Alert(AlertType.CONFIRMATION);
 		alert.setTitle("Perdeu");
-		alert.setHeaderText("Você perdeu!!!");
+		alert.setHeaderText("Vocï¿½ perdeu!!!");
 		alert.setContentText("Deseja jogar novamente?");
 		
 		ButtonType btnSim = new ButtonType("Sim");
@@ -298,5 +261,71 @@ public class ControladorJogo implements Initializable, ObservadorJogo {
 			}
 		});
 	}
+	
+	private void atualizarTabuleiroInimigo() {
+
+		for (int i = 1; i <= tabuleiroInimigo.getTamanho(); ++i) {
+			for (int j = 1; j <= tabuleiroInimigo.getTamanho(); ++j) {
+
+				ImageView node = new ImageView(
+						tabuleiroInimigo.getCelulas().get(i - 1).get(j - 1).getImgPath());
+				final int posX = i;
+				final int posY = j;
+				
+				node.setOnMouseMoved(e -> {
+					node.setEffect(new DropShadow(20, Color.DARKBLUE));
+				});
+				
+				node.setOnMouseExited(e -> {
+					node.setEffect(null);
+				});
+				
+				node.setOnMousePressed(e -> {
+					Jogada jogada = new Jogada(posX - 1, posY - 1);
+					this.ultimaJogada = jogada;
+					String apelidoJogador = ctrlcomunicacao.getJogador().getApelido();
+					String nomePartida = ctrlcomunicacao.getPartida().getPartida();
+					Mensagem msg = new Mensagem.MontadorMensagem(TAG.MOVEGAME).jogada(jogada)
+							.jogador(apelidoJogador).nomePartida(nomePartida).build();
+					ctrlcomunicacao.enviarMensagem(msg);
+					
+					this.habilitaVezOponente();
+				});
+				Platform.runLater(() -> {
+					this.gridTabuleiroInimigo.add(node, posX, posY);
+				});
+			}
+		}
+	}
+	
+	private void inserirFundoMar(Tabuleiro tabuleiro, GridPane grid){
+		for (int i = 1; i <= tabuleiro.getTamanho(); ++i) {
+			for (int j = 1; j <= tabuleiro.getTamanho(); ++j) {
+				ImageView node = new ImageView("/img/mar.png");
+				final int posX = i;
+				final int posY = j;
+				Platform.runLater(() -> {
+					grid.add(node, posX, posY);
+				});
+			}
+		}
+	}
+	
+	private void atualizarTabuleiroMeu() {
+		inserirFundoMar(tabuleiroMeu, gridTabuleiroMeu);
+		for (int i = 1; i <= tabuleiroMeu.getTamanho(); ++i) {
+			for (int j = 1; j <= tabuleiroMeu.getTamanho(); ++j) {
+
+				ImageView node = new ImageView(
+						tabuleiroMeu.getCelulas().get(i - 1).get(j - 1).getImgPath());
+				final int posX = i;
+				final int posY = j;
+				Platform.runLater(() -> {
+					this.gridTabuleiroMeu.add(node, posX, posY);
+				});
+			}
+		}
+	}
+
 
 }

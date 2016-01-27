@@ -19,13 +19,22 @@ public class Enviar {
 		this.msg = msg;
 	}
 
+<<<<<<< HEAD
 	
+=======
+//	@Override
+>>>>>>> refs/remotes/origin/Wanderson
 	public void run() {
 
 		String mensagem = serializador.serializar(msg);
 
 		PrintStream saidaServidor;
 		try {
+<<<<<<< HEAD
+=======
+
+//			Thread.sleep(100);
+>>>>>>> refs/remotes/origin/Wanderson
 			
 			saidaServidor = new PrintStream(cliente.getOutputStream());
 			

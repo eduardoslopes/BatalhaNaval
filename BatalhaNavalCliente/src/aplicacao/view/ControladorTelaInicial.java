@@ -32,7 +32,11 @@ import javafx.stage.Stage;
 
 public class ControladorTelaInicial implements Initializable, ObservadorPartida {
 
+<<<<<<< HEAD
 	public static ControladorComunicacao ctrlComunicacao;
+=======
+	public static ControladorComunicacao ctrlComunicacao ;
+>>>>>>> refs/remotes/origin/Wanderson
 	
 	private ObservableList<Partida> partidas;
 	
@@ -48,7 +52,10 @@ public class ControladorTelaInicial implements Initializable, ObservadorPartida 
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+<<<<<<< HEAD
 
+=======
+>>>>>>> refs/remotes/origin/Wanderson
 		ctrlComunicacao = new ControladorComunicacao();
 		Interpretador interpretador = new InterpretadorMensagem();
 		interpretador.setObserverPartida(this);

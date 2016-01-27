@@ -48,6 +48,11 @@ public class ControladorComunicacao implements ObserverReceber {
 
 		Enviar enviar = new Enviar(cliente, mensagem);
 		enviar.run();
+<<<<<<< HEAD
+=======
+//		Thread enviarThread = new Thread(enviar);
+//		enviarThread.start();
+>>>>>>> refs/remotes/origin/Wanderson
 	}
 
 	@Override
