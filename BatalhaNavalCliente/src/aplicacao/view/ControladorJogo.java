@@ -3,17 +3,18 @@ package aplicacao.view;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import aplicacao.comunicacao.ControladorComunicacao;
 import aplicacao.model.Jogada;
 import aplicacao.model.Tabuleiro;
-import javafx.fxml.Initializable;
-import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.layout.GridPane;
+import javafx.fxml.Initializable;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 
 public class ControladorJogo implements Initializable, ObservadorJogo {
 
+	ControladorComunicacao ctrlcomunicacao;
+	
 	@FXML GridPane gridTabuleiroInimigo;
 	@FXML ImageView imgVez;
 	@FXML GridPane gridTabuleiroMeu;
@@ -23,20 +24,18 @@ public class ControladorJogo implements Initializable, ObservadorJogo {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		
+		ctrlcomunicacao = ControladorTelaInicial.ctrlComunicacao;
+		ctrlcomunicacao.getInterpretador().setObserverJogo(this);
+		
 		tabuleiroInimigo = new Tabuleiro(10);
 		tabuleiroMeu = ComunicaoTelaMontagemTelaJogo.tabuleiro;
 		atualizarTabuleiro(tabuleiroInimigo, gridTabuleiroMeu);
 		atualizarTabuleiro(tabuleiroMeu, gridTabuleiroMeu);
 		atualizarTabuleiro(tabuleiroInimigo, gridTabuleiroInimigo);
 		
-		gridTabuleiroInimigo.setDisable(true);
+		//gridTabuleiroInimigo.setDisable(true);
 	}
 
-	@Override
-	public void novaJogada(Jogada jogada) {
-		
-		
-	}
 	
 	private void atualizarTabuleiro (Tabuleiro tabuleiro, GridPane grid) {
 		for (int i = 1; i <= tabuleiro.getTamanho(); ++i) {
@@ -52,6 +51,12 @@ public class ControladorJogo implements Initializable, ObservadorJogo {
 				grid.add(node, i, j);
 			}
 		}
+	}
+
+	@Override
+	public void novaJogada(Jogada jogada) {
+		
+		
 	}
 
 }

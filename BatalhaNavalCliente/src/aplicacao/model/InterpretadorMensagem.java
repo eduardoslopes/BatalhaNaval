@@ -1,41 +1,38 @@
 package aplicacao.model;
 
-import aplicacao.view.ObservadorPartida;
-
 public class InterpretadorMensagem extends Interpretador {
-
-	private ObservadorPartida observer;
-
-
-	public InterpretadorMensagem(ObservadorPartida observerLista) {
-		observer = observerLista;
-	}
-
-	@Override
-	public void conectarJogo() {
-
-	}
 
 	@Override
 	public void desconectarJogo() {
-
+		
 	}
 
 	@Override
 	public void fazerJogada(Jogada jogada) {
-
-	}
-
-	@Override
-	public void criarJogo() {
-
+		observerJogo.novaJogada(jogada);
 	}
 
 	@Override
 	public void verJogos(String apelido, String partida) {
 
 		Partida p = new Partida(partida, new Jogador(apelido));
-		observer.atualizarPartida(p);
+		observerPartida.atualizarPartida(p);
+	}
+
+	@Override
+	public void iniciaJogoConvidado() {
+		observerTabuleiro.criarTelaJogo();
+	}
+
+	@Override
+	public void iniciaJogoCriador() {
+		observerTabuleiro.criarTelaJogo();
+	}
+
+	@Override
+	public void conectarJogo() {
+		
+		observerPartida.conectarJogo();
 	}
 
 }

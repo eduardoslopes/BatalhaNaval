@@ -1,8 +1,6 @@
 package aplicacao.model;
 
-import aplicacao.Jogada;
-
-public class Mensagem{
+public class Mensagem {
 	
 	private String tag;
 	private Jogada jogada;
@@ -63,7 +61,4 @@ public class Mensagem{
 	public String getTag() {
 		return tag;
 	}
-
-	
-
 }

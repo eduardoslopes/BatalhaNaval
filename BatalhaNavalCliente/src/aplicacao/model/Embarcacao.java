@@ -26,6 +26,8 @@ public abstract class Embarcacao {
 				getCelulas().add(tabuleiro.getCelulas().get(posX).get(posY + i));
 			}
 		}
+		
+		
 	}
 
 	public int getTamanho() {

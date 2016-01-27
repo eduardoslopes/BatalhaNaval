@@ -5,9 +5,13 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 import aplicacao.comunicacao.ControladorComunicacao;
+import aplicacao.model.Interpretador;
+import aplicacao.model.InterpretadorMensagem;
+import aplicacao.model.Jogador;
 import aplicacao.model.Mensagem;
 import aplicacao.model.Partida;
 import aplicacao.model.TAG;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -28,7 +32,7 @@ import javafx.stage.Stage;
 
 public class ControladorTelaInicial implements Initializable, ObservadorPartida {
 
-	private ControladorComunicacao ctrlComunicacao;
+	public static ControladorComunicacao ctrlComunicacao = new ControladorComunicacao();
 	
 	private ObservableList<Partida> partidas;
 	
@@ -45,7 +49,9 @@ public class ControladorTelaInicial implements Initializable, ObservadorPartida 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
-		ctrlComunicacao = new ControladorComunicacao(this);
+		Interpretador interpretador = new InterpretadorMensagem();
+		interpretador.setObserverPartida(this);
+		ctrlComunicacao.setInterpretador(interpretador);
 		
 		Mensagem mensagem = new Mensagem.MontadorMensagem(TAG.SEEGAMES).build();
 		ctrlComunicacao.enviarMensagem(mensagem);
@@ -74,17 +80,16 @@ public class ControladorTelaInicial implements Initializable, ObservadorPartida 
 		} else {
 			String apelido = capturarApelido();
 			if (apelido == null) return;
+			
+			ctrlComunicacao.setJogador(new Jogador(apelido));
+			ctrlComunicacao.setPartida(partidaSelecionada);
+			
 			Mensagem mensagem = new Mensagem.MontadorMensagem(TAG.CONECTGAME).jogador(apelido)
 					.nomePartida(partidaSelecionada.getPartida()).build();
 			ctrlComunicacao.enviarMensagem(mensagem);
 		}
 		
-		try {
-			TelaJogo jogo = new TelaJogo();
-			jogo.start(new Stage());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		
 		
 	}
 
@@ -102,6 +107,11 @@ public class ControladorTelaInicial implements Initializable, ObservadorPartida 
 		
 		if (partida.isPresent() && !partida.get().equals("")) {			
 			String nome = partida.get();
+			
+			Jogador jogador = new Jogador(apelido);
+			ctrlComunicacao.setJogador(jogador);
+			ctrlComunicacao.setPartida(new Partida(nome, jogador));
+			
 			Mensagem mensagem = new Mensagem.MontadorMensagem(TAG.CREATEGAME).nomePartida(nome)
 					.jogador(apelido).build();
 			ctrlComunicacao.enviarMensagem(mensagem);
@@ -109,7 +119,6 @@ public class ControladorTelaInicial implements Initializable, ObservadorPartida 
 			atualizarLista();
 		}		
 	}
-
 
 	@FXML
 	public void atualizarLista() { 
@@ -161,5 +170,17 @@ public class ControladorTelaInicial implements Initializable, ObservadorPartida 
 		alerta.setHeaderText("Esperando um jogador se conectar na sua partida");
 		alerta.setContentText(null);
 		alerta.show();
+	}
+	
+	@Override
+	public void conectarJogo() {
+		Platform.runLater(() -> {
+			TelaMontagemTabuleiro telaMontagem = new TelaMontagemTabuleiro();
+			try {
+				telaMontagem.start(new Stage());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}			
+		});
 	}
 }

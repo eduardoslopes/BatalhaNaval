@@ -5,12 +5,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import aplicacao.comunicacao.ControladorComunicacao;
 import aplicacao.model.Embarcacao;
 import aplicacao.model.Encouracado;
+import aplicacao.model.Mensagem;
+import aplicacao.model.ObservadorTabuleiro;
 import aplicacao.model.Patrulha;
 import aplicacao.model.PortaAvioes;
 import aplicacao.model.Submarino;
+import aplicacao.model.TAG;
 import aplicacao.model.Tabuleiro;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -29,87 +34,80 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-public class ControladorTelaMontagemTabuleiro implements Initializable {
+public class ControladorTelaMontagemTabuleiro implements Initializable, ObservadorTabuleiro {
 
 	private Tabuleiro tabuleiro;
+	private ControladorComunicacao ctrlComunicacao;
 
 	@FXML
 	private AnchorPane rootPane;
-
 	@FXML
 	private GridPane gridTabuleiro;
-
 	@FXML
 	private List<ImageView> imgViewsTabuleiro;
-
 	@FXML
 	private ImageView imgPortaAvioes;
-
 	@FXML
 	private ImageView imgEncouracado;
-
 	@FXML
 	private ImageView imgSubmarino;
-
 	@FXML
 	private ImageView imgPatrulha;
-
 	@FXML
 	private ComboBox<Integer> cbPosX;
-
 	@FXML
 	private ComboBox<Integer> cbPosY;
-
 	@FXML
 	private ComboBox<String> cbOrientacao;
-
-	@FXML 
+	@FXML
 	private Button btnPronto;
-
 	@FXML
 	private Button btnInserirEmbarcacao;
-	
+
 	private enum EMBARCACAO_SELECIONADA {
-		PATRULHA(2),
-		SUBMARINO(3),
-		ENCOURACADO(4),
-		PORTA_AVIOES(5),
-		SEM_EMBARCACAO(0);
+		PATRULHA(2), SUBMARINO(3), ENCOURACADO(4), PORTA_AVIOES(5), SEM_EMBARCACAO(0);
+
 		private final int tamanho;
-		
+
 		private EMBARCACAO_SELECIONADA(int tamanho) {
 			this.tamanho = tamanho;
 		}
-		
-		private int tamanho () {
+
+		private int tamanho() {
+
 			return tamanho;
 		}
 	}
-	
+
 	private int qtdTotalPortaAvioes = 1;
 	private int qtdTotalEncouracados = 1;
 	private int qtdTotalSubmarinos = 2;
 	private int qtdTotalPatrulhas = 1;
-	
+
 	EMBARCACAO_SELECIONADA embarcacao_selecionada = EMBARCACAO_SELECIONADA.SEM_EMBARCACAO;
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+
+		ctrlComunicacao = ControladorTelaInicial.ctrlComunicacao;
+		ctrlComunicacao.getInterpretador().setObserverTabuleiro(this);
+		
 		tabuleiro = new Tabuleiro(10);
+
 		imgViewsTabuleiro = new ArrayList<ImageView>();
-		ObservableList<Integer> listaPos = FXCollections.observableArrayList(
-				1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+		ObservableList<Integer> listaPos = FXCollections.observableArrayList(1, 2, 3, 4, 5, 6, 7, 8,
+				9, 10);
 		cbPosX.setItems(listaPos);
 		cbPosY.setItems(listaPos);
 		cbPosX.getSelectionModel().select(0);
 		cbPosY.getSelectionModel().select(0);
 
-		ObservableList<String> listaOrientacao = FXCollections.observableArrayList(
-				"Horizontal", "Vertical");
+		ObservableList<String> listaOrientacao = FXCollections.observableArrayList("Horizontal",
+				"Vertical");
 
 		cbOrientacao.setItems(listaOrientacao);
 		cbOrientacao.getSelectionModel().select(0);
-		
+
 		for (int i = 1; i <= tabuleiro.getTamanho(); ++i) {
 			for (int j = 1; j <= tabuleiro.getTamanho(); ++j) {
 				gridTabuleiro.add(new ImageView("/img/mar.png"), i, j);
@@ -117,14 +115,16 @@ public class ControladorTelaMontagemTabuleiro implements Initializable {
 		}
 
 		btnInserirEmbarcacao.setOnAction(new EventHandler<ActionEvent>() {
+
 			@Override
 			public void handle(ActionEvent event) {
+
 				int tamanho = embarcacao_selecionada.tamanho();
 				System.out.println("Tamanho: " + tamanho);
 				boolean horizontal = cbOrientacao.getValue().equals("Horizontal");
-				int posX = cbPosX.getValue();
-				int posY = cbPosY.getValue();
-				
+				int posX = cbPosX.getValue() - 1;
+				int posY = cbPosY.getValue() - 1;
+
 				if (horizontal && posX + tamanho > 10 || !horizontal && posY + tamanho > 10) {
 					Alert alert = new Alert(AlertType.ERROR);
 					alert.setHeaderText("Embarcação ultrapassa os limites do tabuleiro");
@@ -132,12 +132,13 @@ public class ControladorTelaMontagemTabuleiro implements Initializable {
 					alert.show();
 					return;
 				}
-				
+
 				if (horizontal) {
 					for (int i = posX; i <= tamanho; ++i) {
 						if (tabuleiro.getCelulas().get(i).get(posY).isPreenchido()) {
 							Alert alert = new Alert(AlertType.ERROR);
-							alert.setHeaderText("Embarcação já existente na faixa de células escolhida");
+							alert.setHeaderText(
+									"Embarcação já existente na faixa de células escolhida");
 							alert.setContentText("Insira a embarcação em uma posição válida");
 							alert.show();
 							return;
@@ -147,18 +148,20 @@ public class ControladorTelaMontagemTabuleiro implements Initializable {
 					for (int i = posY; i <= tamanho; ++i) {
 						if (tabuleiro.getCelulas().get(posX).get(i).isPreenchido()) {
 							Alert alert = new Alert(AlertType.ERROR);
-							alert.setHeaderText("Embarcação já existente na faixa de células escolhida");
+							alert.setHeaderText(
+									"Embarcação já existente na faixa de células escolhida");
 							alert.setContentText("Insira a embarcação em uma posição válida");
 							alert.show();
 							return;
 						}
 					}
 				}
-				
+
 				switch (embarcacao_selecionada) {
 				case PATRULHA:
 					if (qtdTotalPatrulhas > 0) {
-						Embarcacao patrulha = new Patrulha(tamanho, horizontal, posX, posY, tabuleiro);
+						Embarcacao patrulha = new Patrulha(tamanho, horizontal, posX, posY,
+								tabuleiro);
 						tabuleiro.addEmbarcacao(patrulha);
 						patrulha.desenhar();
 						--qtdTotalPatrulhas;
@@ -172,7 +175,8 @@ public class ControladorTelaMontagemTabuleiro implements Initializable {
 					break;
 				case SUBMARINO:
 					if (qtdTotalSubmarinos > 0) {
-						Embarcacao submarino = new Submarino(tamanho, horizontal, posX, posY, tabuleiro);
+						Embarcacao submarino = new Submarino(tamanho, horizontal, posX, posY,
+								tabuleiro);
 						tabuleiro.addEmbarcacao(submarino);
 						submarino.desenhar();
 						--qtdTotalSubmarinos;
@@ -186,7 +190,8 @@ public class ControladorTelaMontagemTabuleiro implements Initializable {
 					break;
 				case ENCOURACADO:
 					if (qtdTotalEncouracados > 0) {
-						Embarcacao encouracado = new Encouracado(tamanho, horizontal, posX, posY, tabuleiro);
+						Embarcacao encouracado = new Encouracado(tamanho, horizontal, posX, posY,
+								tabuleiro);
 						tabuleiro.addEmbarcacao(encouracado);
 						encouracado.desenhar();
 						--qtdTotalEncouracados;
@@ -200,7 +205,8 @@ public class ControladorTelaMontagemTabuleiro implements Initializable {
 				case PORTA_AVIOES:
 					if (qtdTotalPortaAvioes > 0) {
 						System.out.println("Entrou em PORTA_AVIOES");
-						Embarcacao portaAvioes = new PortaAvioes(tamanho, horizontal, posX, posY, tabuleiro);
+						Embarcacao portaAvioes = new PortaAvioes(tamanho, horizontal, posX, posY,
+								tabuleiro);
 						tabuleiro.addEmbarcacao(portaAvioes);
 						portaAvioes.desenhar();
 						--qtdTotalPortaAvioes;
@@ -220,14 +226,15 @@ public class ControladorTelaMontagemTabuleiro implements Initializable {
 					break;
 				}
 				atualizarTabuleiro();
-				tabuleiro.imprimir ();
+				tabuleiro.imprimir();
 			}
 		});
-		
+
 		imgPortaAvioes.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
 			@Override
 			public void handle(MouseEvent event) {
+
 				embarcacao_selecionada = EMBARCACAO_SELECIONADA.PORTA_AVIOES;
 				imgPortaAvioes.setEffect(new DropShadow(20, Color.DARKBLUE));
 				imgEncouracado.setEffect(null);
@@ -235,11 +242,12 @@ public class ControladorTelaMontagemTabuleiro implements Initializable {
 				imgPatrulha.setEffect(null);
 			}
 		});
-		
+
 		imgEncouracado.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
 			@Override
 			public void handle(MouseEvent event) {
+
 				embarcacao_selecionada = EMBARCACAO_SELECIONADA.ENCOURACADO;
 				imgPortaAvioes.setEffect(null);
 				imgEncouracado.setEffect(new DropShadow(20, Color.DARKBLUE));
@@ -247,11 +255,12 @@ public class ControladorTelaMontagemTabuleiro implements Initializable {
 				imgPatrulha.setEffect(null);
 			}
 		});
-		
+
 		imgSubmarino.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
 			@Override
 			public void handle(MouseEvent event) {
+
 				embarcacao_selecionada = EMBARCACAO_SELECIONADA.SUBMARINO;
 				imgPortaAvioes.setEffect(null);
 				imgEncouracado.setEffect(null);
@@ -259,11 +268,12 @@ public class ControladorTelaMontagemTabuleiro implements Initializable {
 				imgPatrulha.setEffect(null);
 			}
 		});
-		
+
 		imgPatrulha.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
 			@Override
 			public void handle(MouseEvent event) {
+
 				embarcacao_selecionada = EMBARCACAO_SELECIONADA.PATRULHA;
 				imgPortaAvioes.setEffect(null);
 				imgEncouracado.setEffect(null);
@@ -276,29 +286,42 @@ public class ControladorTelaMontagemTabuleiro implements Initializable {
 
 			@Override
 			public void handle(ActionEvent event) {
+
 				ComunicaoTelaMontagemTelaJogo.tabuleiro = tabuleiro;
-				Alert alert = new Alert (AlertType.CONFIRMATION);
+				Alert alert = new Alert(AlertType.CONFIRMATION);
 				alert.setHeaderText("Tabuleiro Enviado com sucesso!");
 				alert.setContentText("Você está pronto para a partida!");
 				alert.show();
 				
-				try {
-					TelaJogo telaJogo = new TelaJogo();
-					telaJogo.start(new Stage());
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+				String apelido = ControladorTelaInicial.ctrlComunicacao.getJogador().getApelido();
+				String nomePartida = ControladorTelaInicial.ctrlComunicacao.getPartida().getPartida();
+				Mensagem mensagem = new Mensagem.MontadorMensagem(TAG.READY).jogador(apelido).nomePartida(nomePartida).build();
+				ControladorTelaInicial.ctrlComunicacao.enviarMensagem(mensagem);
 			}
 		});
-	
+
 	}
 
-	private void atualizarTabuleiro () {
-		for (int i = 1; i < tabuleiro.getTamanho(); ++i) {
-			for (int j = 1; j < tabuleiro.getTamanho(); ++j) {
-				gridTabuleiro.add(new ImageView(tabuleiro.getCelulas().get(i-1).get(j-1).getImgPath()), i, j);
+	private void atualizarTabuleiro() {
+
+		for (int i = 1; i <= tabuleiro.getTamanho(); ++i) {
+			for (int j = 1; j <= tabuleiro.getTamanho(); ++j) {
+				gridTabuleiro.add(new ImageView(tabuleiro.getCelulas().get(i - 1).get(j - 1).getImgPath()), i, j);
 			}
 		}
 	}
-	
+
+	@Override
+	public void criarTelaJogo() {
+
+		Platform.runLater(() -> {
+			TelaJogo telaJogo = new TelaJogo();
+			try {
+				telaJogo.start(new Stage());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		});
+	}
+
 }

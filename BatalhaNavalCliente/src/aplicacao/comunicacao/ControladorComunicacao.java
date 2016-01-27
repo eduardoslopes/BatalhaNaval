@@ -4,28 +4,26 @@ import java.io.IOException;
 import java.net.Socket;
 
 import aplicacao.model.Interpretador;
-import aplicacao.model.InterpretadorMensagem;
+import aplicacao.model.Jogador;
 import aplicacao.model.Mensagem;
-import aplicacao.view.ObservadorPartida;
+import aplicacao.model.Partida;
 
 public class ControladorComunicacao implements ObserverReceber {
 
 	private Socket cliente;
+	private Partida partida;
+	private Jogador jogador;
 	private Interpretador interpretador;
 
-	public ControladorComunicacao(ObservadorPartida observerPartida) {
+	public ControladorComunicacao() {
 
 		criarSocket();
-		interpretador = new InterpretadorMensagem(observerPartida);
 
 		Receber receber = new Receber(cliente, this);
 		Thread threadReceber = new Thread(receber);
 		threadReceber.start();
 	}
 
-	/**
-	 * criacao do socket
-	 */
 	private void criarSocket() {
 
 		try {
@@ -34,11 +32,18 @@ public class ControladorComunicacao implements ObserverReceber {
 			e.printStackTrace();
 		}
 	}
+	
+	public void setInterpretador(Interpretador interpretador) {
 
-	/**
-	 * @param mensagem
-	 *            mensagem ja montada
-	 */
+		this.interpretador = interpretador;
+	}
+	
+	
+	public Interpretador getInterpretador() {
+
+		return interpretador;
+	}
+	
 	public void enviarMensagem(Mensagem mensagem) {
 
 		Enviar enviar = new Enviar(cliente, mensagem);
@@ -59,6 +64,26 @@ public class ControladorComunicacao implements ObserverReceber {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public Partida getPartida() {
+
+		return partida;
+	}
+
+	public void setPartida(Partida partida) {
+
+		this.partida = partida;
+	}
+
+	public Jogador getJogador() {
+
+		return jogador;
+	}
+
+	public void setJogador(Jogador jogador) {
+
+		this.jogador = jogador;
 	}
 
 }
