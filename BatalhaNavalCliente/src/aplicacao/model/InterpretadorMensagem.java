@@ -4,7 +4,10 @@ public class InterpretadorMensagem extends Interpretador {
 
 	@Override
 	public void desconectarJogo() {
-		observerJogo.desconectar();
+		if (observerJogo != null)
+			observerJogo.desconectar();
+		else
+			observerTabuleiro.desconectar();
 	}
 
 	@Override

@@ -103,9 +103,7 @@ public class ControladorJogo implements Initializable, ObservadorJogo {
 			alerta.setContentText(null);
 			alerta.show();
 			
-			ctrlcomunicacao.fechar();
-			TelaJogo.getStage().close();
-		
+			TelaJogo.getStage().close();		
 			TelaInicial telaInicial = new TelaInicial();
 			try {
 				telaInicial.start(new Stage());
@@ -113,8 +111,8 @@ public class ControladorJogo implements Initializable, ObservadorJogo {
 				e.printStackTrace();
 			}
 		});
-		
 	}
+	
 	@Override
 	public void novaJogada (Jogada jogada) {
 		this.habilitaSuaVez();
@@ -186,7 +184,7 @@ public class ControladorJogo implements Initializable, ObservadorJogo {
 		Platform.runLater(() -> {	
 			Alert alert = new Alert(AlertType.CONFIRMATION);
 			alert.setTitle("Ganhou");
-			alert.setHeaderText("Vocï¿½ ganhou!!!");
+			alert.setHeaderText("Você ganhou!!!");
 			alert.setContentText("Deseja jogar novamente?");
 			
 			ButtonType btnSim = new ButtonType("Sim");
@@ -209,7 +207,6 @@ public class ControladorJogo implements Initializable, ObservadorJogo {
 						}
 					});
 				}
-				//ctrlcomunicacao.fechar();
 				TelaJogo.getStage().close();				
 			}
 		});
@@ -218,7 +215,7 @@ public class ControladorJogo implements Initializable, ObservadorJogo {
 	public void perdeu() {
 		Alert alert = new Alert(AlertType.CONFIRMATION);
 		alert.setTitle("Perdeu");
-		alert.setHeaderText("Vocï¿½ perdeu!!!");
+		alert.setHeaderText("Você perdeu!!!");
 		alert.setContentText("Deseja jogar novamente?");
 		
 		ButtonType btnSim = new ButtonType("Sim");
@@ -229,7 +226,6 @@ public class ControladorJogo implements Initializable, ObservadorJogo {
 		if (btnSelecionado.isPresent()) {
 			if (btnSelecionado.get() == btnSim) {
 				
-//				ctrlcomunicacao.fechar();
 				TelaJogo.getStage().close();
 				
 				Platform.runLater(() -> {

@@ -130,7 +130,7 @@ public class ControladorTelaMontagemTabuleiro implements Initializable, Observad
 
 				if (horizontal && posX + tamanho > 10 || !horizontal && posY + tamanho > 10) {
 					Alert alert = new Alert(AlertType.ERROR);
-					alert.setHeaderText("Embarcação ultrapassa os limites do tabuleiro");
+					alert.setHeaderText("Embarca��o ultrapassa os limites do tabuleiro");
 					alert.setContentText("Insira a embarcação em uma posiçãoo válida");
 					alert.show();
 					return;
@@ -323,6 +323,22 @@ public class ControladorTelaMontagemTabuleiro implements Initializable, Observad
 				}
 			}
 		});
+		
+		TelaMontagemTabuleiro.getStage().setOnCloseRequest(event -> {
+			Platform.runLater(() -> {
+				TelaMontagemTabuleiro.getStage().close();
+				Mensagem msg = new Mensagem.MontadorMensagem(TAG.DISCONNECTGAME)
+						.jogador(ctrlComunicacao.getJogador().getApelido())
+						.nomePartida(ctrlComunicacao.getPartida().getPartida()).build();
+				ctrlComunicacao.enviarMensagem(msg);
+				try {
+					Thread.sleep(4000);
+					ctrlComunicacao.fechar();
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			});
+		});
 	}
 
 	private void atualizarTabuleiro() {
@@ -343,6 +359,24 @@ public class ControladorTelaMontagemTabuleiro implements Initializable, Observad
 			TelaJogo telaJogo = new TelaJogo();
 			try {
 				telaJogo.start(new Stage());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		});
+	}
+
+	@Override
+	public void desconectar() {
+		Platform.runLater(() -> {
+			Alert alerta = new Alert(AlertType.ERROR);
+			alerta.setHeaderText("Oponente desistiu do jogo!");
+			alerta.setContentText("Cancelou a montagem do tabuleiro.");
+			alerta.show();
+			
+			TelaMontagemTabuleiro.getStage().close();		
+			TelaInicial telaInicial = new TelaInicial();
+			try {
+				telaInicial.start(new Stage());
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
