@@ -6,10 +6,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-/**
- * @author Wanderson
- *
- */
 public class TelaInicial extends Application {
 
 	private static Stage stage;
