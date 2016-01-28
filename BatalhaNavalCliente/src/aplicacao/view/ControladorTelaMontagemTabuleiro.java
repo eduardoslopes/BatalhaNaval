@@ -130,30 +130,30 @@ public class ControladorTelaMontagemTabuleiro implements Initializable, Observad
 
 				if (horizontal && posX + tamanho > 10 || !horizontal && posY + tamanho > 10) {
 					Alert alert = new Alert(AlertType.ERROR);
-					alert.setHeaderText("Embarcação ultrapassa os limites do tabuleiro");
-					alert.setContentText("Insira a embarcação em uma posição válida");
+					alert.setHeaderText("EmbarcaÃ§Ã£o ultrapassa os limites do tabuleiro");
+					alert.setContentText("Insira a embarcaÃ§Ã£o em uma posiÃ§Ã£oo vÃ¡lida");
 					alert.show();
 					return;
 				}
 
 				if (horizontal) {
-					for (int i = posX; i <= tamanho; ++i) {
+					for (int i = posX; i < posX + tamanho; ++i) {
 						if (tabuleiro.getCelulas().get(i).get(posY).isPreenchido()) {
 							Alert alert = new Alert(AlertType.ERROR);
 							alert.setHeaderText(
-									"Embarcação já existente na faixa de células escolhida");
-							alert.setContentText("Insira a embarcação em uma posição válida");
+									"Embarcaï¿½ï¿½o jï¿½ existente na faixa de cï¿½lulas escolhida");
+							alert.setContentText("Insira a embarcaÃ§Ã£oo em uma posiÃ§Ã£oo vÃ¡lida");
 							alert.show();
 							return;
 						}
 					}
-				} else {
-					for (int i = posY; i <= tamanho; ++i) {
+				}else if(!horizontal) {
+					for (int i = posY; i < posY + tamanho; ++i) {
 						if (tabuleiro.getCelulas().get(posX).get(i).isPreenchido()) {
 							Alert alert = new Alert(AlertType.ERROR);
 							alert.setHeaderText(
-									"Embarcação já existente na faixa de células escolhida");
-							alert.setContentText("Insira a embarcação em uma posição válida");
+									"Embarcaï¿½ï¿½o jï¿½ existente na faixa de cï¿½lulas escolhida");
+							alert.setContentText("Insira a embarcaï¿½ï¿½o em uma posiï¿½ï¿½o vï¿½lida");
 							alert.show();
 							return;
 						}
@@ -170,7 +170,7 @@ public class ControladorTelaMontagemTabuleiro implements Initializable, Observad
 						--qtdTotalPatrulhas;
 					} else {
 						Alert alert = new Alert(AlertType.ERROR);
-						alert.setHeaderText("Total de Embarcações já inserido!");
+						alert.setHeaderText("Total de Embarcaï¿½ï¿½es jï¿½ inserido!");
 						alert.setContentText("Remova uma patrulha para poder re-inserir");
 						alert.show();
 						return;
@@ -185,7 +185,7 @@ public class ControladorTelaMontagemTabuleiro implements Initializable, Observad
 						--qtdTotalSubmarinos;
 					} else {
 						Alert alert = new Alert(AlertType.ERROR);
-						alert.setHeaderText("Total de Embarcações já inserido!");
+						alert.setHeaderText("Total de Embarcaï¿½ï¿½es jï¿½ inserido!");
 						alert.setContentText("Remova um submarino para poder re-inserir");
 						alert.show();
 						return;
@@ -200,8 +200,8 @@ public class ControladorTelaMontagemTabuleiro implements Initializable, Observad
 						--qtdTotalEncouracados;
 					} else {
 						Alert alert = new Alert(AlertType.ERROR);
-						alert.setHeaderText("Total de Embarcações já inserido!");
-						alert.setContentText("Remova um encouraçado para poder re-inserir");
+						alert.setHeaderText("Total de Embarcaï¿½ï¿½es jï¿½ inserido!");
+						alert.setContentText("Remova um encouraï¿½ado para poder re-inserir");
 						alert.show();
 					}
 					break;
@@ -215,16 +215,16 @@ public class ControladorTelaMontagemTabuleiro implements Initializable, Observad
 						--qtdTotalPortaAvioes;
 					} else {
 						Alert alert = new Alert(AlertType.ERROR);
-						alert.setHeaderText("Total de Embarcações já inserido!");
-						alert.setContentText("Remova um porta-avião para poder re-inserir");
+						alert.setHeaderText("Total de Embarcaï¿½ï¿½es jï¿½ inserido!");
+						alert.setContentText("Remova um porta-aviï¿½o para poder re-inserir");
 						alert.show();
 					}
 					break;
 				default:
 					System.out.println("fsdffsda");
 					Alert alert = new Alert(AlertType.WARNING);
-					alert.setHeaderText("Embarcação não selecionada!");
-					alert.setContentText("Selecione uma das embarcações listadas.");
+					alert.setHeaderText("Embarcaï¿½ï¿½o nï¿½o selecionada!");
+					alert.setContentText("Selecione uma das embarcaï¿½ï¿½es listadas.");
 					alert.show();
 					break;
 				}
@@ -293,15 +293,15 @@ public class ControladorTelaMontagemTabuleiro implements Initializable, Observad
 						+ qtdTotalEncouracados + qtdTotalPortaAvioes;
 				if (qtdEmbarcacoesRestantes > 0) {
 					Alert alert = new Alert(AlertType.ERROR);
-					alert.setHeaderText("Ainda faltam embarcações no tabuleiro!");
+					alert.setHeaderText("Ainda faltam embarcaï¿½ï¿½es no tabuleiro!");
 					alert.setContentText("Adicione mais " + qtdEmbarcacoesRestantes
-							+ "embarcações no seu tabuleiro para poder jogar.");
+							+ "embarcaï¿½ï¿½es no seu tabuleiro para poder jogar.");
 					alert.show();
 				} else {
 					ComunicaoTelaMontagemTelaJogo.tabuleiro = tabuleiro;
 					
 					Alert alert = new Alert(AlertType.CONFIRMATION);
-					alert.setHeaderText("Você está pronto para a partida?");
+					alert.setHeaderText("Vocï¿½ estï¿½ pronto para a partida?");
 					alert.setContentText(null);
 					
 					ButtonType btnSim = new ButtonType("Sim");
