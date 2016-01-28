@@ -10,11 +10,11 @@ public class Patrulha extends Embarcacao {
 	@Override
 	public void desenhar() {
 		if (isHorizontal()) {
-			getCelulas().get(0).setImgPath("/img/patrulha1.png");
+			getCelulas().get(0).setImgPath("/img/patrulha/patrulha1.png");
 			getCelulas().get(1).setImgPath("/img/patrulha2.png");
 		} else {
-			getCelulas().get(0).setImgPath("/img/patrulha_v2.png");
-			getCelulas().get(1).setImgPath("/img/patrulha_v1.png");
+			getCelulas().get(0).setImgPath("/img/patrulha/patrulha_v2.png");
+			getCelulas().get(1).setImgPath("/img/patrulha/patrulha_v1.png");
 		}
 	}
 

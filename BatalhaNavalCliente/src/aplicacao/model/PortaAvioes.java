@@ -9,17 +9,17 @@ public class PortaAvioes extends Embarcacao {
 	@Override
 	public void desenhar() {
 		if (isHorizontal()) {
-			getCelulas().get(0).setImgPath("/img/porta_aviao1.png");
-			getCelulas().get(1).setImgPath("/img/porta_aviao2.png");
-			getCelulas().get(2).setImgPath("/img/porta_aviao3.png");
-			getCelulas().get(3).setImgPath("/img/porta_aviao4.png");
-			getCelulas().get(4).setImgPath("/img/porta_aviao5.png");
+			getCelulas().get(0).setImgPath("/img/porta_aviao/porta_aviao1.png");
+			getCelulas().get(1).setImgPath("/img/porta_aviao/porta_aviao2.png");
+			getCelulas().get(2).setImgPath("/img/porta_aviao/porta_aviao3.png");
+			getCelulas().get(3).setImgPath("/img/porta_aviao/porta_aviao4.png");
+			getCelulas().get(4).setImgPath("/img/porta_aviao/porta_aviao5.png");
 		} else {
-			getCelulas().get(0).setImgPath("/img/porta_aviao_v5.png");
-			getCelulas().get(1).setImgPath("/img/porta_aviao_v4.png");
-			getCelulas().get(2).setImgPath("/img/porta_aviao_v3.png");
-			getCelulas().get(3).setImgPath("/img/porta_aviao_v2.png");
-			getCelulas().get(4).setImgPath("/img/porta_aviao_v1.png");
+			getCelulas().get(0).setImgPath("/img/porta_aviao/porta_aviao_v5.png");
+			getCelulas().get(1).setImgPath("/img/porta_aviao/porta_aviao_v4.png");
+			getCelulas().get(2).setImgPath("/img/porta_aviao/porta_aviao_v3.png");
+			getCelulas().get(3).setImgPath("/img/porta_aviao/porta_aviao_v2.png");
+			getCelulas().get(4).setImgPath("/img/porta_aviao/porta_aviao_v1.png");
 		}
 	}
 
