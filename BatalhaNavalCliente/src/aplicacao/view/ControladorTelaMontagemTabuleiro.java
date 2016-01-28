@@ -98,15 +98,13 @@ public class ControladorTelaMontagemTabuleiro implements Initializable, Observad
 		tabuleiro = new Tabuleiro(10);
 
 		imgViewsTabuleiro = new ArrayList<ImageView>();
-		ObservableList<Integer> listaPos = FXCollections.observableArrayList(1, 2, 3, 4, 5, 6, 7, 8,
-				9, 10);
+		ObservableList<Integer> listaPos = FXCollections.observableArrayList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
 		cbPosX.setItems(listaPos);
 		cbPosY.setItems(listaPos);
 		cbPosX.getSelectionModel().select(0);
 		cbPosY.getSelectionModel().select(0);
 
-		ObservableList<String> listaOrientacao = FXCollections.observableArrayList("Horizontal",
-				"Vertical");
+		ObservableList<String> listaOrientacao = FXCollections.observableArrayList("Horizontal", "Vertical");
 
 		cbOrientacao.setItems(listaOrientacao);
 		cbOrientacao.getSelectionModel().select(0);
@@ -123,15 +121,14 @@ public class ControladorTelaMontagemTabuleiro implements Initializable, Observad
 			public void handle(ActionEvent event) {
 
 				int tamanho = embarcacao_selecionada.tamanho();
-				System.out.println("Tamanho: " + tamanho);
 				boolean horizontal = cbOrientacao.getValue().equals("Horizontal");
 				int posX = cbPosX.getValue() - 1;
 				int posY = cbPosY.getValue() - 1;
 
 				if (horizontal && posX + tamanho > 10 || !horizontal && posY + tamanho > 10) {
 					Alert alert = new Alert(AlertType.ERROR);
-					alert.setHeaderText("EmbarcaÃ§Ã£o ultrapassa os limites do tabuleiro");
-					alert.setContentText("Insira a embarcaÃ§Ã£o em uma posiÃ§Ã£oo vÃ¡lida");
+					alert.setHeaderText("Embarcação ultrapassa os limites do tabuleiro");
+					alert.setContentText("Insira a embarcação em uma posição válida");
 					alert.show();
 					return;
 				}
@@ -141,8 +138,8 @@ public class ControladorTelaMontagemTabuleiro implements Initializable, Observad
 						if (tabuleiro.getCelulas().get(i).get(posY).isPreenchido()) {
 							Alert alert = new Alert(AlertType.ERROR);
 							alert.setHeaderText(
-									"EmbarcaÃ§Ã£oo jÃ¡ existente na faixa de cÃ©lulas escolhida");
-							alert.setContentText("Insira a embarcaÃ§Ã£oo em uma posiÃ§Ã£oo vÃ¡lida");
+									"Embarcação já existente na faixa de células escolhida");
+							alert.setContentText("Insira a embarcação em uma posiçãoo válida");
 							alert.show();
 							return;
 						}
@@ -152,8 +149,8 @@ public class ControladorTelaMontagemTabuleiro implements Initializable, Observad
 						if (tabuleiro.getCelulas().get(posX).get(i).isPreenchido()) {
 							Alert alert = new Alert(AlertType.ERROR);
 							alert.setHeaderText(
-									"EmbarcaÃ§Ã£oo jÃ¡ existente na faixa de cÃ©lulas escolhida");
-							alert.setContentText("Insira a embarcaÃ§Ã£o em uma posiÃ§Ã£o vÃ¡lida");
+									"Embarcação já existente na faixa de células escolhida");
+							alert.setContentText("Insira a embarcação em uma posição válida");
 							alert.show();
 							return;
 						}
@@ -170,8 +167,8 @@ public class ControladorTelaMontagemTabuleiro implements Initializable, Observad
 						--qtdTotalPatrulhas;
 					} else {
 						Alert alert = new Alert(AlertType.ERROR);
-						alert.setHeaderText("Total de EmbarcaÃ§Ãµees jÃ¡ inserido!");
-						alert.setContentText("Remova uma patrulha para poder re-inserir");
+						alert.setHeaderText("Total de patrulhas já inserido!");
+						alert.setContentText(null);
 						alert.show();
 						return;
 					}
@@ -185,8 +182,8 @@ public class ControladorTelaMontagemTabuleiro implements Initializable, Observad
 						--qtdTotalSubmarinos;
 					} else {
 						Alert alert = new Alert(AlertType.ERROR);
-						alert.setHeaderText("Total de EmbarcaÃ§Ãµes jÃ¡ inserido!");
-						alert.setContentText("Remova um submarino para poder re-inserir");
+						alert.setHeaderText("Total de submarinos já inserido!");
+						alert.setContentText(null);
 						alert.show();
 						return;
 					}
@@ -200,14 +197,13 @@ public class ControladorTelaMontagemTabuleiro implements Initializable, Observad
 						--qtdTotalEncouracados;
 					} else {
 						Alert alert = new Alert(AlertType.ERROR);
-						alert.setHeaderText("Total de EmbarcaÃ§Ãµeses jÃ¡ inserido!");
-						alert.setContentText("Remova um encouraï¿½ado para poder re-inserir");
+						alert.setHeaderText("Total de encouraçados já inserido!");
+						alert.setContentText(null);
 						alert.show();
 					}
 					break;
 				case PORTA_AVIOES:
 					if (qtdTotalPortaAvioes > 0) {
-						System.out.println("Entrou em PORTA_AVIOES");
 						Embarcacao portaAvioes = new PortaAvioes(tamanho, horizontal, posX, posY,
 								tabuleiro);
 						tabuleiro.addEmbarcacao(portaAvioes);
@@ -215,16 +211,15 @@ public class ControladorTelaMontagemTabuleiro implements Initializable, Observad
 						--qtdTotalPortaAvioes;
 					} else {
 						Alert alert = new Alert(AlertType.ERROR);
-						alert.setHeaderText("Total de Embarcaï¿½ï¿½es jÃ¡ inserido!");
-						alert.setContentText("Remova um porta-aviÃ£o para poder re-inserir");
+						alert.setHeaderText("Total de porta-aviãos já inserido!");
+						alert.setContentText(null);
 						alert.show();
 					}
 					break;
 				default:
-					System.out.println("fsdffsda");
 					Alert alert = new Alert(AlertType.WARNING);
-					alert.setHeaderText("EmbarcaÃ§Ã£o nÃ£o selecionada!");
-					alert.setContentText("Selecione uma das embarcaÃ§Ãµes listadas.");
+					alert.setHeaderText("Embarcação não selecionada!");
+					alert.setContentText("Selecione uma das embarcações listadas.");
 					alert.show();
 					break;
 				}
@@ -293,15 +288,15 @@ public class ControladorTelaMontagemTabuleiro implements Initializable, Observad
 						+ qtdTotalEncouracados + qtdTotalPortaAvioes;
 				if (qtdEmbarcacoesRestantes > 0) {
 					Alert alert = new Alert(AlertType.ERROR);
-					alert.setHeaderText("Ainda faltam embarcaï¿½ï¿½es no tabuleiro!");
+					alert.setHeaderText("Ainda faltam embarcações no tabuleiro!");
 					alert.setContentText("Adicione mais " + qtdEmbarcacoesRestantes
-							+ "embarcaï¿½ï¿½es no seu tabuleiro para poder jogar.");
+							+ "embarcações no seu tabuleiro para poder jogar.");
 					alert.show();
 				} else {
 					ComunicaoTelaMontagemTelaJogo.tabuleiro = tabuleiro;
 					
 					Alert alert = new Alert(AlertType.CONFIRMATION);
-					alert.setHeaderText("Vocï¿½ estï¿½ pronto para a partida?");
+					alert.setHeaderText("Você está pronto para a partida?");
 					alert.setContentText(null);
 					
 					ButtonType btnSim = new ButtonType("Sim");
@@ -323,6 +318,24 @@ public class ControladorTelaMontagemTabuleiro implements Initializable, Observad
 				}
 			}
 		});
+		
+		TelaMontagemTabuleiro.getStage().setOnCloseRequest(event -> {
+			Platform.runLater(() -> {
+				TelaMontagemTabuleiro.getStage().close();
+				Mensagem msg = new Mensagem.MontadorMensagem(TAG.DISCONNECTGAME)
+						.jogador(ctrlComunicacao.getJogador().getApelido())
+						.nomePartida(ctrlComunicacao.getPartida().getPartida()).build();
+				ctrlComunicacao.enviarMensagem(msg);
+				try {
+					Thread.sleep(4000);
+					ctrlComunicacao.fechar();
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			});
+		});
+		
+		
 	}
 
 	private void atualizarTabuleiro() {
@@ -343,6 +356,24 @@ public class ControladorTelaMontagemTabuleiro implements Initializable, Observad
 			TelaJogo telaJogo = new TelaJogo();
 			try {
 				telaJogo.start(new Stage());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		});
+	}
+
+	@Override
+	public void desconectar() {
+		Platform.runLater(() -> {
+			Alert alerta = new Alert(AlertType.ERROR);
+			alerta.setHeaderText("Oponente desistiu do jogo!");
+			alerta.setContentText("Cancelou a montagem do tabuleiro.");
+			alerta.show();
+			
+			TelaMontagemTabuleiro.getStage().close();		
+			TelaInicial telaInicial = new TelaInicial();
+			try {
+				telaInicial.start(new Stage());
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

@@ -24,7 +24,6 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
-import javafx.scene.media.AudioClip;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
@@ -53,7 +52,6 @@ public class ControladorJogo implements Initializable, ObservadorJogo {
 	public void initialize(URL location, ResourceBundle resources) {
 
 		ctrlcomunicacao = ControladorTelaInicial.ctrlComunicacao;
-		System.out.println("observerJogo");
 		ctrlcomunicacao.getInterpretador().setObserverJogo(this);
 
 		apelidoJogador = ctrlcomunicacao.getJogador().getApelido();
@@ -113,9 +111,7 @@ public class ControladorJogo implements Initializable, ObservadorJogo {
 			alerta.setContentText(null);
 			alerta.show();
 			
-			ctrlcomunicacao.fechar();
-			TelaJogo.getStage().close();
-		
+			TelaJogo.getStage().close();		
 			TelaInicial telaInicial = new TelaInicial();
 			try {
 				telaInicial.start(new Stage());
@@ -123,8 +119,8 @@ public class ControladorJogo implements Initializable, ObservadorJogo {
 				e.printStackTrace();
 			}
 		});
-		
 	}
+	
 	@Override
 	public void novaJogada (Jogada jogada) {
 		this.habilitaSuaVez();
@@ -199,7 +195,7 @@ public class ControladorJogo implements Initializable, ObservadorJogo {
 		Platform.runLater(() -> {	
 			Alert alert = new Alert(AlertType.CONFIRMATION);
 			alert.setTitle("Ganhou");
-			alert.setHeaderText("VocÃª ganhou!!!");
+			alert.setHeaderText("Você ganhou!!!");
 			alert.setContentText("Deseja jogar novamente?");
 			
 			Media somAmbiente = new Media(Paths.get("som_vitoria.wav").toUri().toString());
@@ -225,7 +221,6 @@ public class ControladorJogo implements Initializable, ObservadorJogo {
 						}
 					});
 				}
-				ctrlcomunicacao.fechar();
 				TelaJogo.getStage().close();				
 			}
 		});
@@ -238,7 +233,7 @@ public class ControladorJogo implements Initializable, ObservadorJogo {
 		mediaSomBomba.play();
 		Alert alert = new Alert(AlertType.CONFIRMATION);
 		alert.setTitle("Perdeu");
-		alert.setHeaderText("VocÃª perdeu!!!");
+		alert.setHeaderText("Você perdeu!!!");
 		alert.setContentText("Deseja jogar novamente?");
 		
 		ButtonType btnSim = new ButtonType("Sim");
@@ -249,7 +244,6 @@ public class ControladorJogo implements Initializable, ObservadorJogo {
 		if (btnSelecionado.isPresent()) {
 			if (btnSelecionado.get() == btnSim) {
 				
-				ctrlcomunicacao.fechar();
 				TelaJogo.getStage().close();
 				this.mediaSomAmbiente.stop();
 				
@@ -311,11 +305,8 @@ public class ControladorJogo implements Initializable, ObservadorJogo {
 					Mensagem msg = new Mensagem.MontadorMensagem(TAG.MOVEGAME).jogada(jogada)
 							.jogador(apelidoJogador).nomePartida(nomePartida).build();
 					ctrlcomunicacao.enviarMensagem(msg);
+					
 					this.habilitaVezOponente();
-					Media somBomba = new Media(Paths.get("som_bomba.wav").toUri().toString());
-					MediaPlayer mediaSomBomba = new MediaPlayer(somBomba);
-					mediaSomBomba.setVolume(1);
-					mediaSomBomba.play();
 				});
 				Platform.runLater(() -> {
 					this.gridTabuleiroInimigo.add(node, posX, posY);

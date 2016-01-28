@@ -35,7 +35,7 @@ import javafx.stage.Stage;
 
 public class ControladorTelaInicial implements Initializable, ObservadorPartida {
 
-	public static ControladorComunicacao ctrlComunicacao ;
+	public static ControladorComunicacao ctrlComunicacao;
 	
 	private ObservableList<Partida> partidas;
 	
@@ -53,6 +53,7 @@ public class ControladorTelaInicial implements Initializable, ObservadorPartida 
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+
 		ctrlComunicacao = new ControladorComunicacao();
 		Interpretador interpretador = new InterpretadorMensagem();
 		interpretador.setObserverPartida(this);
@@ -90,8 +91,12 @@ public class ControladorTelaInicial implements Initializable, ObservadorPartida 
 			alerta.setContentText("Selecione uma partida da lista");
 			alerta.show();
 		} else {
-			String apelido = capturarApelido();
-			if (apelido == null) return;
+			String apelido;
+			
+			do {
+				apelido = capturarApelido();
+				if (apelido == null) return;
+			} while (partidaSelecionada.getJogador().equals(apelido));
 			
 			ctrlComunicacao.setJogador(new Jogador(apelido));
 			ctrlComunicacao.setPartida(partidaSelecionada);
@@ -101,35 +106,54 @@ public class ControladorTelaInicial implements Initializable, ObservadorPartida 
 			ctrlComunicacao.enviarMensagem(mensagem);
 		}
 		
-		
-		
 	}
 
 	@FXML
 	public void criarPartida() {
 		
 		String apelido = capturarApelido();
+		String nomePartida;
 		if (apelido == null) return;
+		
+		do {
+			nomePartida = capturarNomePartida();
+			if (nomePartida == null) return;
+		} while (existePartida(nomePartida));
+			
+		Jogador jogador = new Jogador(apelido);
+		ctrlComunicacao.setJogador(jogador);
+		ctrlComunicacao.setPartida(new Partida(nomePartida, jogador));
 
+		Mensagem mensagem = new Mensagem.MontadorMensagem(TAG.CREATEGAME).nomePartida(nomePartida)
+				.jogador(apelido).build();
+		ctrlComunicacao.enviarMensagem(mensagem);
+		esperaJogador();
+		atualizarLista();
+	
+	}
+
+	private boolean existePartida(String nomePartida) {
+		for (Partida partida : partidas) {
+			if (nomePartida.equals(partida.getPartida()))
+				return true;
+		}
+		return false;
+	}
+
+	private String capturarNomePartida() {
 		TextInputDialog dialogo = new TextInputDialog();
 		dialogo.setTitle("Nova Partida");
 		dialogo.setHeaderText("Digite um nome para a partida");
 		dialogo.setContentText(null);
 		Optional<String> partida = dialogo.showAndWait();
-		
-		if (partida.isPresent() && !partida.get().equals("")) {			
-			String nome = partida.get();
-			
-			Jogador jogador = new Jogador(apelido);
-			ctrlComunicacao.setJogador(jogador);
-			ctrlComunicacao.setPartida(new Partida(nome, jogador));
-			
-			Mensagem mensagem = new Mensagem.MontadorMensagem(TAG.CREATEGAME).nomePartida(nome)
-					.jogador(apelido).build();
-			ctrlComunicacao.enviarMensagem(mensagem);
-			esperaJogador();
-			atualizarLista();
-		}		
+		if (partida.isPresent()) {
+			if (!partida.get().equals("")) {
+				return partida.get();
+			} else {
+				return capturarNomePartida();
+			}
+		}
+		return null;
 	}
 
 	@FXML
@@ -153,10 +177,10 @@ public class ControladorTelaInicial implements Initializable, ObservadorPartida 
 		dialogo.setTitle("Digitar Apelido");
 		dialogo.setHeaderText("Digite o seu apelido:");
 		dialogo.setContentText(null);
-		Optional<String> partida = dialogo.showAndWait();
-		if (partida.isPresent()) {
-			if (!partida.get().equals("")) {
-				return partida.get();
+		Optional<String> apelido = dialogo.showAndWait();
+		if (apelido.isPresent()) {
+			if (!apelido.get().equals("")) {
+				return apelido.get();
 			} else {
 				return capturarApelido();
 			}
@@ -193,7 +217,7 @@ public class ControladorTelaInicial implements Initializable, ObservadorPartida 
 				telaMontagem.start(new Stage());
 			} catch (Exception e) {
 				e.printStackTrace();
-			}			
+			}
 		});
 	}
 }
