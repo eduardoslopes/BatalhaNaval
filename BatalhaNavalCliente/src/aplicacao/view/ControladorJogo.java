@@ -1,6 +1,5 @@
 package aplicacao.view;
 
-import java.io.File;
 import java.net.URL;
 import java.nio.file.Paths;
 import java.util.Optional;
@@ -25,7 +24,6 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
-import javafx.scene.media.AudioClip;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
