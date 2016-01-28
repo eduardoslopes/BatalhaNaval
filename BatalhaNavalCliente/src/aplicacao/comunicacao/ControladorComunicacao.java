@@ -1,6 +1,8 @@
 package aplicacao.comunicacao;
 
 import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintStream;
 import java.net.Socket;
 
 import aplicacao.model.Interpretador;
@@ -14,14 +16,26 @@ public class ControladorComunicacao implements ObserverReceber {
 	private Partida partida;
 	private Jogador jogador;
 	private Interpretador interpretador;
+	private Enviar enviar;
 
 	public ControladorComunicacao() {
 
 		criarSocket();
+		criarMensageiro();
 
 		Receber receber = new Receber(cliente, this);
 		Thread threadReceber = new Thread(receber);
 		threadReceber.start();
+	}
+
+	private void criarMensageiro() {
+		try {
+			OutputStream os = cliente.getOutputStream();
+			PrintStream ps = new PrintStream(os);
+			enviar = new Enviar(ps);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	private void criarSocket() {
@@ -46,8 +60,7 @@ public class ControladorComunicacao implements ObserverReceber {
 	
 	public void enviarMensagem(Mensagem mensagem) {
 
-		Enviar enviar = new Enviar(cliente, mensagem);
-		enviar.run();
+		enviar.enviar(mensagem);
 	}
 
 	@Override

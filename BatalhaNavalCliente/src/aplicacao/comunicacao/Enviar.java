@@ -1,40 +1,24 @@
 package aplicacao.comunicacao;
 
-import java.io.IOException;
 import java.io.PrintStream;
-import java.net.Socket;
 
 import aplicacao.model.Mensagem;
 
 public class Enviar {
 
-	private Socket cliente;
-	private Mensagem msg;
+	private PrintStream cliente;
 	private Serializador serializador;
 
-	public Enviar(Socket cliente, Mensagem msg) {
+	public Enviar(PrintStream cliente) {
 
 		serializador = new Serializador();
 		this.cliente = cliente;
-		this.msg = msg;
 	}
 
-	public void run() {
-
+	public void enviar(Mensagem msg) {
 		String mensagem = serializador.serializar(msg);
-
-		PrintStream saidaServidor;
-		try {
-			
-			saidaServidor = new PrintStream(cliente.getOutputStream());
-			
-			System.out.println("enviando: " + mensagem);
-			
-			saidaServidor.println(mensagem);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
+		cliente.println(mensagem);
+		System.out.println("enviando: " + mensagem);
 	}
 
 }
