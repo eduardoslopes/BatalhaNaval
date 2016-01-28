@@ -1,6 +1,7 @@
 package aplicacao.view;
 
 import java.net.URL;
+import java.nio.file.Paths;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -28,6 +29,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
 public class ControladorTelaInicial implements Initializable, ObservadorPartida {
@@ -45,6 +48,8 @@ public class ControladorTelaInicial implements Initializable, ObservadorPartida 
 	@FXML TableColumn<Partida, String> colunaPartida;
 	@FXML ContextMenu contextoLista;
 	@FXML MenuItem iniciarPartida;
+	
+	public static MediaPlayer mediaSomAmbiente;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -66,6 +71,12 @@ public class ControladorTelaInicial implements Initializable, ObservadorPartida 
 		TelaInicial.getStage().setOnCloseRequest(e -> {
 			sair();
 		});
+		
+		Media somAmbiente = new Media(Paths.get("som_inicio.wav").toUri().toString());
+		mediaSomAmbiente = new MediaPlayer(somAmbiente);
+		mediaSomAmbiente.setCycleCount(MediaPlayer.INDEFINITE);
+		mediaSomAmbiente.setVolume(0.3);
+		mediaSomAmbiente.play();
 		
 	}
 
@@ -155,7 +166,7 @@ public class ControladorTelaInicial implements Initializable, ObservadorPartida 
 
 	@FXML
 	public void sair() {
-
+		mediaSomAmbiente.stop();
 		ctrlComunicacao.fechar();
 		TelaInicial.getStage().close();
 	}

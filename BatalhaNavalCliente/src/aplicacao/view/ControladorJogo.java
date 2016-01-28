@@ -71,7 +71,7 @@ public class ControladorJogo implements Initializable, ObservadorJogo {
 		Media somAmbiente = new Media(Paths.get("som_fundo3.mp3").toUri().toString());
 		mediaSomAmbiente = new MediaPlayer(somAmbiente);
 		mediaSomAmbiente.setCycleCount(MediaPlayer.INDEFINITE);
-		mediaSomAmbiente.setVolume(0.1);
+		mediaSomAmbiente.setVolume(0.3);
 		mediaSomAmbiente.play();
 
 	}
