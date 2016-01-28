@@ -58,7 +58,7 @@ public class ControladorJogo implements Initializable, ObservadorJogo {
 		tabuleiroMeu = ComunicaoTelaMontagemTelaJogo.tabuleiro;
 
 		atualizarTabuleiroInimigo();
-		inserirFundoMar(tabuleiroMeu, gridTabuleiroMeu);
+//		inserirFundoMar(tabuleiroMeu, gridTabuleiroMeu);
 		atualizarTabuleiroMeu();
 		
 		TelaJogo.getStage().setOnCloseRequest(e -> {
@@ -120,6 +120,7 @@ public class ControladorJogo implements Initializable, ObservadorJogo {
 	public void novaJogada (Jogada jogada) {
 		this.habilitaSuaVez();
 		boolean embarcacaoAtingida = false;
+		boolean embarcacaoDestruida = false;
 		Celula celulaAtingida = tabuleiroMeu.getCelulas().get(jogada.getPosX()).get(jogada.getPosY());
 		celulaAtingida.setAtingido(true);
 		for (Embarcacao embarcacao : tabuleiroMeu.getEmbarcacoes()) {
@@ -134,6 +135,7 @@ public class ControladorJogo implements Initializable, ObservadorJogo {
 
 					if (embarcacao.isDestruida()) {
 						embarcacao.desenharDestruida();
+						embarcacaoDestruida = true;
 						
 						int posX = embarcacao.getPosX();
 						int posY = embarcacao.getPosY();
@@ -163,7 +165,11 @@ public class ControladorJogo implements Initializable, ObservadorJogo {
 					.jogador(apelidoJogador).nomePartida(nomePartida).build();
 			ctrlcomunicacao.enviarMensagem(mensagem);
 		}
-		atualizarTabuleiroMeu();
+		if(embarcacaoDestruida){
+			atualizarTabuleiroMeu();
+		}else{
+			atualizarCelula(gridTabuleiroMeu, jogada, tabuleiroMeu);
+		}
 		if(tabuleiroMeu.todasEmbarcacoesForamDestruidas()){
 			Mensagem msgPerdi = new Mensagem.MontadorMensagem(TAG.LOSTGAME).jogador(apelidoJogador).nomePartida(nomePartida).build();
 			ctrlcomunicacao.enviarMensagem(msgPerdi);
@@ -322,11 +328,20 @@ public class ControladorJogo implements Initializable, ObservadorJogo {
 				final int posX = i;
 				final int posY = j;
 				Platform.runLater(() -> {
+					this.gridTabuleiroMeu.add(new ImageView("/img/mar.png"), posX, posY);
 					this.gridTabuleiroMeu.add(node, posX, posY);
 				});
 			}
 		}
 	}
-
+	
+	private void atualizarCelula(GridPane grid, Jogada jogada, Tabuleiro tabuleiro) {
+		
+		Platform.runLater(() -> {
+			ImageView node = new ImageView(
+					tabuleiroMeu.getCelulas().get(jogada.getPosX()).get(jogada.getPosY()).getImgPath());
+			grid.add(node, jogada.getPosX()+1, jogada.getPosY()+1);
+		});
+	}
 
 }
