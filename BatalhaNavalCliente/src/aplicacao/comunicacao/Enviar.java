@@ -21,4 +21,8 @@ public class Enviar {
 		System.out.println("enviando: " + mensagem);
 	}
 
+	public void fechar() {
+		cliente.close();
+	}
+
 }

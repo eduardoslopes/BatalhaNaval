@@ -70,8 +70,8 @@ public class ControladorComunicacao implements ObserverReceber {
 	}
 
 	public void fechar() {
-
 		try {
+			enviar.fechar();
 			cliente.close();
 		} catch (IOException e) {
 			e.printStackTrace();
