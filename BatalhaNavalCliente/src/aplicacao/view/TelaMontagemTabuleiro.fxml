@@ -246,6 +246,15 @@
 												<Button fx:id="btnInserirEmbarcacao" layoutX="192.0" layoutY="409.0"
 														mnemonicParsing="false" prefHeight="25.0" prefWidth="132.0"
 														style="-fx-font-family: Segoe,Arial; -fx-font-weight: bold;" text="Inserir Embarcação" />
+												<Label fx:id="qtdPA" layoutX="291.0" layoutY="72.0" style="-fx-font-size: 16;"
+														text="1" />
+												<Label fx:id="qtdE" layoutX="291.0" layoutY="132.0" style="-fx-font-size: 16;"
+														text="1" />
+												<Label fx:id="qtdS" layoutX="291.0" layoutY="196.0" style="-fx-font-size: 16;"
+														text="2" />
+												<Label fx:id="qtdPatrulha" layoutX="291.0" layoutY="256.0" style="-fx-font-size: 16;"
+														text="1" />
+												<Label layoutX="265.0" layoutY="47.0" text="quantidade" />
 										</children>
 								</AnchorPane>
 						</items>

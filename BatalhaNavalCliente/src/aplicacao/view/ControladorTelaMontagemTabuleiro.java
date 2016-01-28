@@ -36,6 +36,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.scene.control.Label;
 
 public class ControladorTelaMontagemTabuleiro implements Initializable, ObservadorTabuleiro {
 
@@ -66,7 +67,14 @@ public class ControladorTelaMontagemTabuleiro implements Initializable, Observad
 	private Button btnPronto;
 	@FXML
 	private Button btnInserirEmbarcacao;
-
+	@FXML
+	Label qtdPA;
+	@FXML
+	Label qtdE;
+	@FXML
+	Label qtdS;
+	@FXML
+	Label qtdPatrulha;
 	private enum EMBARCACAO_SELECIONADA {
 		PATRULHA(2), SUBMARINO(3), ENCOURACADO(4), PORTA_AVIOES(5), SEM_EMBARCACAO(0);
 
@@ -165,6 +173,7 @@ public class ControladorTelaMontagemTabuleiro implements Initializable, Observad
 						tabuleiro.addEmbarcacao(patrulha);
 						patrulha.desenhar();
 						--qtdTotalPatrulhas;
+						qtdPatrulha.setText(String.valueOf(qtdTotalPatrulhas));
 					} else {
 						Alert alert = new Alert(AlertType.ERROR);
 						alert.setHeaderText("Total de patrulhas já inserido!");
@@ -180,6 +189,7 @@ public class ControladorTelaMontagemTabuleiro implements Initializable, Observad
 						tabuleiro.addEmbarcacao(submarino);
 						submarino.desenhar();
 						--qtdTotalSubmarinos;
+						qtdS.setText(String.valueOf(qtdTotalSubmarinos));
 					} else {
 						Alert alert = new Alert(AlertType.ERROR);
 						alert.setHeaderText("Total de submarinos já inserido!");
@@ -195,6 +205,7 @@ public class ControladorTelaMontagemTabuleiro implements Initializable, Observad
 						tabuleiro.addEmbarcacao(encouracado);
 						encouracado.desenhar();
 						--qtdTotalEncouracados;
+						qtdE.setText(String.valueOf(qtdTotalEncouracados));
 					} else {
 						Alert alert = new Alert(AlertType.ERROR);
 						alert.setHeaderText("Total de encouraçados já inserido!");
@@ -209,6 +220,7 @@ public class ControladorTelaMontagemTabuleiro implements Initializable, Observad
 						tabuleiro.addEmbarcacao(portaAvioes);
 						portaAvioes.desenhar();
 						--qtdTotalPortaAvioes;
+						qtdPA.setText(String.valueOf(qtdTotalPortaAvioes));
 					} else {
 						Alert alert = new Alert(AlertType.ERROR);
 						alert.setHeaderText("Total de porta-aviãos já inserido!");
@@ -334,8 +346,6 @@ public class ControladorTelaMontagemTabuleiro implements Initializable, Observad
 				}
 			});
 		});
-		
-		
 	}
 
 	private void atualizarTabuleiro() {
