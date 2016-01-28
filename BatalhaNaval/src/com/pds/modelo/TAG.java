@@ -11,4 +11,5 @@ public class TAG {
 	public static final String LOSTGAME = "LOSTGAME";
 	public static final String WONGAME = "WONGAME";
 	public static final String GAMEEXISTS = "GAMEEXISTS";
+	public static final String NICKEXISTS = "NICKEXISTS";
 }

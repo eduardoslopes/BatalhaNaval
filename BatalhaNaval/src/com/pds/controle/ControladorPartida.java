@@ -19,15 +19,21 @@ public class ControladorPartida {
 			Partida novaPartida = new Partida(nomePartida, novoJogador);
 			partidas.adicionaPartidaEspera(novaPartida);
 		} else {
-			new EnviaMensagemErroNovaPartida().erroNovaPartida(socketJogador);
+			ObservadorErroNovaPartida erro = new EnviaMensagemErro();
+			erro.erroNovaPartida(socketJogador);
 		}
 	}
 	
 	public void conectarPartida(String apelido, String nomePartida, Socket socketJogador) {
-		Jogador novoJogador = new Jogador(apelido, socketJogador);
 		Partida partida = partidas.getPartidaEmEspera(nomePartida);
-		partidas.adicionaJogadorPartida(novoJogador, partida.getNomePartida());
-		montarTabuleiro(partida);
+		if (!partida.getCriadorPartida().equals(apelido)) {
+			Jogador novoJogador = new Jogador(apelido, socketJogador);
+			partidas.adicionaJogadorPartida(novoJogador, partida.getNomePartida());
+			montarTabuleiro(partida);			
+		} else {
+			ObservadorErroConectarPartida erro = new EnviaMensagemErro();
+			erro.erroConectarPartida(socketJogador);
+		}
 	}
 	
 	private void montarTabuleiro(Partida novaPartida) {
