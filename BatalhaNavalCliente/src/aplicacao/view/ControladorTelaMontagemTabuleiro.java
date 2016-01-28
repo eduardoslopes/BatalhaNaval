@@ -339,7 +339,7 @@ public class ControladorTelaMontagemTabuleiro implements Initializable, Observad
 
 		Platform.runLater(() -> {
 			TelaMontagemTabuleiro.getStage().close();
-			
+			ControladorTelaInicial.mediaSomAmbiente.stop();
 			TelaJogo telaJogo = new TelaJogo();
 			try {
 				telaJogo.start(new Stage());

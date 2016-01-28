@@ -70,10 +70,10 @@ public class ControladorJogo implements Initializable, ObservadorJogo {
 			this.desistirJogo();
 		});
 				
-		Media somAmbiente = new Media(Paths.get("som_fundo3.mp3").toUri().toString());
+		Media somAmbiente = new Media(Paths.get("som_jogo.wav").toUri().toString());
 		mediaSomAmbiente = new MediaPlayer(somAmbiente);
 		mediaSomAmbiente.setCycleCount(MediaPlayer.INDEFINITE);
-		mediaSomAmbiente.setVolume(0.5);
+		mediaSomAmbiente.setVolume(0.3);
 		mediaSomAmbiente.play();
 
 	}
@@ -202,6 +202,11 @@ public class ControladorJogo implements Initializable, ObservadorJogo {
 			alert.setHeaderText("Você ganhou!!!");
 			alert.setContentText("Deseja jogar novamente?");
 			
+			Media somAmbiente = new Media(Paths.get("som_vitoria.wav").toUri().toString());
+			mediaSomAmbiente = new MediaPlayer(somAmbiente);
+			mediaSomAmbiente.setVolume(0.5);
+			mediaSomAmbiente.play();
+			
 			ButtonType btnSim = new ButtonType("Sim");
 			ButtonType btnNao = new ButtonType("Nao", ButtonData.CANCEL_CLOSE);
 			alert.getButtonTypes().setAll(btnSim, btnNao);
@@ -227,7 +232,7 @@ public class ControladorJogo implements Initializable, ObservadorJogo {
 	}
 	
 	public void perdeu() {
-		Media somBomba = new Media(Paths.get("som_derrota.mp3").toUri().toString());
+		Media somBomba = new Media(Paths.get("som_derrota.wav").toUri().toString());
 		MediaPlayer mediaSomBomba = new MediaPlayer(somBomba);
 		mediaSomBomba.setVolume(1);
 		mediaSomBomba.play();
@@ -246,6 +251,7 @@ public class ControladorJogo implements Initializable, ObservadorJogo {
 				
 				ctrlcomunicacao.fechar();
 				TelaJogo.getStage().close();
+				this.mediaSomAmbiente.stop();
 				
 				Platform.runLater(() -> {
 					TelaInicial telaInicial = new TelaInicial();
@@ -266,6 +272,7 @@ public class ControladorJogo implements Initializable, ObservadorJogo {
 		Platform.runLater(() -> {
 			
 			TelaJogo.getStage().close();
+			this.mediaSomAmbiente.stop();
 			Mensagem msg = new Mensagem.MontadorMensagem(TAG.DISCONNECTGAME).jogador(apelidoJogador)
 					.nomePartida(nomePartida).build();
 			ctrlcomunicacao.enviarMensagem(msg);
