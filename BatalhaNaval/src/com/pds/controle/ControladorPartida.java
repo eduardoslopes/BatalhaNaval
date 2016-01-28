@@ -14,26 +14,16 @@ public class ControladorPartida {
 	}
 	
 	public void novaPartida(String apelido, String nomePartida, Socket socketJogador) {
-		if (!partidas.existePartida(nomePartida)) {
-			Jogador novoJogador = new Jogador(apelido, socketJogador);
-			Partida novaPartida = new Partida(nomePartida, novoJogador);
-			partidas.adicionaPartidaEspera(novaPartida);
-		} else {
-			ObservadorErroNovaPartida erro = new EnviaMensagemErro();
-			erro.erroNovaPartida(socketJogador);
-		}
+		Jogador novoJogador = new Jogador(apelido, socketJogador);
+		Partida novaPartida = new Partida(nomePartida, novoJogador);
+		partidas.adicionaPartidaEspera(novaPartida);
 	}
 	
 	public void conectarPartida(String apelido, String nomePartida, Socket socketJogador) {
 		Partida partida = partidas.getPartidaEmEspera(nomePartida);
-		if (!partida.getCriadorPartida().equals(apelido)) {
-			Jogador novoJogador = new Jogador(apelido, socketJogador);
-			partidas.adicionaJogadorPartida(novoJogador, partida.getNomePartida());
-			montarTabuleiro(partida);			
-		} else {
-			ObservadorErroConectarPartida erro = new EnviaMensagemErro();
-			erro.erroConectarPartida(socketJogador);
-		}
+		Jogador novoJogador = new Jogador(apelido, socketJogador);
+		partidas.adicionaJogadorPartida(novoJogador, partida.getNomePartida());
+		montarTabuleiro(partida);			
 	}
 	
 	private void montarTabuleiro(Partida novaPartida) {
@@ -66,7 +56,7 @@ public class ControladorPartida {
 			partida.cancelarPartida(apelido);
 			partidas.removePartidaIniciada(partida);
 		} catch (NullPointerException e) {
-			System.out.println("Ja foi enviada a mensagem");
+			System.out.println("Partida já finalizada");
 		}
 	}
 }
