@@ -11,7 +11,7 @@ public class Submarino extends Embarcacao {
 		if (isHorizontal()) {
 			getCelulas().get(0).setImgPath("/img/submarino/submarino1.png");
 			getCelulas().get(1).setImgPath("/img/submarino/submarino2.png");
-			getCelulas().get(2).setImgPath("/img/submarino3.png");
+			getCelulas().get(2).setImgPath("/img/submarino/submarino3.png");
 		} else {
 			getCelulas().get(0).setImgPath("/img/submarino/submarino_v3.png");
 			getCelulas().get(1).setImgPath("/img/submarino/submarino_v2.png");
