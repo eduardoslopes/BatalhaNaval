@@ -22,8 +22,8 @@ public class MensageiroPartida extends Mensageiro {
 	@Override
 	public void enviarMensagem() {
 		// TODO Auto-generated method stub
+		System.out.println("Enviando: " + mensagem);
 		saida.println(mensagem);
-		mensagem = null;
 	}
 	
 	public void setMensagem(String mensagem) {

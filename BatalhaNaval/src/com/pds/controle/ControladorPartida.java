@@ -14,9 +14,13 @@ public class ControladorPartida {
 	}
 	
 	public void novaPartida(String apelido, String nomePartida, Socket socketJogador) {
-		Jogador novoJogador = new Jogador(apelido, socketJogador);
-		Partida novaPartida = new Partida(nomePartida, novoJogador);
-		partidas.adicionaPartidaEspera(novaPartida);
+		if (!partidas.existePartida(nomePartida)) {
+			Jogador novoJogador = new Jogador(apelido, socketJogador);
+			Partida novaPartida = new Partida(nomePartida, novoJogador);
+			partidas.adicionaPartidaEspera(novaPartida);
+		} else {
+			new EnviaMensagemErroNovaPartida().erroNovaPartida(socketJogador);
+		}
 	}
 	
 	public void conectarPartida(String apelido, String nomePartida, Socket socketJogador) {
@@ -47,10 +51,16 @@ public class ControladorPartida {
 	public void enviarMensagemFinalPartida(String apelido, String nomePartida) {
 		Partida partida = partidas.getPartidaIniciada(nomePartida);
 		partida.finalPartida(apelido);
+		partidas.removePartidaIniciada(partida);
 	}
 
 	public void desconectarPartida(String apelido, String nomePartida) {
-		Partida partida = partidas.getPartidaIniciada(nomePartida);
-		partida.cancelarPartida(apelido);
+		try {
+			Partida partida = partidas.getPartidaIniciada(nomePartida);
+			partida.cancelarPartida(apelido);
+			partidas.removePartidaIniciada(partida);
+		} catch (NullPointerException e) {
+			System.out.println("Ja foi enviada a mensagem");
+		}
 	}
 }

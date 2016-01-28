@@ -51,4 +51,18 @@ public class RepositorioPartidas {
 		}
 		return null;
 	}
+	
+	public void removePartidaIniciada(Partida partida) {
+		partidasIniciadas.remove(partida);
+	}
+
+	public boolean existePartida(String nomePartida) {
+		for (Partida p : partidasEmEspera)
+			if (p.getNomePartida().equals(nomePartida))
+				return true;
+		for (Partida p : partidasIniciadas)
+			if (p.getNomePartida().equals(nomePartida))
+				return true;
+		return false;
+	}
 }

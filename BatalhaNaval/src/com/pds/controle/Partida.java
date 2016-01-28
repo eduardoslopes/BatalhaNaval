@@ -34,7 +34,6 @@ public class Partida {
 	}
 	
 	public void encaminharMensagem(String mensagem, String apelidoRemetente) {
-		System.out.println("Encaminhando: " + mensagem);
 		try {
 			Thread threadEnviaMensagem = null;
 			if (criadorPartida.getApelido().equals(apelidoRemetente)) {
@@ -76,7 +75,6 @@ public class Partida {
 	private void iniciarPartida() {
 		Mensagem mensagem = new Mensagem(TAG.STARTGAMECONVIDADO);
 		String msg = serializa.serializar(mensagem);
-		System.out.println("Enviando: " + msg);
 		
 		Thread threadEnviaMensagem1 = new Thread(enviaMensagemConvidado);
 		enviaMensagemConvidado.setMensagem(msg);
@@ -84,7 +82,6 @@ public class Partida {
 		
 		mensagem.setTag(TAG.STARTGAMECRIADOR);
 		msg = serializa.serializar(mensagem);
-		System.out.println("Enviando: " + msg);
 		Thread threadEnviaMensagem2 = new Thread(enviaMensagemCriadorPartida);
 		enviaMensagemCriadorPartida.setMensagem(msg);
 		threadEnviaMensagem2.start();
@@ -93,8 +90,6 @@ public class Partida {
 	public void finalPartida(String apelido) {
 		Mensagem mensagem = new Mensagem(TAG.WONGAME);
 		String msg = serializa.serializar(mensagem);
-	
-		System.out.println("Enviando: " + msg);
 		
 		Thread enviarFinalPartida = null;
 		if (criadorPartida.getApelido().equals(apelido)) {
@@ -110,8 +105,6 @@ public class Partida {
 	public void cancelarPartida(String apelido) {
 		Mensagem mensagem = new Mensagem(TAG.DISCONNECTGAME);
 		String msg = serializa.serializar(mensagem);
-	
-		System.out.println("Enviando: " + msg);
 		
 		Thread enviarCancelarPartida = null;
 		if (criadorPartida.getApelido().equals(apelido)) {
