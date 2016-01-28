@@ -68,7 +68,7 @@ public class ControladorJogo implements Initializable, ObservadorJogo {
 			this.desistirJogo();
 		});
 				
-		Media somAmbiente = new Media(Paths.get("som_fundo.wav").toUri().toString());
+		Media somAmbiente = new Media(Paths.get("som_fundo3.mp3").toUri().toString());
 		mediaSomAmbiente = new MediaPlayer(somAmbiente);
 		mediaSomAmbiente.setCycleCount(MediaPlayer.INDEFINITE);
 		mediaSomAmbiente.setVolume(0.5);
@@ -88,22 +88,16 @@ public class ControladorJogo implements Initializable, ObservadorJogo {
 
 	@Override
 	public void setJogoComoConvidado() {
-
 		habilitaVezOponente();
 	}
 
 	@Override
 	public void setJogoComoCriador() {
-
 		habilitaSuaVez();
 	}
 
 	@Override
 	public void exibeResultadoJogada(String imgPath) {
-		Media somBomba = new Media(Paths.get("som_bomba.wav").toUri().toString());
-		MediaPlayer mediaSomBomba = new MediaPlayer(somBomba);
-		mediaSomBomba.setVolume(1);
-		mediaSomBomba.play();
 		Platform.runLater(() -> {
 			gridTabuleiroInimigo.add(new ImageView(imgPath), ultimaJogada.getPosX() + 1, ultimaJogada.getPosY() + 1);
 		});
@@ -201,7 +195,11 @@ public class ControladorJogo implements Initializable, ObservadorJogo {
 		Platform.runLater(() -> {	
 			Alert alert = new Alert(AlertType.CONFIRMATION);
 			alert.setTitle("Ganhou");
+<<<<<<< HEAD
 			alert.setHeaderText("Você ganhou!!!");
+=======
+			alert.setHeaderText("VocÃª ganhou!!!");
+>>>>>>> refs/remotes/origin/Wanderson
 			alert.setContentText("Deseja jogar novamente?");
 			
 			ButtonType btnSim = new ButtonType("Sim");
@@ -234,7 +232,11 @@ public class ControladorJogo implements Initializable, ObservadorJogo {
 		mediaSomBomba.play();
 		Alert alert = new Alert(AlertType.CONFIRMATION);
 		alert.setTitle("Perdeu");
+<<<<<<< HEAD
 		alert.setHeaderText("Você perdeu!!!");
+=======
+		alert.setHeaderText("VocÃª perdeu!!!");
+>>>>>>> refs/remotes/origin/Wanderson
 		alert.setContentText("Deseja jogar novamente?");
 		
 		ButtonType btnSim = new ButtonType("Sim");
@@ -304,8 +306,11 @@ public class ControladorJogo implements Initializable, ObservadorJogo {
 					Mensagem msg = new Mensagem.MontadorMensagem(TAG.MOVEGAME).jogada(jogada)
 							.jogador(apelidoJogador).nomePartida(nomePartida).build();
 					ctrlcomunicacao.enviarMensagem(msg);
-					
 					this.habilitaVezOponente();
+					Media somBomba = new Media(Paths.get("som_bomba.wav").toUri().toString());
+					MediaPlayer mediaSomBomba = new MediaPlayer(somBomba);
+					mediaSomBomba.setVolume(1);
+					mediaSomBomba.play();
 				});
 				Platform.runLater(() -> {
 					this.gridTabuleiroInimigo.add(node, posX, posY);
