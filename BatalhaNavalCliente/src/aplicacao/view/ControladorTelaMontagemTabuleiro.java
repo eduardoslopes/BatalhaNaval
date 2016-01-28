@@ -98,15 +98,13 @@ public class ControladorTelaMontagemTabuleiro implements Initializable, Observad
 		tabuleiro = new Tabuleiro(10);
 
 		imgViewsTabuleiro = new ArrayList<ImageView>();
-		ObservableList<Integer> listaPos = FXCollections.observableArrayList(1, 2, 3, 4, 5, 6, 7, 8,
-				9, 10);
+		ObservableList<Integer> listaPos = FXCollections.observableArrayList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
 		cbPosX.setItems(listaPos);
 		cbPosY.setItems(listaPos);
 		cbPosX.getSelectionModel().select(0);
 		cbPosY.getSelectionModel().select(0);
 
-		ObservableList<String> listaOrientacao = FXCollections.observableArrayList("Horizontal",
-				"Vertical");
+		ObservableList<String> listaOrientacao = FXCollections.observableArrayList("Horizontal", "Vertical");
 
 		cbOrientacao.setItems(listaOrientacao);
 		cbOrientacao.getSelectionModel().select(0);
@@ -123,7 +121,6 @@ public class ControladorTelaMontagemTabuleiro implements Initializable, Observad
 			public void handle(ActionEvent event) {
 
 				int tamanho = embarcacao_selecionada.tamanho();
-				System.out.println("Tamanho: " + tamanho);
 				boolean horizontal = cbOrientacao.getValue().equals("Horizontal");
 				int posX = cbPosX.getValue() - 1;
 				int posY = cbPosY.getValue() - 1;
@@ -207,7 +204,6 @@ public class ControladorTelaMontagemTabuleiro implements Initializable, Observad
 					break;
 				case PORTA_AVIOES:
 					if (qtdTotalPortaAvioes > 0) {
-						System.out.println("Entrou em PORTA_AVIOES");
 						Embarcacao portaAvioes = new PortaAvioes(tamanho, horizontal, posX, posY,
 								tabuleiro);
 						tabuleiro.addEmbarcacao(portaAvioes);
@@ -221,7 +217,6 @@ public class ControladorTelaMontagemTabuleiro implements Initializable, Observad
 					}
 					break;
 				default:
-					System.out.println("fsdffsda");
 					Alert alert = new Alert(AlertType.WARNING);
 					alert.setHeaderText("Embarca��o n�o selecionada!");
 					alert.setContentText("Selecione uma das embarca��es listadas.");
@@ -339,6 +334,8 @@ public class ControladorTelaMontagemTabuleiro implements Initializable, Observad
 				}
 			});
 		});
+		
+		
 	}
 
 	private void atualizarTabuleiro() {
