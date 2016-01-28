@@ -27,7 +27,7 @@ public class ControladorComunicacao implements ObserverReceber {
 	private void criarSocket() {
 
 		try {
-			this.cliente = new Socket("192.168.0.111", 8888);
+			this.cliente = new Socket("10.42.0.1", 8888);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
