@@ -1,6 +1,8 @@
 package aplicacao.view;
 
+import java.io.File;
 import java.net.URL;
+import java.nio.file.Paths;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -23,6 +25,9 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.media.AudioClip;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
@@ -43,6 +48,7 @@ public class ControladorJogo implements Initializable, ObservadorJogo {
 	GridPane gridTabuleiroMeu;
 	private Tabuleiro tabuleiroInimigo;
 	private Tabuleiro tabuleiroMeu;
+	private MediaPlayer mediaSomAmbiente;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -57,12 +63,18 @@ public class ControladorJogo implements Initializable, ObservadorJogo {
 		tabuleiroMeu = ComunicaoTelaMontagemTelaJogo.tabuleiro;
 
 		atualizarTabuleiroInimigo();
-		inserirFundoMar(tabuleiroMeu, gridTabuleiroMeu);
 		atualizarTabuleiroMeu();
 		
 		TelaJogo.getStage().setOnCloseRequest(e -> {
+			this.mediaSomAmbiente.stop();
 			this.desistirJogo();
 		});
+				
+		Media somAmbiente = new Media(Paths.get("som_fundo.wav").toUri().toString());
+		mediaSomAmbiente = new MediaPlayer(somAmbiente);
+		mediaSomAmbiente.setCycleCount(MediaPlayer.INDEFINITE);
+		mediaSomAmbiente.setVolume(0.5);
+		mediaSomAmbiente.play();
 
 	}
 	
@@ -90,6 +102,10 @@ public class ControladorJogo implements Initializable, ObservadorJogo {
 
 	@Override
 	public void exibeResultadoJogada(String imgPath) {
+		Media somBomba = new Media(Paths.get("som_bomba.wav").toUri().toString());
+		MediaPlayer mediaSomBomba = new MediaPlayer(somBomba);
+		mediaSomBomba.setVolume(1);
+		mediaSomBomba.play();
 		Platform.runLater(() -> {
 			gridTabuleiroInimigo.add(new ImageView(imgPath), ultimaJogada.getPosX() + 1, ultimaJogada.getPosY() + 1);
 		});
@@ -117,20 +133,16 @@ public class ControladorJogo implements Initializable, ObservadorJogo {
 	public void novaJogada (Jogada jogada) {
 		this.habilitaSuaVez();
 		boolean embarcacaoAtingida = false;
+		boolean embarcacaoDestruida = false;
 		Celula celulaAtingida = tabuleiroMeu.getCelulas().get(jogada.getPosX()).get(jogada.getPosY());
 		celulaAtingida.setAtingido(true);
 		for (Embarcacao embarcacao : tabuleiroMeu.getEmbarcacoes()) {
 			for (Celula celula : embarcacao.getCelulas()) {
 				if (celula.equals(celulaAtingida)) {
-
 					celula.setImgPath("/img/embarcacao_destruida.png");
-					Mensagem mensagem = new Mensagem.MontadorMensagem(TAG.RESULT)
-							.imgPath("/img/embarcacao_destruida.png").jogador(apelidoJogador)
-							.nomePartida(nomePartida).build();
-					ctrlcomunicacao.enviarMensagem(mensagem);
-
 					if (embarcacao.isDestruida()) {
 						embarcacao.desenharDestruida();
+						embarcacaoDestruida = true;
 						
 						int posX = embarcacao.getPosX();
 						int posY = embarcacao.getPosY();
@@ -142,12 +154,16 @@ public class ControladorJogo implements Initializable, ObservadorJogo {
 								j = new Jogada(posX++, posY);
 							} else {
 								j = new Jogada(posX, posY++);
-								
 							}
 							Mensagem msg = new Mensagem.MontadorMensagem(TAG.DESTROYED)
 									.jogada(j).jogador(apelidoJogador).nomePartida(nomePartida).imgPath(c.getImgPath()).build();
 							ctrlcomunicacao.enviarMensagem(msg);
 						}
+					} else {
+						Mensagem mensagem = new Mensagem.MontadorMensagem(TAG.RESULT)
+								.imgPath("/img/embarcacao_destruida.png").jogador(apelidoJogador)
+								.nomePartida(nomePartida).build();
+						ctrlcomunicacao.enviarMensagem(mensagem);
 					}
 					embarcacaoAtingida = true;
 				}
@@ -160,7 +176,11 @@ public class ControladorJogo implements Initializable, ObservadorJogo {
 					.jogador(apelidoJogador).nomePartida(nomePartida).build();
 			ctrlcomunicacao.enviarMensagem(mensagem);
 		}
-		atualizarTabuleiroMeu();
+		if(embarcacaoDestruida){
+			atualizarTabuleiroMeu();
+		}else{
+			atualizarCelula(gridTabuleiroMeu, jogada, tabuleiroMeu);
+		}
 		if(tabuleiroMeu.todasEmbarcacoesForamDestruidas()){
 			Mensagem msgPerdi = new Mensagem.MontadorMensagem(TAG.LOSTGAME).jogador(apelidoJogador).nomePartida(nomePartida).build();
 			ctrlcomunicacao.enviarMensagem(msgPerdi);
@@ -172,7 +192,6 @@ public class ControladorJogo implements Initializable, ObservadorJogo {
 	
 	@Override
 	public void embarcacaoAfundada(int posX, int posY, String imgPath) {
-		
 		Platform.runLater(() -> {
 			gridTabuleiroInimigo.add(new ImageView("/img/mar.png"), posX + 1, posY + 1);
 			gridTabuleiroInimigo.add(new ImageView(imgPath), posX + 1, posY + 1);
@@ -195,9 +214,7 @@ public class ControladorJogo implements Initializable, ObservadorJogo {
 			if (btnSelecionado.isPresent()) {
 				if (btnSelecionado.get() == btnSim) {
 					
-					ctrlcomunicacao.fechar();
-					TelaJogo.getStage().close();
-					
+					ctrlcomunicacao.fechar();					
 					Platform.runLater(() -> {
 						TelaInicial telaInicial = new TelaInicial();
 						try {
@@ -213,6 +230,10 @@ public class ControladorJogo implements Initializable, ObservadorJogo {
 	}
 	
 	public void perdeu() {
+		Media somBomba = new Media(Paths.get("som_derrota.mp3").toUri().toString());
+		MediaPlayer mediaSomBomba = new MediaPlayer(somBomba);
+		mediaSomBomba.setVolume(1);
+		mediaSomBomba.play();
 		Alert alert = new Alert(AlertType.CONFIRMATION);
 		alert.setTitle("Perdeu");
 		alert.setHeaderText("Você perdeu!!!");
@@ -295,19 +316,6 @@ public class ControladorJogo implements Initializable, ObservadorJogo {
 		}
 	}
 	
-	private void inserirFundoMar(Tabuleiro tabuleiro, GridPane grid){
-		for (int i = 1; i <= tabuleiro.getTamanho(); ++i) {
-			for (int j = 1; j <= tabuleiro.getTamanho(); ++j) {
-				ImageView node = new ImageView("/img/mar.png");
-				final int posX = i;
-				final int posY = j;
-				Platform.runLater(() -> {
-					grid.add(node, posX, posY);
-				});
-			}
-		}
-	}
-	
 	private void atualizarTabuleiroMeu() {
 		for (int i = 1; i <= tabuleiroMeu.getTamanho(); ++i) {
 			for (int j = 1; j <= tabuleiroMeu.getTamanho(); ++j) {
@@ -317,11 +325,20 @@ public class ControladorJogo implements Initializable, ObservadorJogo {
 				final int posX = i;
 				final int posY = j;
 				Platform.runLater(() -> {
+					this.gridTabuleiroMeu.add(new ImageView("/img/mar.png"), posX, posY);
 					this.gridTabuleiroMeu.add(node, posX, posY);
 				});
 			}
 		}
 	}
-
+	
+	private void atualizarCelula(GridPane grid, Jogada jogada, Tabuleiro tabuleiro) {
+		
+		Platform.runLater(() -> {
+			ImageView node = new ImageView(
+					tabuleiroMeu.getCelulas().get(jogada.getPosX()).get(jogada.getPosY()).getImgPath());
+			grid.add(node, jogada.getPosX()+1, jogada.getPosY()+1);
+		});
+	}
 
 }

@@ -66,6 +66,7 @@ public class ControladorTelaInicial implements Initializable, ObservadorPartida 
 		TelaInicial.getStage().setOnCloseRequest(e -> {
 			sair();
 		});
+		
 	}
 
 	@FXML

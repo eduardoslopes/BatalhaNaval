@@ -138,7 +138,7 @@ public class ControladorTelaMontagemTabuleiro implements Initializable, Observad
 						if (tabuleiro.getCelulas().get(i).get(posY).isPreenchido()) {
 							Alert alert = new Alert(AlertType.ERROR);
 							alert.setHeaderText(
-									"Embarca��o j� existente na faixa de c�lulas escolhida");
+									"Embarcaçãoo já existente na faixa de células escolhida");
 							alert.setContentText("Insira a embarcaçãoo em uma posiçãoo válida");
 							alert.show();
 							return;
@@ -149,8 +149,8 @@ public class ControladorTelaMontagemTabuleiro implements Initializable, Observad
 						if (tabuleiro.getCelulas().get(posX).get(i).isPreenchido()) {
 							Alert alert = new Alert(AlertType.ERROR);
 							alert.setHeaderText(
-									"Embarca��o j� existente na faixa de c�lulas escolhida");
-							alert.setContentText("Insira a embarca��o em uma posi��o v�lida");
+									"Embarcaçãoo já existente na faixa de células escolhida");
+							alert.setContentText("Insira a embarcação em uma posição válida");
 							alert.show();
 							return;
 						}
@@ -167,7 +167,7 @@ public class ControladorTelaMontagemTabuleiro implements Initializable, Observad
 						--qtdTotalPatrulhas;
 					} else {
 						Alert alert = new Alert(AlertType.ERROR);
-						alert.setHeaderText("Total de Embarca��es j� inserido!");
+						alert.setHeaderText("Total de Embarcaçõees já inserido!");
 						alert.setContentText("Remova uma patrulha para poder re-inserir");
 						alert.show();
 						return;
@@ -182,7 +182,7 @@ public class ControladorTelaMontagemTabuleiro implements Initializable, Observad
 						--qtdTotalSubmarinos;
 					} else {
 						Alert alert = new Alert(AlertType.ERROR);
-						alert.setHeaderText("Total de Embarca��es j� inserido!");
+						alert.setHeaderText("Total de Embarcações já inserido!");
 						alert.setContentText("Remova um submarino para poder re-inserir");
 						alert.show();
 						return;
@@ -197,7 +197,7 @@ public class ControladorTelaMontagemTabuleiro implements Initializable, Observad
 						--qtdTotalEncouracados;
 					} else {
 						Alert alert = new Alert(AlertType.ERROR);
-						alert.setHeaderText("Total de Embarca��es j� inserido!");
+						alert.setHeaderText("Total de Embarcaçõeses já inserido!");
 						alert.setContentText("Remova um encoura�ado para poder re-inserir");
 						alert.show();
 					}
@@ -211,15 +211,15 @@ public class ControladorTelaMontagemTabuleiro implements Initializable, Observad
 						--qtdTotalPortaAvioes;
 					} else {
 						Alert alert = new Alert(AlertType.ERROR);
-						alert.setHeaderText("Total de Embarca��es j� inserido!");
-						alert.setContentText("Remova um porta-avi�o para poder re-inserir");
+						alert.setHeaderText("Total de Embarca��es já inserido!");
+						alert.setContentText("Remova um porta-avião para poder re-inserir");
 						alert.show();
 					}
 					break;
 				default:
 					Alert alert = new Alert(AlertType.WARNING);
-					alert.setHeaderText("Embarca��o n�o selecionada!");
-					alert.setContentText("Selecione uma das embarca��es listadas.");
+					alert.setHeaderText("Embarcação não selecionada!");
+					alert.setContentText("Selecione uma das embarcações listadas.");
 					alert.show();
 					break;
 				}
