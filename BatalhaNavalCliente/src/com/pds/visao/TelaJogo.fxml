@@ -9,13 +9,13 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.pds.controle.ControladorJogo">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.pds.controle.ControladorJogo">
 		<children>
-				<FlowPane prefHeight="640.0" prefWidth="1300.0">
+				<FlowPane prefHeight="625.0" prefWidth="1366.0">
 						<children>
-								<AnchorPane prefHeight="590.0" prefWidth="590.0">
+								<AnchorPane prefHeight="602.0" prefWidth="623.0">
 										<children>
-												<GridPane fx:id="gridTabuleiroMeu" gridLinesVisible="true" layoutX="20.0" layoutY="20.0" prefHeight="550.0" prefWidth="550.0">
+												<GridPane fx:id="gridTabuleiroMeu" gridLinesVisible="true" layoutX="26.0" layoutY="52.0" prefHeight="550.0" prefWidth="550.0" AnchorPane.leftAnchor="25.0">
 														<children>
 																<Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="50.0" text="1" textAlignment="CENTER" GridPane.columnIndex="1">
 																		<font>
@@ -153,6 +153,7 @@
 																<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
 														</rowConstraints>
 												</GridPane>
+                  <Label layoutX="26.0" layoutY="14.0" style="-fx-font-size: 20; -fx-font-weight: bold;" text="Meu tabuleiro" />
 										</children>
 								</AnchorPane>
 								<AnchorPane prefHeight="590.0" prefWidth="120.0">
@@ -160,9 +161,9 @@
 												<ImageView fx:id="imgVez" fitHeight="250.0" fitWidth="80.0" layoutX="20.0" layoutY="164.0" pickOnBounds="true" preserveRatio="true" />
 										</children>
 								</AnchorPane>
-								<AnchorPane prefHeight="590.0" prefWidth="590.0">
+								<AnchorPane prefHeight="625.0" prefWidth="623.0">
 										<children>
-												<GridPane fx:id="gridTabuleiroInimigo" gridLinesVisible="true" layoutX="20.0" layoutY="20.0" prefHeight="550.0" prefWidth="550.0">
+												<GridPane fx:id="gridTabuleiroInimigo" gridLinesVisible="true" layoutX="14.0" layoutY="52.0" prefHeight="550.0" prefWidth="550.0" AnchorPane.rightAnchor="25.0">
 														<children>
 																<Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="50.0" text="1" textAlignment="CENTER" GridPane.columnIndex="1">
 																		<font>
@@ -303,18 +304,41 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
 												</GridPane>
-										</children>
-								</AnchorPane>
-								<AnchorPane prefHeight="50.0" prefWidth="1300.0">
-										<children>
-												<Button fx:id="btnDesistir" layoutX="581.0" layoutY="-5.0" mnemonicParsing="false" onAction="#desistirJogo" prefHeight="39.0" prefWidth="139.0" text="Desistir">
-														<font>
-																<Font size="18.0" />
-														</font>
-												</Button>
+                  <Label layoutX="48.0" layoutY="14.0" style="-fx-font-size: 20; -fx-font-weight: bold;" text="Ataque este tabuleiro" />
 										</children>
 								</AnchorPane>
 						</children>
 				</FlowPane>
+								<AnchorPane layoutX="-18.0" layoutY="624.0" prefHeight="76.0" prefWidth="1366.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+										<children>
+												<Button fx:id="btnDesistir" layoutX="989.0" layoutY="13.0" mnemonicParsing="false" onAction="#desistirJogo" prefHeight="50.0" prefWidth="160.0" text="Desistir">
+														<font>
+																<Font size="18.0" />
+														</font>
+												</Button>
+            <Pane layoutY="-2.0" prefHeight="80.0" prefWidth="623.0">
+               <children>
+                  <Label layoutX="76.0" layoutY="33.0" style="-fx-font-size: 16;" text="Tiro no mar" />
+                  <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="26.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../img/bomba.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="181.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../img/embarcacao_destruida.png" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="231.0" layoutY="33.0" style="-fx-font-size: 16;" text="Tiro na embarcaçao" />
+                  <Label layoutX="461.0" layoutY="33.0" style="-fx-font-size: 16;" text="Embarcação afundada" />
+                  <ImageView fitHeight="50.0" fitWidth="60.0" layoutX="383.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../img/embarcacao_afundada.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+										</children>
+								</AnchorPane>
 		</children>
 </AnchorPane>
