@@ -56,7 +56,7 @@ public class ControladorPartida {
 			partida.cancelarPartida(apelido);
 			partidas.removePartidaIniciada(partida);
 		} catch (NullPointerException e) {
-			System.out.println("Partida já finalizada");
+			System.out.println("Partida ja finalizada");
 		}
 	}
 }

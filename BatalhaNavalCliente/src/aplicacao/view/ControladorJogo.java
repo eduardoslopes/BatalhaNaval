@@ -68,7 +68,7 @@ public class ControladorJogo implements Initializable, ObservadorJogo {
 			this.desistirJogo();
 		});
 				
-		Media somAmbiente = new Media(Paths.get("som_fundo3.mp3").toUri().toString());
+		Media somAmbiente = new Media(Paths.get("som_jogo.wav").toUri().toString());
 		mediaSomAmbiente = new MediaPlayer(somAmbiente);
 		mediaSomAmbiente.setCycleCount(MediaPlayer.INDEFINITE);
 		mediaSomAmbiente.setVolume(0.3);
@@ -198,11 +198,11 @@ public class ControladorJogo implements Initializable, ObservadorJogo {
 			alert.setHeaderText("Você ganhou!!!");
 			alert.setContentText("Deseja jogar novamente?");
 			
-
 			Media somVitoria= new Media(Paths.get("som_vitoria.wav").toUri().toString());
 			MediaPlayer mediaSomVitoria = new MediaPlayer(somVitoria);
 			mediaSomVitoria.setVolume(0.5);
 			mediaSomVitoria.play();
+			
 			
 			ButtonType btnSim = new ButtonType("Sim");
 			ButtonType btnNao = new ButtonType("Nao", ButtonData.CANCEL_CLOSE);
@@ -228,10 +228,12 @@ public class ControladorJogo implements Initializable, ObservadorJogo {
 	}
 	
 	public void perdeu() {
+		
 		Media somDerrota = new Media(Paths.get("som_derrota.wav").toUri().toString());
 		MediaPlayer mediaSomDerrota = new MediaPlayer(somDerrota);
 		mediaSomDerrota.setVolume(1);
 		mediaSomDerrota.play();
+		
 		Alert alert = new Alert(AlertType.CONFIRMATION);
 		alert.setTitle("Perdeu");
 		alert.setHeaderText("Você perdeu!!!");
@@ -304,6 +306,11 @@ public class ControladorJogo implements Initializable, ObservadorJogo {
 					Mensagem msg = new Mensagem.MontadorMensagem(TAG.MOVEGAME).jogada(jogada)
 							.jogador(apelidoJogador).nomePartida(nomePartida).build();
 					ctrlcomunicacao.enviarMensagem(msg);
+					
+					Media somBomba = new Media(Paths.get("som_bomba.wav").toUri().toString());
+					MediaPlayer mediaSomBomba = new MediaPlayer(somBomba);
+					mediaSomBomba.setVolume(1);
+					mediaSomBomba.play();
 					
 					this.habilitaVezOponente();
 				});

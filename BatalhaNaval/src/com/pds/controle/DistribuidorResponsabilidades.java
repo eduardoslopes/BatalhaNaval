@@ -22,8 +22,7 @@ public class DistribuidorResponsabilidades {
 		List<Partida> partidas = cPartidas.getListaPartidasEmEspera();
 		List<String> mensagens = serializador.serializarPartidas(partidas);
 		Mensageiro mensageiro = new MensageiroListaPartidas(socketJogador, mensagens);
-		Thread t = new Thread(mensageiro);
-		t.start();
+		mensageiro.enviarMensagem();
 	}
 
 	public void enviaMensagemCliente(String msg, String apelidoDono, String nomePartida) {

@@ -24,7 +24,7 @@ public class RecebeDoCliente extends Receber {
 				System.out.println("Recebendo: " + msg);
 				interpretacao.mensagemParaInterpretar(msg, sockJogador);
 			}
-			
+			s.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}		
@@ -32,7 +32,6 @@ public class RecebeDoCliente extends Receber {
 
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
 		recebe();
 	}
 }

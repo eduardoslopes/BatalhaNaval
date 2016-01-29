@@ -23,27 +23,17 @@ public class Partida {
 	public void enviarMensagemMontarTabuleiro() {
 		Mensagem mensagem = new Mensagem(TAG.CONNECTGAME);
 		String msg = serializa.serializar(mensagem);
-		
-		Thread threadEnviaMensagem1 = new Thread(enviaMensagemConvidado);
-		enviaMensagemConvidado.setMensagem(msg);
-		threadEnviaMensagem1.start();
-		
-		Thread threadEnviaMensagem2 = new Thread(enviaMensagemCriadorPartida);
-		enviaMensagemCriadorPartida.setMensagem(msg);
-		threadEnviaMensagem2.start();
+		enviaMensagemConvidado.enviarMensagem(msg);		
+		enviaMensagemCriadorPartida.enviarMensagem(msg);
 	}
 	
 	public void encaminharMensagem(String mensagem, String apelidoRemetente) {
 		try {
-			Thread threadEnviaMensagem = null;
 			if (criadorPartida.getApelido().equals(apelidoRemetente)) {
-				enviaMensagemConvidado.setMensagem(mensagem);
-				threadEnviaMensagem = new Thread(enviaMensagemConvidado);
+				enviaMensagemConvidado.enviarMensagem(mensagem);
 			} else if (convidado.getApelido().equals(apelidoRemetente)) {
-				enviaMensagemCriadorPartida.setMensagem(mensagem);
-				threadEnviaMensagem = new Thread(enviaMensagemCriadorPartida);
+				enviaMensagemCriadorPartida.enviarMensagem(mensagem);
 			}
-			threadEnviaMensagem.start();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -76,44 +66,33 @@ public class Partida {
 		Mensagem mensagem = new Mensagem(TAG.STARTGAMECONVIDADO);
 		String msg = serializa.serializar(mensagem);
 		
-		Thread threadEnviaMensagem1 = new Thread(enviaMensagemConvidado);
-		enviaMensagemConvidado.setMensagem(msg);
-		threadEnviaMensagem1.start();
+		enviaMensagemConvidado.enviarMensagem(msg);
 		
 		mensagem.setTag(TAG.STARTGAMECRIADOR);
 		msg = serializa.serializar(mensagem);
-		Thread threadEnviaMensagem2 = new Thread(enviaMensagemCriadorPartida);
-		enviaMensagemCriadorPartida.setMensagem(msg);
-		threadEnviaMensagem2.start();
+		enviaMensagemCriadorPartida.enviarMensagem(msg);
 	}
 
 	public void finalPartida(String apelido) {
 		Mensagem mensagem = new Mensagem(TAG.WONGAME);
 		String msg = serializa.serializar(mensagem);
 		
-		Thread enviarFinalPartida = null;
 		if (criadorPartida.getApelido().equals(apelido)) {
-			enviaMensagemConvidado.setMensagem(msg);
-			enviarFinalPartida = new Thread(enviaMensagemConvidado);
+			enviaMensagemConvidado.enviarMensagem(msg);
 		} else {
-			enviaMensagemCriadorPartida.setMensagem(msg);
-			enviarFinalPartida = new Thread(enviaMensagemCriadorPartida);
+			enviaMensagemCriadorPartida.enviarMensagem(msg);
 		}
-		enviarFinalPartida.start();
 	}
 
 	public void cancelarPartida(String apelido) {
 		Mensagem mensagem = new Mensagem(TAG.DISCONNECTGAME);
 		String msg = serializa.serializar(mensagem);
 		
-		Thread enviarCancelarPartida = null;
 		if (criadorPartida.getApelido().equals(apelido)) {
-			enviaMensagemConvidado.setMensagem(msg);
-			enviarCancelarPartida = new Thread(enviaMensagemConvidado);
+			enviaMensagemConvidado.enviarMensagem(msg);
 		} else {
-			enviaMensagemCriadorPartida.setMensagem(msg);
-			enviarCancelarPartida = new Thread(enviaMensagemCriadorPartida);
+			enviaMensagemCriadorPartida.enviarMensagem(msg);
+			
 		}
-		enviarCancelarPartida.start();
 	}
 }

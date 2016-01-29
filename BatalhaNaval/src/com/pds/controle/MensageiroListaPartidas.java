@@ -19,20 +19,15 @@ public class MensageiroListaPartidas extends Mensageiro {
 		}
 	}
 
-	@Override
-	public void run() {
-		enviarMensagem();		
-	}
-
-	@Override
 	public void enviarMensagem() {
 		for(String mensagem: mensagens){
-			saida.println(mensagem);
+			enviarMensagem(mensagem);
 		}
 	}
 
 	@Override
-	public void setMensagem(String mensagem) {
-		
+	public void enviarMensagem(String mensagem) {
+		saida.println(mensagem);		
 	}
+
 }
