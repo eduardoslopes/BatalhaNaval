@@ -11,8 +11,8 @@ public class RepositorioPartidas {
 	private List<Partida> partidasEmEspera;
 	
 	public RepositorioPartidas() {
-		partidasIniciadas = new ArrayList<>();
-		partidasEmEspera = new ArrayList<>();
+		partidasIniciadas = new ArrayList<Partida>();
+		partidasEmEspera = new ArrayList<Partida>();
 	}
 	
 	public void adicionaPartidaEspera(Partida novaPartida) {
@@ -50,5 +50,19 @@ public class RepositorioPartidas {
 			}
 		}
 		return null;
+	}
+	
+	public void removePartidaIniciada(Partida partida) {
+		partidasIniciadas.remove(partida);
+	}
+
+	public boolean existePartida(String nomePartida) {
+		for (Partida p : partidasEmEspera)
+			if (p.getNomePartida().equals(nomePartida))
+				return true;
+		for (Partida p : partidasIniciadas)
+			if (p.getNomePartida().equals(nomePartida))
+				return true;
+		return false;
 	}
 }

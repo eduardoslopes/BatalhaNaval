@@ -1,6 +1,6 @@
 package com.pds.controle;
 
-public abstract class Receber extends Thread {
+public abstract class Receber implements Runnable {
 	
-	abstract void recebe();
+	public abstract void recebe();
 }

@@ -14,7 +14,7 @@ public class ControladorInterpretacao {
 	}
 
 	public void mensagemParaInterpretar(String msg, Socket jogador) {
-		Mensagem mensagem = descerializador.decerializar(msg);
+		Mensagem mensagem = descerializador.descerializar(msg);
 		interpretador.interpretar(mensagem, jogador);
 	}	
 

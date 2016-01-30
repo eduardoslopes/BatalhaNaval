@@ -14,28 +14,40 @@ public class InterpretadorMensagem extends Interpretador {
 	}
 
 	@Override
-	public void create(String nome, String nomePartida, Socket sockJogador) {
-		distribuidor.criarPartida(nome, nomePartida, sockJogador);
+	public void criar(String apelido, String nomePartida, Socket sockJogador) {
+		distribuidor.criarPartida(apelido, nomePartida, sockJogador);
 	}
 
 	@Override
-	public void conect(String nome, String nomePartida, Socket sockJogador) {
-		distribuidor.conectarPartida(nome, nomePartida, sockJogador);
+	public void conectar(String apelido, String nomePartida, Socket sockJogador) {
+		distribuidor.conectarPartida(apelido, nomePartida, sockJogador);
 	}
 
 	@Override
-	public void seeg(Socket sockJogador) {
+	public void verPartidas(Socket sockJogador) {
 		distribuidor.verPartidasEmEspera(sockJogador, serializador);		
 	}
 
 	@Override
 	public void comunicaCliente(Mensagem mensagem) {
-		String nomeDono = mensagem.getNome();
+		String apelidoDono = mensagem.getApelidoJogador();
 		String nomePartida = mensagem.getNomePartida();
 		String msg = serializador.serializar(mensagem);
-		distribuidor.enviaMensagemCliente(msg, nomeDono, nomePartida);		
+		distribuidor.enviaMensagemCliente(msg, apelidoDono, nomePartida);		
 	}
 
-	
+	@Override
+	public void pronto(String apelido, String nomePartida) {
+		distribuidor.jogadorPronto(apelido, nomePartida);
+	}
 
+	@Override
+	public void perdeu(String apelido, String nomePartida) {
+		distribuidor.enviarMensagemFinalPartida(apelido, nomePartida);
+	}
+
+	@Override
+	public void desconectar(String apelido, String nomePartida) {
+		distribuidor.enviarMensagemDesconectar(apelido, nomePartida);
+	}
 }

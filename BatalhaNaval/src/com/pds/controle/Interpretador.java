@@ -9,14 +9,23 @@ public abstract class Interpretador {
 
 	public void interpretar(Mensagem mensagem, Socket jogador) {
 		switch(mensagem.getTag()){
-		case TAG.CONECTGAME:
-			conect(mensagem.getNome(), mensagem.getNomePartida(), jogador);
+		case TAG.CONNECTGAME:
+			conectar(mensagem.getApelidoJogador(), mensagem.getNomePartida(), jogador);
 			break;
 		case TAG.CREATEGAME:
-			create(mensagem.getNome(), mensagem.getNomePartida(), jogador);
+			criar(mensagem.getApelidoJogador(), mensagem.getNomePartida(), jogador);
 			break;
 		case TAG.SEEGAMES:
-			seeg(jogador);
+			verPartidas(jogador);
+			break;
+		case TAG.READY:
+			pronto(mensagem.getApelidoJogador(), mensagem.getNomePartida());
+			break;
+		case TAG.LOSTGAME:
+			perdeu(mensagem.getApelidoJogador(), mensagem.getNomePartida());
+			break;
+		case TAG.DISCONNECTGAME:
+			desconectar(mensagem.getApelidoJogador(), mensagem.getNomePartida());
 			break;
 		default:
 			comunicaCliente(mensagem);
@@ -24,8 +33,11 @@ public abstract class Interpretador {
 		}
 	}
 
-	public abstract void create(String nome, String nomePartida, Socket jogador);
-	public abstract void conect(String nome, String nomePartida, Socket jogador);
-	public abstract void seeg(Socket jogador);
+	public abstract void criar(String apelido, String nomePartida, Socket jogador);
+	public abstract void conectar(String apelido, String nomePartida, Socket jogador);
+	public abstract void verPartidas(Socket jogador);
 	public abstract void comunicaCliente(Mensagem mensagem);
+	public abstract void pronto(String apelido, String nomePartida);
+	public abstract void perdeu(String apelido, String nomePartida);
+	public abstract void desconectar(String apelido, String nomePartida);
 }

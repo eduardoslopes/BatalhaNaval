@@ -3,8 +3,6 @@ package com.pds.controle;
 import java.net.Socket;
 import java.util.List;
 
-import java.net.Socket;
-
 import com.pds.modelo.Jogador;
 
 public class ControladorPartida {
@@ -22,13 +20,14 @@ public class ControladorPartida {
 	}
 	
 	public void conectarPartida(String apelido, String nomePartida, Socket socketJogador) {
+		Partida partida = partidas.getPartidaEmEspera(nomePartida);
 		Jogador novoJogador = new Jogador(apelido, socketJogador);
-		partidas.adicionaJogadorPartida(novoJogador, nomePartida);
-		iniciarPartida(partidas.getPartidaEmEspera(nomePartida));
+		partidas.adicionaJogadorPartida(novoJogador, partida.getNomePartida());
+		montarTabuleiro(partida);			
 	}
 	
-	private void iniciarPartida(Partida novaPartida) {
-		novaPartida.enviarMensagemInicioPartida();
+	private void montarTabuleiro(Partida novaPartida) {
+		novaPartida.enviarMensagemMontarTabuleiro();
 	}
 	
 	public void encaminhaMensagem(String apelidoRemetente, String mensagem, String nomePartida) {
@@ -40,4 +39,24 @@ public class ControladorPartida {
 		return partidas.getPartidasEmEspera();
 	}
 
+	public void jogadorPronto(String apelido, String nomePartida) {
+		Partida partida = partidas.getPartidaIniciada(nomePartida);
+		partida.setJogadorPronto(apelido);
+	}
+
+	public void enviarMensagemFinalPartida(String apelido, String nomePartida) {
+		Partida partida = partidas.getPartidaIniciada(nomePartida);
+		partida.finalPartida(apelido);
+		partidas.removePartidaIniciada(partida);
+	}
+
+	public void desconectarPartida(String apelido, String nomePartida) {
+		try {
+			Partida partida = partidas.getPartidaIniciada(nomePartida);
+			partida.cancelarPartida(apelido);
+			partidas.removePartidaIniciada(partida);
+		} catch (NullPointerException e) {
+			System.out.println("Partida já finalizada");
+		}
+	}
 }

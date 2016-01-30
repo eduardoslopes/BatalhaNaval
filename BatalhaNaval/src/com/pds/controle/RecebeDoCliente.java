@@ -15,12 +15,13 @@ public class RecebeDoCliente extends Receber {
 	}
 	
 	@Override
-	void recebe() {
+	public void recebe() {
 		try {
 			Scanner s = new Scanner(sockJogador.getInputStream());
 			String msg = null;
 			while (s.hasNextLine()) {
 				msg = s.nextLine();
+				System.out.println("Recebendo: " + msg);
 				interpretacao.mensagemParaInterpretar(msg, sockJogador);
 			}
 			
@@ -29,4 +30,9 @@ public class RecebeDoCliente extends Receber {
 		}		
 	}
 
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		recebe();
+	}
 }
