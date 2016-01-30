@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="painel" prefHeight="500.0" prefWidth="360.0" style="-fx-font-family: Segoe, Arial;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.pds.controle.ControladorTelaInicial">
+		<children>
+				<Label layoutX="70.0" layoutY="20.0" prefHeight="21.0" prefWidth="241.0" style="-fx-font-size: 18; -fx-font-weight: bold; -fx-font-family: Segoe, Arial;" text="Partidas Disponiveis" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="49.0" AnchorPane.topAnchor="20.0" />
+				<Button fx:id="btnIniciarPartida" layoutX="16.0" layoutY="445.0" mnemonicParsing="false" onAction="#iniciarPartida" prefHeight="35.0" prefWidth="108.0" style="-fx-font-family: Segoe, Arial;" text="Iniciar Partida" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="16.0">
+						<tooltip>
+								<Tooltip style="-fx-font-family: Segoe, Arial; -fx-font-size: 12;" text="Clique aqui após escolher uma partida disponível e comece a jogar" />
+						</tooltip>
+         <font>
+            <Font size="12.0" />
+         </font>
+				</Button>
+				<Button fx:id="btnCriarPartida" layoutX="133.0" layoutY="445.0" mnemonicParsing="false" onAction="#criarPartida" prefHeight="35.0" prefWidth="100.0" style="-fx-font-family: Segoe, Arial; -fx-font-size: 12;" text="Criar Partida" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="133.0" AnchorPane.rightAnchor="127.0">
+						<tooltip>
+								<Tooltip style="-fx-font-size: 12; -fx-font-family: Segoe, Arial;" text="Clique aqui para criar uma nova partida e esperar por outro jogador para jogar" />
+						</tooltip>
+         <font>
+            <Font size="12.0" />
+         </font>
+				</Button>
+				<Button fx:id="btnAtualizar" layoutX="240.0" layoutY="445.0" mnemonicParsing="false" onAction="#atualizarLista" prefHeight="35.0" prefWidth="100.0" style="-fx-font-family: Segoe, Arial;" text="Atualizar" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0">
+						<tooltip>
+								<Tooltip style="-fx-font-family: Segoe, Arial; -fx-font-size: 12;" text="Clique aqui para atualizar a lista de partidas disponíveis" />
+						</tooltip>
+         <font>
+            <Font size="12.0" />
+         </font>
+				</Button>
+				<TableView fx:id="listaPartidas" layoutX="20.0" layoutY="54.0" prefHeight="350.0" prefWidth="320.0" style="-fx-font-family: Segoe, Arial;" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="50.0">
+						<columns>
+								<TableColumn fx:id="colunaJogador" editable="false" minWidth="-1.0" prefWidth="150.0" style="-fx-font-family: Segoe, Arial;" text="Nick do Jogador" />
+								<TableColumn fx:id="colunaPartida" editable="false" minWidth="-1.0" prefWidth="170.0" style="-fx-font-family: Segoe, Arial;" text="Nome da Partida" />
+						</columns>
+						<contextMenu>
+								<ContextMenu fx:id="contextoLista" style="-fx-font-family: Segoe, Arial;">
+										<items>
+												<MenuItem fx:id="iniciarPartida" mnemonicParsing="false" onAction="#iniciarPartida" style="-fx-font-family: Segoe, Arial;" text="Iniciar Partida" />
+										</items>
+								</ContextMenu>
+						</contextMenu>
+				</TableView>
+		</children>
+</AnchorPane>
