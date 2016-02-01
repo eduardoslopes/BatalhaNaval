@@ -7,6 +7,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 import com.pds.comunicacao.ControladorComunicacao;
+import com.pds.modelo.EfeitosSonoros;
 import com.pds.modelo.Embarcacao;
 import com.pds.modelo.Encouracado;
 import com.pds.modelo.Mensagem;
@@ -60,16 +61,16 @@ public class ControladorMontagemTabuleiro implements Initializable, ObservadorTa
 	private ImageView imgSubmarino;
 	@FXML
 	private ImageView imgPatrulha;
-	@FXML
-	private ComboBox<Integer> cbPosX;
-	@FXML
-	private ComboBox<Integer> cbPosY;
+//	@FXML
+//	private ComboBox<Integer> cbPosX;
+//	@FXML
+//	private ComboBox<Integer> cbPosY;
 	@FXML
 	private ComboBox<String> cbOrientacao;
 	@FXML
 	private Button btnPronto;
-	@FXML
-	private Button btnInserirEmbarcacao;
+//	@FXML
+//	private Button btnInserirEmbarcacao;
 	@FXML
 	Label qtdPortaAviao;
 	@FXML
@@ -109,12 +110,6 @@ public class ControladorMontagemTabuleiro implements Initializable, ObservadorTa
 		tabuleiro = new Tabuleiro(10);
 
 		imgViewsTabuleiro = new ArrayList<ImageView>();
-		ObservableList<Integer> listaPos = FXCollections.observableArrayList(1, 2, 3, 4, 5, 6, 7, 8,
-				9, 10);
-		cbPosX.setItems(listaPos);
-		cbPosY.setItems(listaPos);
-		cbPosX.getSelectionModel().select(0);
-		cbPosY.getSelectionModel().select(0);
 
 		ObservableList<String> listaOrientacao = FXCollections.observableArrayList("Horizontal",
 				"Vertical");
@@ -122,34 +117,7 @@ public class ControladorMontagemTabuleiro implements Initializable, ObservadorTa
 		cbOrientacao.setItems(listaOrientacao);
 		cbOrientacao.getSelectionModel().select(0);
 
-		for (int i = 1; i <= tabuleiro.getTamanho(); ++i) {
-			for (int j = 1; j <= tabuleiro.getTamanho(); ++j) {
-				ImageView img = new ImageView(
-						tabuleiro.getCelulas().get(i - 1).get(j - 1).getImgPath());
-
-				final int posX = i;
-				final int posY = j;
-
-				img.setOnMouseMoved(e -> {
-					img.setEffect(new DropShadow(20, Color.DARKBLUE));
-					img.setScaleX(1.2);
-					img.setScaleY(1.2);
-				});
-
-				img.setOnMouseExited(e -> {
-					img.setEffect(null);
-					img.setScaleX(1);
-					img.setScaleY(1);
-				});
-
-				img.setOnMousePressed(e -> {
-					this.acaoBotaoPronto(posX - 1, posY - 1);
-				});
-				gridTabuleiro.add(img, i, j);
-			}
-		}
-
-		// btnInserirEmbarcacao.setOnAction(acaoBotaoPronto());
+		atualizarTabuleiro();
 
 		imgPortaAvioes.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
@@ -212,15 +180,14 @@ public class ControladorMontagemTabuleiro implements Initializable, ObservadorTa
 						+ qtdTotalEncouracados + qtdTotalPortaAvioes;
 				if (qtdEmbarcacoesRestantes > 0) {
 					Alert alert = new Alert(AlertType.ERROR);
-					alert.setHeaderText("Ainda faltam embarcações no tabuleiro!");
+					alert.setHeaderText("Ainda faltam embarcacoes no tabuleiro!");
 					alert.setContentText("Adicione mais " + qtdEmbarcacoesRestantes
-							+ "embarcações no seu tabuleiro para poder jogar.");
+							+ "embarcacoes no seu tabuleiro para poder jogar.");
 					alert.show();
 				} else {
-					// ComunicaoTelaMontagemTelaJogo.tabuleiro = tabuleiro;
 
 					Alert alert = new Alert(AlertType.CONFIRMATION);
-					alert.setHeaderText("Você está pronto para a partida?");
+					alert.setHeaderText("Voce esta pronto para a partida?");
 					alert.setContentText(null);
 
 					ButtonType btnSim = new ButtonType("Sim");
@@ -264,8 +231,8 @@ public class ControladorMontagemTabuleiro implements Initializable, ObservadorTa
 
 		if (horizontal && posX + tamanho > 10 || !horizontal && posY + tamanho > 10) {
 			Alert alert1 = new Alert(AlertType.ERROR);
-			alert1.setHeaderText("Embarcação ultrapassa os limites do tabuleiro");
-			alert1.setContentText("Insira a embarcação em uma posição válida");
+			alert1.setHeaderText("Embarcacao ultrapassa os limites do tabuleiro");
+			alert1.setContentText("Insira a embarcacao em uma posicao valida");
 			alert1.show();
 			return;
 		}
@@ -274,8 +241,8 @@ public class ControladorMontagemTabuleiro implements Initializable, ObservadorTa
 			for (int i1 = posX; i1 < posX + tamanho; ++i1) {
 				if (tabuleiro.getCelulas().get(i1).get(posY).isPreenchido()) {
 					Alert alert2 = new Alert(AlertType.ERROR);
-					alert2.setHeaderText("Embarcação já existente na faixa de células escolhida");
-					alert2.setContentText("Insira a embarcação em uma posiçãoo válida");
+					alert2.setHeaderText("Embarcacao ja existente na faixa de celulas escolhida");
+					alert2.setContentText("Insira a embarcacao em uma posicaoo valida");
 					alert2.show();
 					return;
 				}
@@ -284,8 +251,8 @@ public class ControladorMontagemTabuleiro implements Initializable, ObservadorTa
 			for (int i2 = posY; i2 < posY + tamanho; ++i2) {
 				if (tabuleiro.getCelulas().get(posX).get(i2).isPreenchido()) {
 					Alert alert3 = new Alert(AlertType.ERROR);
-					alert3.setHeaderText("Embarcação já existente na faixa de células escolhida");
-					alert3.setContentText("Insira a embarcação em uma posição válida");
+					alert3.setHeaderText("EmbarcaÃ§Ã£o jÃ¡ existente na faixa de cÃ©lulas escolhida");
+					alert3.setContentText("Insira a embarcaÃ§Ã£o em uma posiÃ§Ã£o vÃ¡lida");
 					alert3.show();
 					return;
 				}
@@ -302,7 +269,7 @@ public class ControladorMontagemTabuleiro implements Initializable, ObservadorTa
 				qtdPatrulha.setText(String.valueOf(qtdTotalPatrulhas));
 			} else {
 				Alert alert4 = new Alert(AlertType.ERROR);
-				alert4.setHeaderText("Total de patrulhas já inserido!");
+				alert4.setHeaderText("Total de patrulhas ja inserido!");
 				alert4.setContentText(null);
 				alert4.show();
 				return;
@@ -317,7 +284,7 @@ public class ControladorMontagemTabuleiro implements Initializable, ObservadorTa
 				qtdSubmarino.setText(String.valueOf(qtdTotalSubmarinos));
 			} else {
 				Alert alert5 = new Alert(AlertType.ERROR);
-				alert5.setHeaderText("Total de submarinos já inserido!");
+				alert5.setHeaderText("Total de submarinos ja inserido!");
 				alert5.setContentText(null);
 				alert5.show();
 				return;
@@ -333,7 +300,7 @@ public class ControladorMontagemTabuleiro implements Initializable, ObservadorTa
 				qtdEncouracado.setText(String.valueOf(qtdTotalEncouracados));
 			} else {
 				Alert alert6 = new Alert(AlertType.ERROR);
-				alert6.setHeaderText("Total de encouraçados já inserido!");
+				alert6.setHeaderText("Total de encouracados ja inserido!");
 				alert6.setContentText(null);
 				alert6.show();
 			}
@@ -348,15 +315,15 @@ public class ControladorMontagemTabuleiro implements Initializable, ObservadorTa
 				qtdPortaAviao.setText(String.valueOf(qtdTotalPortaAvioes));
 			} else {
 				Alert alert7 = new Alert(AlertType.ERROR);
-				alert7.setHeaderText("Total de porta-aviãos já inserido!");
+				alert7.setHeaderText("Total de porta-avioes ja inserido!");
 				alert7.setContentText(null);
 				alert7.show();
 			}
 			break;
 		default:
 			Alert alert8 = new Alert(AlertType.WARNING);
-			alert8.setHeaderText("Embarcação não selecionada!");
-			alert8.setContentText("Selecione uma das embarcações listadas.");
+			alert8.setHeaderText("Embarcacao nao selecionada!");
+			alert8.setContentText("Selecione uma das embarcacoes listadas.");
 			alert8.show();
 			break;
 		}
@@ -366,9 +333,28 @@ public class ControladorMontagemTabuleiro implements Initializable, ObservadorTa
 	private void atualizarTabuleiro() {
 		for (int i = 1; i <= tabuleiro.getTamanho(); ++i) {
 			for (int j = 1; j <= tabuleiro.getTamanho(); ++j) {
-				gridTabuleiro.add(
-						new ImageView(tabuleiro.getCelulas().get(i - 1).get(j - 1).getImgPath()), i,
-						j);
+				ImageView img = new ImageView(
+						tabuleiro.getCelulas().get(i - 1).get(j - 1).getImgPath());
+
+				final int posX = i;
+				final int posY = j;
+
+				img.setOnMouseMoved(e -> {
+					img.setEffect(new DropShadow(20, Color.DARKBLUE));
+					img.setScaleX(1.2);
+					img.setScaleY(1.2);
+				});
+
+				img.setOnMouseExited(e -> {
+					img.setEffect(null);
+					img.setScaleX(1);
+					img.setScaleY(1);
+				});
+
+				img.setOnMousePressed(e -> {
+					this.acaoBotaoPronto(posX - 1, posY - 1);
+				});
+				gridTabuleiro.add(img, i, j);
 			}
 		}
 	}
@@ -377,8 +363,7 @@ public class ControladorMontagemTabuleiro implements Initializable, ObservadorTa
 	public void criarTelaJogo() {
 		Platform.runLater(() -> {
 			TelaMontagemTabuleiro.getStage().close();
-			ControladorTelaInicial.mediaSomAmbiente.stop();
-
+			EfeitosSonoros.pararSomInicio();
 			TelaJogo telaJogo = new TelaJogo(tabuleiro);
 			try {
 				telaJogo.start(new Stage());

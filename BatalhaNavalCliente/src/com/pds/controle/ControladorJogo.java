@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 
 import com.pds.comunicacao.ControladorComunicacao;
 import com.pds.modelo.Celula;
+import com.pds.modelo.EfeitosSonoros;
 import com.pds.modelo.Embarcacao;
 import com.pds.modelo.Jogada;
 import com.pds.modelo.Mensagem;
@@ -40,8 +41,7 @@ public class ControladorJogo implements Initializable, ObservadorJogo {
 	private String nomePartida;
 	private Tabuleiro tabuleiroInimigo;
 	private Tabuleiro tabuleiroMeu;
-	private MediaPlayer mediaSomAmbiente;
-
+	
 	@FXML
 	GridPane gridTabuleiroInimigo;
 	@FXML
@@ -53,7 +53,8 @@ public class ControladorJogo implements Initializable, ObservadorJogo {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-
+		EfeitosSonoros.pararSomInicio();
+		EfeitosSonoros.tocarSomJogo();
 		ctrlcomunicacao = ControladorTelaInicial.ctrlComunicacao;
 		ctrlcomunicacao.getInterpretador().setObserverJogo(this);
 
@@ -64,18 +65,13 @@ public class ControladorJogo implements Initializable, ObservadorJogo {
 
 		atualizarTabuleiroInimigo();
 		Platform.runLater(() -> atualizarTabuleiroMeu());
-		// atualizarTabuleiroMeu();
 
 		TelaJogo.getStage().setOnCloseRequest(e -> {
-			this.mediaSomAmbiente.stop();
+			EfeitosSonoros.pararSomJogo();
 			this.desistirJogo();
 		});
 
-		Media somAmbiente = new Media(Paths.get("src", "sound", "som_jogo.wav").toUri().toString());
-		mediaSomAmbiente = new MediaPlayer(somAmbiente);
-		mediaSomAmbiente.setCycleCount(MediaPlayer.INDEFINITE);
-		mediaSomAmbiente.setVolume(0.3);
-		mediaSomAmbiente.play();
+		
 
 	}
 
@@ -202,14 +198,10 @@ public class ControladorJogo implements Initializable, ObservadorJogo {
 		Platform.runLater(() -> {
 			Alert alert = new Alert(AlertType.CONFIRMATION);
 			alert.setTitle("Ganhou");
-			alert.setHeaderText("Você ganhou!!!");
+			alert.setHeaderText("VocÃª ganhou!!!");
 			alert.setContentText("Deseja jogar novamente?");
 
-			Media somVitoria = new Media(
-					Paths.get("src", "sound", "som_vitoria.wav").toUri().toString());
-			MediaPlayer mediaSomVitoria = new MediaPlayer(somVitoria);
-			mediaSomVitoria.setVolume(0.5);
-			mediaSomVitoria.play();
+			EfeitosSonoros.tocarSomVitoria();
 
 			ButtonType btnSim = new ButtonType("Sim");
 			ButtonType btnNao = new ButtonType("Nao", ButtonData.CANCEL_CLOSE);
@@ -235,16 +227,10 @@ public class ControladorJogo implements Initializable, ObservadorJogo {
 	}
 
 	public void perdeu() {
-
-		Media somDerrota = new Media(
-				Paths.get("src", "sound", "som_derrota.wav").toUri().toString());
-		MediaPlayer mediaSomDerrota = new MediaPlayer(somDerrota);
-		mediaSomDerrota.setVolume(1);
-		mediaSomDerrota.play();
-
+		EfeitosSonoros.tocarSomDerrota();
 		Alert alert = new Alert(AlertType.CONFIRMATION);
 		alert.setTitle("Perdeu");
-		alert.setHeaderText("Você perdeu!!!");
+		alert.setHeaderText("VocÃª perdeu!!!");
 		alert.setContentText("Deseja jogar novamente?");
 
 		ButtonType btnSim = new ButtonType("Sim");
@@ -254,9 +240,7 @@ public class ControladorJogo implements Initializable, ObservadorJogo {
 		Optional<ButtonType> btnSelecionado = alert.showAndWait();
 		if (btnSelecionado.isPresent()) {
 			if (btnSelecionado.get() == btnSim) {
-
 				TelaJogo.getStage().close();
-
 				Platform.runLater(() -> {
 					TelaInicial telaInicial = new TelaInicial();
 					try {
@@ -310,6 +294,7 @@ public class ControladorJogo implements Initializable, ObservadorJogo {
 				});
 
 				node.setOnMousePressed(e -> {
+					EfeitosSonoros.tocarSomBomba();
 					Jogada jogada = new Jogada(posX - 1, posY - 1);
 					this.ultimaJogada = jogada;
 					String apelidoJogador = ctrlcomunicacao.getJogador().getApelido();
@@ -317,13 +302,6 @@ public class ControladorJogo implements Initializable, ObservadorJogo {
 					Mensagem msg = new Mensagem.MontadorMensagem(TAG.MOVEGAME).jogada(jogada)
 							.jogador(apelidoJogador).nomePartida(nomePartida).build();
 					ctrlcomunicacao.enviarMensagem(msg);
-
-					Media somBomba = new Media(
-							Paths.get("src", "sound", "som_bomba.wav").toUri().toString());
-					MediaPlayer mediaSomBomba = new MediaPlayer(somBomba);
-					mediaSomBomba.setVolume(1);
-					mediaSomBomba.play();
-
 					this.habilitaVezOponente();
 				});
 				Platform.runLater(() -> {

@@ -43,7 +43,7 @@
 																<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
 														</rowConstraints>
 														<children>
-																<Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="50.0" text="1" textAlignment="CENTER" GridPane.columnIndex="1">
+																<Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="50.0" text="A" textAlignment="CENTER" GridPane.columnIndex="1">
 																		<GridPane.margin>
 																				<Insets />
 																		</GridPane.margin>
@@ -51,12 +51,12 @@
 																				<Font name="System Bold" size="18.0" />
 																		</font>
 																</Label>
-																<Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="50.0" text="2" textAlignment="CENTER" GridPane.columnIndex="2">
+																<Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="50.0" text="B" textAlignment="CENTER" GridPane.columnIndex="2">
 																		<font>
 																				<Font name="System Bold" size="18.0" />
 																		</font>
 																</Label>
-																<Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="50.0" text="3" textAlignment="CENTER" GridPane.columnIndex="3">
+																<Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="50.0" text="C" textAlignment="CENTER" GridPane.columnIndex="3">
 																		<font>
 																				<Font name="System Bold" size="18.0" />
 																		</font>
@@ -76,7 +76,7 @@
 																				<Font name="System Bold" size="18.0" />
 																		</font>
 																</Label>
-																<Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="50.0" text="4" textAlignment="CENTER" GridPane.columnIndex="4">
+																<Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="50.0" text="D" textAlignment="CENTER" GridPane.columnIndex="4">
 																		<font>
 																				<Font name="System Bold" size="18.0" />
 																		</font>
@@ -86,7 +86,7 @@
 																				<Font name="System Bold" size="18.0" />
 																		</font>
 																</Label>
-																<Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="50.0" text="5" textAlignment="CENTER" GridPane.columnIndex="5">
+																<Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="50.0" text="E" textAlignment="CENTER" GridPane.columnIndex="5">
 																		<font>
 																				<Font name="System Bold" size="18.0" />
 																		</font>
@@ -96,7 +96,7 @@
 																				<Font name="System Bold" size="18.0" />
 																		</font>
 																</Label>
-																<Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="50.0" text="6" textAlignment="CENTER" GridPane.columnIndex="6">
+																<Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="50.0" text="F" textAlignment="CENTER" GridPane.columnIndex="6">
 																		<font>
 																				<Font name="System Bold" size="18.0" />
 																		</font>
@@ -111,12 +111,12 @@
 																				<Font name="System Bold" size="18.0" />
 																		</font>
 																</Label>
-																<Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="50.0" text="7" textAlignment="CENTER" GridPane.columnIndex="7">
+																<Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="50.0" text="G" textAlignment="CENTER" GridPane.columnIndex="7">
 																		<font>
 																				<Font name="System Bold" size="18.0" />
 																		</font>
 																</Label>
-																<Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="50.0" text="8" textAlignment="CENTER" GridPane.columnIndex="8">
+																<Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="50.0" text="H" textAlignment="CENTER" GridPane.columnIndex="8">
 																		<font>
 																				<Font name="System Bold" size="18.0" />
 																		</font>
@@ -131,12 +131,12 @@
 																				<Font name="System Bold" size="18.0" />
 																		</font>
 																</Label>
-																<Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="50.0" text="9" textAlignment="CENTER" GridPane.columnIndex="9">
+																<Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="50.0" text="I" textAlignment="CENTER" GridPane.columnIndex="9">
 																		<font>
 																				<Font name="System Bold" size="18.0" />
 																		</font>
 																</Label>
-																<Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="50.0" text="10" textAlignment="CENTER" GridPane.columnIndex="10">
+																<Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="50.0" text="J" textAlignment="CENTER" GridPane.columnIndex="10">
 																		<font>
 																				<Font name="System Bold" size="18.0" />
 																		</font>
@@ -190,20 +190,21 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
 												</ImageView>
-												<Label layoutX="14.0" layoutY="334.0" style="-fx-font-family: Segoe, Arial; -fx-font-size: 12; -fx-font-weight: bold;" text="Selecione as propriedades da embarcação selecionada" />
-												<Label layoutX="13.0" layoutY="376.0" style="-fx-font-family: Segoe, Arial; -fx-font-weight: bold;" text="Posição X" />
-												<Label layoutX="170.0" layoutY="376.0" style="-fx-font-family: Segoe, Arial; -fx-font-weight: bold;" text="Posição Y" />
-												<Label layoutX="7.0" layoutY="413.0" style="-fx-font-family: Segoe, Arial; -fx-font-weight: bold;" text="Orientação" />
-												<ComboBox fx:id="cbOrientacao" layoutX="72.0" layoutY="409.0" prefHeight="25.0" prefWidth="113.0" visibleRowCount="2" />
-												<ComboBox fx:id="cbPosX" layoutX="72.0" layoutY="372.0" prefHeight="25.0" prefWidth="94.0" />
-												<ComboBox fx:id="cbPosY" layoutX="230.0" layoutY="372.0" prefHeight="25.0" prefWidth="94.0" />
-												<Button fx:id="btnPronto" layoutX="15.0" layoutY="462.0" mnemonicParsing="false" prefHeight="74.0" prefWidth="312.0" style="-fx-font-family: Segoe, Arial; -fx-font-size: 26; -fx-font-weight: bold;" text="Pronto!" />
-												<Button fx:id="btnInserirEmbarcacao" layoutX="192.0" layoutY="409.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="132.0" style="-fx-font-family: Segoe,Arial; -fx-font-weight: bold;" text="Inserir Embarcação" />
+												<Label layoutX="16.0" layoutY="381.0" prefHeight="74.0" prefWidth="309.0" style="-fx-font-family: Segoe, Arial; -fx-font-size: 14; -fx-font-weight: bold;" text="Selecione uma embarcação e sua orientação e clique no tabuleiro para inseri-la" textAlignment="JUSTIFY" wrapText="true">
+                     <font>
+                        <Font name="Arial" size="13.0" />
+                     </font></Label>
+												<Label layoutX="14.0" layoutY="329.0" style="-fx-font-family: Segoe, Arial; -fx-font-weight: bold;" text="Orientação" />
+												<ComboBox fx:id="cbOrientacao" layoutX="105.0" layoutY="325.0" prefHeight="25.0" prefWidth="200.0" visibleRowCount="2" />
+												<Button fx:id="btnPronto" layoutX="15.0" layoutY="462.0" mnemonicParsing="false" prefHeight="74.0" prefWidth="312.0" style="-fx-font-family: Segoe, Arial; -fx-font-size: 26; -fx-font-weight: bold;" text="Pronto!">
+                     <tooltip>
+                        <Tooltip text="Iniciar partida apos posicionar todas embarcaçoes" />
+                     </tooltip></Button>
 												<Label fx:id="qtdPortaAviao" layoutX="291.0" layoutY="72.0" style="-fx-font-size: 16;" text="1" />
 												<Label fx:id="qtdEncouracado" layoutX="291.0" layoutY="132.0" style="-fx-font-size: 16;" text="1" />
 												<Label fx:id="qtdSubmarino" layoutX="291.0" layoutY="196.0" style="-fx-font-size: 16;" text="2" />
 												<Label fx:id="qtdPatrulha" layoutX="291.0" layoutY="256.0" style="-fx-font-size: 16;" text="1" />
-												<Label layoutX="265.0" layoutY="47.0" text="quantidade" />
+												<Label layoutX="272.0" layoutY="48.0" text="Restam" />
 										</children>
 								</AnchorPane>
 						</items>

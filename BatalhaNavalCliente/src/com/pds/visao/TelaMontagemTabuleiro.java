@@ -13,7 +13,7 @@ public class TelaMontagemTabuleiro extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		stage = primaryStage;
-		primaryStage.setTitle("Distribua suas embarcações!");
+		primaryStage.setTitle("Distribua suas embarcaÃ§Ãµes!");
 		Parent root = FXMLLoader.load(this.getClass().getResource("TelaMontagemTabuleiro.fxml"));
 		Scene scene = new Scene(root);
 		primaryStage.setResizable(false);

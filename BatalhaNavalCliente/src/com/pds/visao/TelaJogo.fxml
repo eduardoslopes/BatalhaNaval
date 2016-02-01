@@ -17,7 +17,7 @@
 										<children>
 												<GridPane fx:id="gridTabuleiroMeu" gridLinesVisible="true" layoutX="26.0" layoutY="52.0" prefHeight="550.0" prefWidth="550.0" AnchorPane.leftAnchor="25.0">
 														<children>
-																<Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="50.0" text="1" textAlignment="CENTER" GridPane.columnIndex="1">
+																<Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="50.0" text="A" textAlignment="CENTER" GridPane.columnIndex="1">
 																		<font>
 																				<Font name="System Bold" size="18.0" />
 																		</font>
@@ -25,12 +25,12 @@
 																				<Insets />
 																		</GridPane.margin>
 																</Label>
-																<Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="50.0" text="2" textAlignment="CENTER" GridPane.columnIndex="2">
+																<Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="50.0" text="B" textAlignment="CENTER" GridPane.columnIndex="2">
 																		<font>
 																				<Font name="System Bold" size="18.0" />
 																		</font>
 																</Label>
-																<Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="50.0" text="3" textAlignment="CENTER" GridPane.columnIndex="3">
+																<Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="50.0" text="C" textAlignment="CENTER" GridPane.columnIndex="3">
 																		<font>
 																				<Font name="System Bold" size="18.0" />
 																		</font>
@@ -50,7 +50,7 @@
 																				<Font name="System Bold" size="18.0" />
 																		</font>
 																</Label>
-																<Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="50.0" text="4" textAlignment="CENTER" GridPane.columnIndex="4">
+																<Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="50.0" text="D" textAlignment="CENTER" GridPane.columnIndex="4">
 																		<font>
 																				<Font name="System Bold" size="18.0" />
 																		</font>
@@ -60,7 +60,7 @@
 																				<Font name="System Bold" size="18.0" />
 																		</font>
 																</Label>
-																<Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="50.0" text="5" textAlignment="CENTER" GridPane.columnIndex="5">
+																<Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="50.0" text="E" textAlignment="CENTER" GridPane.columnIndex="5">
 																		<font>
 																				<Font name="System Bold" size="18.0" />
 																		</font>
@@ -70,7 +70,7 @@
 																				<Font name="System Bold" size="18.0" />
 																		</font>
 																</Label>
-																<Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="50.0" text="6" textAlignment="CENTER" GridPane.columnIndex="6">
+																<Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="50.0" text="F" textAlignment="CENTER" GridPane.columnIndex="6">
 																		<font>
 																				<Font name="System Bold" size="18.0" />
 																		</font>
@@ -85,12 +85,12 @@
 																				<Font name="System Bold" size="18.0" />
 																		</font>
 																</Label>
-																<Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="50.0" text="7" textAlignment="CENTER" GridPane.columnIndex="7">
+																<Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="50.0" text="G" textAlignment="CENTER" GridPane.columnIndex="7">
 																		<font>
 																				<Font name="System Bold" size="18.0" />
 																		</font>
 																</Label>
-																<Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="50.0" text="8" textAlignment="CENTER" GridPane.columnIndex="8">
+																<Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="50.0" text="H" textAlignment="CENTER" GridPane.columnIndex="8">
 																		<font>
 																				<Font name="System Bold" size="18.0" />
 																		</font>
@@ -105,12 +105,12 @@
 																				<Font name="System Bold" size="18.0" />
 																		</font>
 																</Label>
-																<Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="50.0" text="9" textAlignment="CENTER" GridPane.columnIndex="9">
+																<Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="50.0" text="I" textAlignment="CENTER" GridPane.columnIndex="9">
 																		<font>
 																				<Font name="System Bold" size="18.0" />
 																		</font>
 																</Label>
-																<Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="50.0" text="10" textAlignment="CENTER" GridPane.columnIndex="10">
+																<Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="50.0" text="J" textAlignment="CENTER" GridPane.columnIndex="10">
 																		<font>
 																				<Font name="System Bold" size="18.0" />
 																		</font>
@@ -153,7 +153,7 @@
 																<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
 														</rowConstraints>
 												</GridPane>
-                  <Label layoutX="26.0" layoutY="14.0" style="-fx-font-size: 20; -fx-font-weight: bold;" text="Meu tabuleiro" />
+                  <Label layoutX="26.0" layoutY="14.0" style="-fx-font-size: 20; -fx-font-weight: bold;" text="Seu tabuleiro" />
 										</children>
 								</AnchorPane>
 								<AnchorPane prefHeight="590.0" prefWidth="120.0">
@@ -165,7 +165,7 @@
 										<children>
 												<GridPane fx:id="gridTabuleiroInimigo" gridLinesVisible="true" layoutX="14.0" layoutY="52.0" prefHeight="550.0" prefWidth="550.0" AnchorPane.rightAnchor="25.0">
 														<children>
-																<Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="50.0" text="1" textAlignment="CENTER" GridPane.columnIndex="1">
+																<Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="50.0" text="A" textAlignment="CENTER" GridPane.columnIndex="1">
 																		<font>
 																				<Font name="System Bold" size="18.0" />
 																		</font>
@@ -173,12 +173,12 @@
 																				<Insets />
 																		</GridPane.margin>
 																</Label>
-																<Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="50.0" text="2" textAlignment="CENTER" GridPane.columnIndex="2">
+																<Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="50.0" text="B" textAlignment="CENTER" GridPane.columnIndex="2">
 																		<font>
 																				<Font name="System Bold" size="18.0" />
 																		</font>
 																</Label>
-																<Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="50.0" text="3" textAlignment="CENTER" GridPane.columnIndex="3">
+																<Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="50.0" text="C" textAlignment="CENTER" GridPane.columnIndex="3">
 																		<font>
 																				<Font name="System Bold" size="18.0" />
 																		</font>
@@ -198,7 +198,7 @@
 																				<Font name="System Bold" size="18.0" />
 																		</font>
 																</Label>
-																<Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="50.0" text="4" textAlignment="CENTER" GridPane.columnIndex="4">
+																<Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="50.0" text="D" textAlignment="CENTER" GridPane.columnIndex="4">
 																		<font>
 																				<Font name="System Bold" size="18.0" />
 																		</font>
@@ -208,7 +208,7 @@
 																				<Font name="System Bold" size="18.0" />
 																		</font>
 																</Label>
-																<Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="50.0" text="5" textAlignment="CENTER" GridPane.columnIndex="5">
+																<Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="50.0" text="E" textAlignment="CENTER" GridPane.columnIndex="5">
 																		<font>
 																				<Font name="System Bold" size="18.0" />
 																		</font>
@@ -218,7 +218,7 @@
 																				<Font name="System Bold" size="18.0" />
 																		</font>
 																</Label>
-																<Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="50.0" text="6" textAlignment="CENTER" GridPane.columnIndex="6">
+																<Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="50.0" text="F" textAlignment="CENTER" GridPane.columnIndex="6">
 																		<font>
 																				<Font name="System Bold" size="18.0" />
 																		</font>
@@ -233,12 +233,12 @@
 																				<Font name="System Bold" size="18.0" />
 																		</font>
 																</Label>
-																<Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="50.0" text="7" textAlignment="CENTER" GridPane.columnIndex="7">
+																<Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="50.0" text="G" textAlignment="CENTER" GridPane.columnIndex="7">
 																		<font>
 																				<Font name="System Bold" size="18.0" />
 																		</font>
 																</Label>
-																<Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="50.0" text="8" textAlignment="CENTER" GridPane.columnIndex="8">
+																<Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="50.0" text="H" textAlignment="CENTER" GridPane.columnIndex="8">
 																		<font>
 																				<Font name="System Bold" size="18.0" />
 																		</font>
@@ -253,12 +253,12 @@
 																				<Font name="System Bold" size="18.0" />
 																		</font>
 																</Label>
-																<Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="50.0" text="9" textAlignment="CENTER" GridPane.columnIndex="9">
+																<Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="50.0" text="I" textAlignment="CENTER" GridPane.columnIndex="9">
 																		<font>
 																				<Font name="System Bold" size="18.0" />
 																		</font>
 																</Label>
-																<Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="50.0" text="10" textAlignment="CENTER" GridPane.columnIndex="10">
+																<Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="50.0" text="J" textAlignment="CENTER" GridPane.columnIndex="10">
 																		<font>
 																				<Font name="System Bold" size="18.0" />
 																		</font>
@@ -315,6 +315,9 @@
 														<font>
 																<Font size="18.0" />
 														</font>
+               <tooltip>
+                  <Tooltip text="Clique aqui para desistir da partida" />
+               </tooltip>
 												</Button>
             <Pane layoutY="-2.0" prefHeight="80.0" prefWidth="623.0">
                <children>
@@ -330,8 +333,8 @@
                      </image>
                   </ImageView>
                   <Label layoutX="231.0" layoutY="33.0" style="-fx-font-size: 16;" text="Tiro na embarcaçao" />
-                  <Label layoutX="461.0" layoutY="33.0" style="-fx-font-size: 16;" text="Embarcação afundada" />
-                  <ImageView fitHeight="50.0" fitWidth="60.0" layoutX="383.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
+                  <Label layoutX="485.0" layoutY="33.0" style="-fx-font-size: 16;" text="Embarcação afundada" />
+                  <ImageView fitHeight="50.0" fitWidth="60.0" layoutX="412.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../img/embarcacao_afundada.png" />
                      </image>

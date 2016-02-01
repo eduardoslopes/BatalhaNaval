@@ -6,6 +6,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 import com.pds.comunicacao.ControladorComunicacao;
+import com.pds.modelo.EfeitosSonoros;
 import com.pds.modelo.Jogador;
 import com.pds.modelo.Mensagem;
 import com.pds.modelo.Partida;
@@ -48,13 +49,12 @@ public class ControladorTelaInicial implements Initializable, ObservadorPartida 
 	@FXML TableColumn<Partida, String> colunaPartida;
 	@FXML ContextMenu contextoLista;
 	
-	public static MediaPlayer mediaSomAmbiente;
-
 	private Alert alertaEsperaJogador;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-
+		EfeitosSonoros.pararSomJogo();
+		EfeitosSonoros.tocarSomInicio();
 		ctrlComunicacao = new ControladorComunicacao();
 		Interpretador interpretador = new InterpretadorMensagem();
 		interpretador.setObserverPartida(this);
@@ -73,11 +73,6 @@ public class ControladorTelaInicial implements Initializable, ObservadorPartida 
 			sair();
 		});
 		
-		Media somAmbiente = new Media(Paths.get("src", "sound", "som_inicio.wav").toUri().toString());
-		mediaSomAmbiente = new MediaPlayer(somAmbiente);
-		mediaSomAmbiente.setCycleCount(MediaPlayer.INDEFINITE);
-		mediaSomAmbiente.setVolume(0.3);
-		mediaSomAmbiente.play();
 	}
 
 	@FXML
@@ -170,7 +165,6 @@ public class ControladorTelaInicial implements Initializable, ObservadorPartida 
 
 			try {
 				Thread.sleep(1000);
-				mediaSomAmbiente.stop();
 				ctrlComunicacao.fechar();
 			} catch (InterruptedException e) {
 				e.printStackTrace();
