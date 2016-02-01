@@ -1,7 +1,6 @@
 package com.pds.controle;
 
 import java.net.URL;
-import java.nio.file.Paths;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -30,8 +29,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
 public class ControladorTelaInicial implements Initializable, ObservadorPartida {
@@ -109,7 +106,6 @@ public class ControladorTelaInicial implements Initializable, ObservadorPartida 
 		String apelido = capturarApelido();
 		String nomePartida;
 		if (apelido == null) return;
-		
 		do {
 			nomePartida = capturarNomePartida();
 			if (nomePartida == null) return;
@@ -122,8 +118,8 @@ public class ControladorTelaInicial implements Initializable, ObservadorPartida 
 		Mensagem mensagem = new Mensagem.MontadorMensagem(TAG.CREATEGAME).nomePartida(nomePartida)
 				.jogador(apelido).build();
 		ctrlComunicacao.enviarMensagem(mensagem);
+		listaPartidas.setDisable(false);
 		esperaJogador();
-		atualizarLista();
 	}
 
 	private boolean existePartida(String nomePartida) {
