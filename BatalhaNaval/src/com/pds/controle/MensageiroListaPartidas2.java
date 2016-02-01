@@ -5,12 +5,12 @@ import java.io.PrintStream;
 import java.net.Socket;
 import java.util.List;
 
-public class MensageiroListaPartidas extends Mensageiro {
+public class MensageiroListaPartidas2 extends Mensageiro {
 
 	private List<String> mensagens;
 	private PrintStream saida;
 	
-	public MensageiroListaPartidas(Socket sockJogador, List<String> mensagens) {
+	public MensageiroListaPartidas2(Socket sockJogador, List<String> mensagens) {
 		this.mensagens = mensagens;
 		try {
 			this.saida = new PrintStream(sockJogador.getOutputStream());
@@ -29,7 +29,8 @@ public class MensageiroListaPartidas extends Mensageiro {
 		for(String mensagem: mensagens){
 			saida.println(mensagem);
 		}
-
+	}
+	
 	@Override
 	public void setMensagem(String mensagem) {
 		

@@ -18,7 +18,7 @@ public class Main {
 		Interpretador interpretador = new InterpretadorMensagem(serializador, distribuidor);
 		Descerializador descerializador = new Descerializador();
 		ControladorInterpretacao cInterpretacao = new ControladorInterpretacao(interpretador, descerializador);
-		ControladorConexao cConexao = new ControladorConexao(8888, cInterpretacao);
+		ControladorConexao cConexao = new ControladorConexao(9999, cInterpretacao);
 		cConexao.executa();
 	}
 
