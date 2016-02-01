@@ -53,6 +53,7 @@ public class ControladorTelaInicial implements Initializable, ObservadorPartida 
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		EfeitosSonoros.pararSomJogo();
 		EfeitosSonoros.tocarSomInicio();
 		ctrlComunicacao = new ControladorComunicacao();
 		Interpretador interpretador = new InterpretadorMensagem();

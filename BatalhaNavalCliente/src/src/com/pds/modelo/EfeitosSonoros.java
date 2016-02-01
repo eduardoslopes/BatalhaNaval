@@ -39,19 +39,21 @@ public class EfeitosSonoros {
 	}
 	
 	public static void pararSomJogo() {
-		mediaSomAmbiente.stop();
+		if(mediaSomAmbiente != null && mediaSomAmbiente.getStatus().equals(MediaPlayer.Status.PLAYING))
+			mediaSomAmbiente.stop();
 	}
 	
 	public static void tocarSomInicio(){
 		Media somAmbiente = new Media(Paths.get("src", "sound", "som_inicio.wav").toUri().toString());
 		mediaSomInicio = new MediaPlayer(somAmbiente);
 		mediaSomInicio.setCycleCount(MediaPlayer.INDEFINITE);
-		mediaSomInicio.setVolume(0.3);
+		mediaSomInicio.setVolume(0.5);
 		mediaSomInicio.play();
 	}
 	
 	public static void pararSomInicio() {
-		mediaSomInicio.stop();
+		if(mediaSomInicio != null && mediaSomInicio.getStatus().equals(MediaPlayer.Status.PLAYING))
+			mediaSomInicio.stop();
 	}
 	
 }
